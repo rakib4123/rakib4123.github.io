@@ -1,16 +1,22 @@
 # Md. Rakib Hossain — Portfolio
 
-A single-page personal portfolio (static HTML / CSS / JS). No build step.
+A single-page personal portfolio built with [Next.js](https://nextjs.org), React, Tailwind CSS, and Framer Motion.
 
 ## Structure
-- `index.html` — the whole site
-- `images/` — photos, project shots, certificates
 
-## Deploy on Vercel (auto-deploy from GitHub)
-1. Push this folder to a GitHub repository.
-2. On vercel.com: **Add New → Project → Import** the repo.
-3. Framework Preset: **Other**. Leave the Build Command and Output Directory empty (it's a static site). Click **Deploy**.
-4. Every future push to the repo redeploys the site automatically.
+- `src/app/` — root layout and page
+- `src/components/` — one component per section (Hero, About, Projects, Robotics, Timeline, Skills, Contact, etc.)
+- `public/images/` — photos, project shots, certificates
 
-## Editing
-Edit `index.html` (text, links, sections) or replace files in `images/`, then commit and push — Vercel rebuilds on its own.
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to see the site. Edit `src/app/page.tsx` or any component under `src/components/` — the page auto-updates.
+
+## Deployment
+
+The site is statically exported (`output: "export"` in `next.config.ts`) and deployed to GitHub Pages automatically via `.github/workflows/deploy.yml` on every push to `main`.
