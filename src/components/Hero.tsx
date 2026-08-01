@@ -73,6 +73,7 @@ export default function Hero() {
           >
             <video
               controls
+              preload="metadata"
               playsInline
               poster="/images/profile.jpg"
               className="w-full h-full object-cover bg-slate-100"
