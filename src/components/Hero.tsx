@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowDown, FileText } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import AntigravityBackground from "./AntigravityBackground";
 
@@ -26,8 +27,24 @@ export default function Hero() {
         }}
       ></div>
 
-      <div className="relative z-20 max-w-5xl mx-auto px-6 w-full pt-20 pb-10">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+      <div className="relative z-20 max-w-6xl mx-auto px-6 w-full pt-20 pb-10">
+        <div className="grid md:grid-cols-[160px_1.3fr_1fr] gap-10 lg:gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="justify-self-center md:justify-self-start"
+          >
+            <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
+              <Image
+                src="/images/profile.jpg"
+                alt="Md. Rakib Hossain"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
