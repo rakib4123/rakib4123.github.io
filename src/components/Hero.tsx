@@ -27,8 +27,8 @@ export default function Hero() {
         }}
       ></div>
 
-      <div className="relative z-20 max-w-6xl mx-auto px-6 w-full pt-20 pb-10">
-        <div className="grid md:grid-cols-[160px_1.3fr_1fr] gap-10 lg:gap-12 items-center">
+      <div className="relative z-20 max-w-5xl mx-auto px-6 w-full pt-20 pb-10">
+        <div className="grid md:grid-cols-[160px_1fr] gap-8 md:gap-10 items-center mb-12">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -81,24 +81,24 @@ export default function Hero() {
               </Link>
             </div>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="relative rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-gray-100 aspect-video"
-          >
-            <video
-              controls
-              preload="metadata"
-              playsInline
-              poster="/images/profile.jpg"
-              className="w-full h-full object-cover bg-slate-100"
-            >
-              <source src="/intro-video.mp4" type="video/mp4" />
-            </video>
-          </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="relative rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-gray-100 aspect-video"
+        >
+          <video
+            controls
+            preload="metadata"
+            playsInline
+            poster="/images/profile.jpg"
+            className="w-full h-full object-cover bg-slate-100"
+          >
+            <source src="/intro-video.mp4" type="video/mp4" />
+          </video>
+        </motion.div>
       </div>
 
       <motion.a
