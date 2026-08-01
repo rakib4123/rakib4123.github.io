@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -49,13 +50,12 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
-          <a
-            href="/Rakib_Hossain_CV.pdf"
-            download
+          <Link
+            href="/resume"
             className="ml-2 text-[13px] font-medium text-brand-cyan border border-brand-cyan/30 hover:bg-brand-cyan hover:text-white px-4 py-2 rounded-md transition-all"
           >
             Resume
-          </a>
+          </Link>
         </nav>
 
         <button
@@ -85,14 +85,13 @@ export default function Navbar() {
                   {link.name}
                 </a>
               ))}
-              <a
-                href="/Rakib_Hossain_CV.pdf"
-                download
+              <Link
+                href="/resume"
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-sm font-medium text-brand-cyan hover:bg-cyan-50 px-4 py-3 rounded-md transition-all"
               >
-                Resume ↓
-              </a>
+                Resume
+              </Link>
             </nav>
           </motion.div>
         )}
