@@ -9,9 +9,9 @@ const robotoSlab = Roboto_Slab({
 });
 
 export const metadata: Metadata = {
-  title: "Md. Rakib Hossain | Data, Machine Learning & Software",
+  title: "Md. Rakib Hossain | AI, ML, Computer Vision & Data Science",
   description:
-    "Md. Rakib Hossain — final-year CSE student at AIUB. Data analytics, machine learning, full-stack & embedded software, and award-winning robotics.",
+    "Md. Rakib Hossain — final-year CSE student at AIUB, exploring AI, machine learning, computer vision, and data science, plus software and robotics.",
 };
 
 export default function RootLayout({

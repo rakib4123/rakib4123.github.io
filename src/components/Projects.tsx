@@ -45,7 +45,7 @@ const smallProjects = [
     title: "Drikon",
     type: "Full-stack",
     tags: ["Next.js", "NestJS", "PostgreSQL", "Prisma"],
-    desc: "A production-quality e-commerce monorepo with two-factor login, rotating tokens, role-based access, and an admin panel.",
+    desc: "A full-featured e-commerce monorepo with two-factor login, rotating tokens, role-based access, and an admin panel.",
     github: "https://github.com/rakib4123/drikon",
   },
   {
@@ -62,9 +62,9 @@ export default function Projects() {
     <section id="projects" className="py-24 bg-white relative">
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeading
-          title="Real software built to solve real problems."
+          title="Projects in AI, ML, computer vision, and data science — plus software along the way."
           tag="02 — Projects"
-          subtitle="Data analysis, machine learning, full-stack software, and embedded hardware — each built and shipped end to end."
+          subtitle="Mostly AI, ML, computer vision, and data science, plus some full-stack software and embedded hardware."
         />
 
         <div className="space-y-28 mb-20">

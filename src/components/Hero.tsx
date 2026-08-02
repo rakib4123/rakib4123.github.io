@@ -4,9 +4,12 @@ import { motion } from "framer-motion";
 import { ArrowDown, FileText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
 import AntigravityBackground from "./AntigravityBackground";
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   return (
     <section id="top" className="relative bg-bg-main">
       <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -54,14 +57,16 @@ export default function Hero() {
               </div>
 
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 leading-[1.1] mb-6">
-                I build software that{" "}
-                <span className="text-brand-cyan">solves</span> real
-                problems<span className="text-brand-cyan">.</span>
+                I explore{" "}
+                <span className="text-brand-cyan">
+                  AI, ML, computer vision & data science
+                </span>{" "}
+                through software I build myself.
               </h1>
 
               <p className="text-lg md:text-xl text-slate-500 leading-relaxed mb-12">
-                Data analytics, machine learning, full-stack apps, embedded devices,
-                and award-winning robotics — shipped end to end.
+                Mainly AI, machine learning, computer vision, and data
+                science — plus full-stack apps and robotics along the way.
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -104,11 +109,15 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="relative rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-gray-100 aspect-video"
+          onMouseEnter={() => videoRef.current?.play()}
+          onMouseLeave={() => videoRef.current?.pause()}
         >
           <video
+            ref={videoRef}
             controls
             preload="metadata"
             playsInline
+            muted
             poster="/images/profile.jpg"
             className="w-full h-full object-cover bg-slate-100"
           >

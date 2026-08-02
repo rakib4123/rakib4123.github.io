@@ -35,10 +35,10 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <p className="text-slate-600 text-[17px] mb-4 leading-relaxed">
-              I&apos;m a builder who takes work end to end — from cleaning and
-              analysing raw data, to training and explaining machine-learning
-              models, to shipping the finished application across web, desktop,
-              and embedded systems.
+              I&apos;m an undergrad exploring AI, machine learning, computer
+              vision, and data science — from cleaning and analysing data, to
+              training and understanding models, to building the software
+              around them.
             </p>
             <p className="text-slate-600 text-[17px] mb-8 leading-relaxed">
               <strong className="text-slate-900">RideGuard</strong> is a
@@ -49,10 +49,10 @@ export default function About() {
               handheld ESP32-C3 device I designed from scratch and validated with
               a user study. As founder of{" "}
               <strong className="text-slate-900">&quot;Khepa Chakka&quot;</strong>, I&apos;ve
-              taken robots from concept to the competition floor. I&apos;m seeking a
-              role in{" "}
+              taken robots from concept to the competition floor. I&apos;m looking
+              for opportunities in{" "}
               <strong className="text-slate-900">
-                data analytics, data science, or software development
+                AI/ML, computer vision, data science, or software development
               </strong>
               .
             </p>
@@ -60,7 +60,7 @@ export default function About() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 pt-6 border-t border-gray-100">
               {[
                 ["Education", "B.Sc. CSE — AIUB"],
-                ["Focus", "Data · ML · Software"],
+                ["Focus", "AI · ML · Computer Vision · Data Science"],
                 ["Role", "Founder, Khepa Chakka"],
                 ["Affiliation", "ESAB, AIUB"],
                 ["Languages", "Bangla · English"],

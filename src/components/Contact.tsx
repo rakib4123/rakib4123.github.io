@@ -23,8 +23,9 @@ export default function Contact() {
           viewport={{ once: true, margin: "-50px" }}
           className="text-lg text-slate-500 max-w-xl mb-10 leading-relaxed"
         >
-          I&apos;m open to roles in data analytics, data science, and software
-          development. The fastest way to reach me is email.
+          I&apos;m open to roles and opportunities in AI/ML, computer vision,
+          data science, and software development. The fastest way to reach
+          me is email.
         </motion.p>
 
         <motion.div
