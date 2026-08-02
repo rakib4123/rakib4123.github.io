@@ -5,12 +5,18 @@ import Image from "next/image";
 import { SectionHeading } from "./SectionHeading";
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
+import { useState } from "react";
 
 const projects = [
   {
     title: "RideGuard",
     type: "Data analysis · Real-time ML",
-    image: "/images/rideguard-map.jpg",
+    images: [
+      "/images/rideguard-map.jpg",
+      "/images/rideguard-now.jpg",
+      "/images/rideguard-profile.jpg",
+      "/images/rideguard-route.jpg",
+    ],
     imageWidth: 460,
     imageHeight: 1022,
     tags: ["Python", "SQL", "CatBoost", "XGBoost", "TensorFlow", "SHAP"],
@@ -22,7 +28,7 @@ const projects = [
   {
     title: "PulseStone",
     type: "Embedded · Statistical user study",
-    image: "/images/project-pulsestone.jpg",
+    images: ["/images/project-pulsestone.jpg"],
     imageWidth: 1200,
     imageHeight: 1593,
     tags: ["ESP32-C3", "Arduino C++", "Sensors", "Statistics"],
@@ -77,17 +83,12 @@ export default function Projects() {
               transition={{ duration: 0.6 }}
               className="grid md:grid-cols-2 gap-10 items-center"
             >
-              <div
-                className={`rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] group relative ${
-                  p.flip ? "md:order-2" : ""
-                }`}
-              >
-                <Image
-                  src={p.image}
+              <div className={p.flip ? "md:order-2" : ""}>
+                <ProjectGallery
+                  images={p.images}
                   alt={p.title}
-                  width={p.imageWidth}
-                  height={p.imageHeight}
-                  className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                  imageWidth={p.imageWidth}
+                  imageHeight={p.imageHeight}
                 />
               </div>
 
@@ -181,5 +182,49 @@ export default function Projects() {
         </div>
       </div>
     </section>
+  );
+}
+
+function ProjectGallery({
+  images,
+  alt,
+  imageWidth,
+  imageHeight,
+}: {
+  images: string[];
+  alt: string;
+  imageWidth: number;
+  imageHeight: number;
+}) {
+  const [active, setActive] = useState(0);
+
+  return (
+    <div>
+      <div className="rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] group relative">
+        <Image
+          src={images[active]}
+          alt={alt}
+          width={imageWidth}
+          height={imageHeight}
+          className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700"
+        />
+      </div>
+
+      {images.length > 1 && (
+        <div className="flex gap-3 mt-4">
+          {images.map((img, i) => (
+            <button
+              key={img}
+              onClick={() => setActive(i)}
+              className={`relative w-14 h-14 rounded-lg overflow-hidden border-2 transition-colors cursor-pointer ${
+                i === active ? "border-brand-cyan" : "border-transparent"
+              }`}
+            >
+              <Image src={img} alt={`${alt} thumbnail ${i + 1}`} fill className="object-cover" />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
