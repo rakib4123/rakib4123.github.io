@@ -6,12 +6,12 @@ import { useState } from "react";
 
 const skillCategories = [
   {
-    title: "Data & Analytics",
-    skills: ["Python", "SQL", "pandas", "NumPy", "Excel", "Power BI"],
+    title: "AI, ML & Computer Vision",
+    skills: ["scikit-learn", "PyTorch", "TensorFlow", "CatBoost", "XGBoost", "YOLO", "OpenCV", "SHAP"],
   },
   {
-    title: "Machine Learning",
-    skills: ["scikit-learn", "PyTorch", "TensorFlow", "CatBoost", "XGBoost", "YOLO", "OpenCV", "SHAP"],
+    title: "Data Science & Analytics",
+    skills: ["Python", "SQL", "pandas", "NumPy", "Excel", "Power BI"],
   },
   {
     title: "Software",
