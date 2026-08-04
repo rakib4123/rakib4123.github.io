@@ -3,7 +3,6 @@ import { Inter, Roboto_Slab } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
-import CommandPalette from "@/components/CommandPalette";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const robotoSlab = Roboto_Slab({
@@ -29,7 +28,6 @@ export default function RootLayout({
       >
         <ScrollProgress />
         <CustomCursor />
-        <CommandPalette />
         {children}
       </body>
     </html>
