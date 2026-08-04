@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Magnetic from "./Magnetic";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -50,12 +51,23 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
-          <Link
-            href="/resume"
-            className="ml-2 text-[13px] font-medium text-brand-cyan border border-brand-cyan/30 hover:bg-brand-cyan hover:text-white px-4 py-2 rounded-md transition-all"
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event("open-command-palette"))}
+            className="ml-2 inline-flex items-center gap-1.5 text-[13px] font-medium text-slate-400 hover:text-slate-600 border border-gray-200 rounded-md px-3 py-2 transition-colors cursor-pointer"
+            aria-label="Open quick menu"
           >
-            Resume
-          </Link>
+            <Search size={13} />
+            <kbd className="text-[10px]">Ctrl K</kbd>
+          </button>
+          <Magnetic>
+            <Link
+              href="/resume"
+              className="ml-2 text-[13px] font-medium text-brand-cyan border border-brand-cyan/30 hover:bg-brand-cyan hover:text-white px-4 py-2 rounded-md transition-all"
+            >
+              Resume
+            </Link>
+          </Magnetic>
         </nav>
 
         <button

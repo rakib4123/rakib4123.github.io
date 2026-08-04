@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import AntigravityBackground from "./AntigravityBackground";
+import Magnetic from "./Magnetic";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -70,18 +71,22 @@ export default function Hero() {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <a
-                  href="#projects"
-                  className="inline-flex items-center gap-2 bg-slate-900 text-white font-medium text-sm px-7 py-3 rounded-md transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(15,23,42,0.15)]"
-                >
-                  See the work ↓
-                </a>
-                <Link
-                  href="/resume"
-                  className="inline-flex items-center gap-2 bg-white border border-gray-200 text-slate-700 font-medium text-sm px-7 py-3 rounded-md transition-all hover:border-brand-cyan hover:text-brand-cyan hover:-translate-y-0.5 hover:shadow-sm"
-                >
-                  <FileText size={16} /> Resume
-                </Link>
+                <Magnetic>
+                  <a
+                    href="#projects"
+                    className="inline-flex items-center gap-2 bg-slate-900 text-white font-medium text-sm px-7 py-3 rounded-md transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(15,23,42,0.15)]"
+                  >
+                    See the work ↓
+                  </a>
+                </Magnetic>
+                <Magnetic>
+                  <Link
+                    href="/resume"
+                    className="inline-flex items-center gap-2 bg-white border border-gray-200 text-slate-700 font-medium text-sm px-7 py-3 rounded-md transition-all hover:border-brand-cyan hover:text-brand-cyan hover:-translate-y-0.5 hover:shadow-sm"
+                  >
+                    <FileText size={16} /> Resume
+                  </Link>
+                </Magnetic>
               </div>
             </motion.div>
           </div>

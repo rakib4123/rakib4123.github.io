@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Roboto_Slab } from "next/font/google";
 import "./globals.css";
+import CustomCursor from "@/components/CustomCursor";
+import ScrollProgress from "@/components/ScrollProgress";
+import CommandPalette from "@/components/CommandPalette";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const robotoSlab = Roboto_Slab({
@@ -24,6 +27,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${robotoSlab.variable} font-sans antialiased bg-bg-main text-slate-800`}
       >
+        <ScrollProgress />
+        <CustomCursor />
+        <CommandPalette />
         {children}
       </body>
     </html>
