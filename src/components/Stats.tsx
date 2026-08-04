@@ -1,13 +1,37 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { animate, motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { n: "14+", l: "National & international\nrobotics podiums" },
-  { n: "6+", l: "Robot classes\ndesigned & built" },
-  { n: "2,300+", l: "Images labelled\nfor DhakaNight" },
-  { n: "1", l: "Deployed\nML web app" },
+  { value: 14, suffix: "+", l: "National & international\nrobotics podiums" },
+  { value: 6, suffix: "+", l: "Robot classes\ndesigned & built" },
+  { value: 2300, suffix: "+", l: "Images labelled\nfor DhakaNight" },
+  { value: 1, suffix: "", l: "Deployed\nML web app" },
 ];
+
+function Counter({ value, suffix }: { value: number; suffix: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const controls = animate(0, value, {
+      duration: 1.5,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => setDisplay(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [inView, value]);
+
+  return (
+    <span ref={ref}>
+      {display.toLocaleString()}
+      {suffix}
+    </span>
+  );
+}
 
 export default function Stats() {
   return (
@@ -23,7 +47,7 @@ export default function Stats() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
               <div className="font-serif text-4xl md:text-5xl font-bold mb-2 text-brand-cyan">
-                {stat.n}
+                <Counter value={stat.value} suffix={stat.suffix} />
               </div>
               <div className="text-slate-500 text-sm whitespace-pre-line leading-relaxed">
                 {stat.l}

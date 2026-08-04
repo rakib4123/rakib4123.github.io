@@ -6,6 +6,7 @@ import { SectionHeading } from "./SectionHeading";
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { useState } from "react";
+import TiltCard from "./TiltCard";
 
 const projects = [
   {
@@ -147,36 +148,37 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-white border border-gray-100 rounded-xl p-7 flex flex-col group hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-300 relative overflow-hidden"
             >
-              <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-cyan to-brand-emerald scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
-              <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                {p.type}
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">
-                {p.title}
-              </h3>
-              <p className="text-slate-500 text-sm leading-relaxed mb-5 flex-grow">
-                {p.desc}
-              </p>
-              <div className="flex flex-wrap gap-2 mb-5">
-                {p.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-gray-100"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <a
-                href={p.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-medium text-brand-cyan hover:text-cyan-600 transition-colors mt-auto"
-              >
-                <FaGithub size={14} /> View Repository
-              </a>
+              <TiltCard className="h-full bg-white border border-gray-100 rounded-xl p-7 flex flex-col group hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-cyan to-brand-emerald scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
+                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                  {p.type}
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">
+                  {p.title}
+                </h3>
+                <p className="text-slate-500 text-sm leading-relaxed mb-5 flex-grow">
+                  {p.desc}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {p.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-gray-100"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <a
+                  href={p.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-brand-cyan hover:text-cyan-600 transition-colors mt-auto"
+                >
+                  <FaGithub size={14} /> View Repository
+                </a>
+              </TiltCard>
             </motion.div>
           ))}
         </div>
