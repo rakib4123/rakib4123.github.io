@@ -30,14 +30,14 @@ export default function Hero() {
         ></div>
 
         <div className="relative z-20 max-w-5xl mx-auto px-6 w-full pt-20 pb-10">
-          <div className="grid md:grid-cols-[320px_1fr] gap-8 md:gap-10 items-center">
+          <div className="grid md:grid-cols-[360px_1fr] gap-8 md:gap-10 items-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="justify-self-center md:justify-self-start"
             >
-              <div className="relative w-56 h-56 md:w-80 md:h-80 rounded-full overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
+              <div className="relative w-64 h-64 md:w-[22rem] md:h-[22rem] rounded-full overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
                 <Image
                   src="/images/profile.jpg"
                   alt="Md. Rakib Hossain"
