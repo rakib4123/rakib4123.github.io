@@ -4,13 +4,10 @@ import { motion } from "framer-motion";
 import { ArrowDown, FileText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
 import AntigravityBackground from "./AntigravityBackground";
 import Magnetic from "./Magnetic";
 
 export default function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
   return (
     <section id="top" className="relative bg-bg-main">
       <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -106,29 +103,6 @@ export default function Hero() {
             <ArrowDown size={18} />
           </motion.div>
         </motion.a>
-      </div>
-
-      <div className="max-w-5xl mx-auto px-6 pb-20">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-gray-100 aspect-video"
-          onMouseEnter={() => videoRef.current?.play()}
-          onMouseLeave={() => videoRef.current?.pause()}
-        >
-          <video
-            ref={videoRef}
-            controls
-            preload="metadata"
-            playsInline
-            muted
-            poster="/images/profile.jpg"
-            className="w-full h-full object-cover bg-slate-100"
-          >
-            <source src="/intro-video.mp4" type="video/mp4" />
-          </video>
-        </motion.div>
       </div>
     </section>
   );
