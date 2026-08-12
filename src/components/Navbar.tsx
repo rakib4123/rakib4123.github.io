@@ -19,8 +19,8 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
-      <div className="max-w-6xl mx-auto bg-slate-950/95 backdrop-blur-lg rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.25)] px-6 py-3.5 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-lg border-b border-white/10">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <a
           href="#top"
           className="font-extrabold tracking-tight text-base text-white"
@@ -62,7 +62,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden max-w-6xl mx-auto mt-2 bg-slate-950 rounded-2xl shadow-lg overflow-hidden"
+            className="md:hidden bg-slate-950 border-t border-white/10 overflow-hidden"
           >
             <nav className="flex flex-col p-3">
               {navLinks.map((link) => (
