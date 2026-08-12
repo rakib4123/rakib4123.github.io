@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -16,27 +16,14 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/85 backdrop-blur-lg shadow-[0_1px_3px_rgba(0,0,0,0.06)] py-3"
-          : "bg-transparent py-5"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
+      <div className="max-w-6xl mx-auto bg-slate-950/95 backdrop-blur-lg rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.25)] px-6 py-3.5 flex items-center justify-between">
         <a
           href="#top"
-          className="font-serif font-bold text-lg tracking-wide text-slate-900"
+          className="font-extrabold tracking-tight text-base text-white"
         >
           Md. Rakib Hossain
         </a>
@@ -46,7 +33,7 @@ export default function Navbar() {
             <a
               key={link.name}
               href={link.href}
-              className="text-[13px] font-medium text-slate-500 hover:text-brand-cyan px-3.5 py-2 rounded-md transition-colors"
+              className="text-[13px] font-medium text-slate-300 hover:text-brand-cyan px-3.5 py-2 rounded-md transition-colors"
             >
               {link.name}
             </a>
@@ -54,7 +41,7 @@ export default function Navbar() {
           <Magnetic>
             <Link
               href="/resume"
-              className="ml-2 text-[13px] font-medium text-brand-cyan border border-brand-cyan/30 hover:bg-brand-cyan hover:text-white px-4 py-2 rounded-md transition-all"
+              className="ml-2 text-[13px] font-semibold text-slate-950 bg-brand-cyan hover:bg-cyan-400 px-4 py-2 rounded-md transition-all"
             >
               Resume
             </Link>
@@ -62,7 +49,7 @@ export default function Navbar() {
         </nav>
 
         <button
-          className="md:hidden text-slate-600 hover:text-slate-900"
+          className="md:hidden text-slate-200 hover:text-white"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -75,7 +62,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 shadow-lg"
+            className="md:hidden max-w-6xl mx-auto mt-2 bg-slate-950 rounded-2xl shadow-lg overflow-hidden"
           >
             <nav className="flex flex-col p-3">
               {navLinks.map((link) => (
@@ -83,7 +70,7 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm font-medium text-slate-600 hover:text-brand-cyan hover:bg-slate-50 px-4 py-3 rounded-md transition-all"
+                  className="text-sm font-medium text-slate-300 hover:text-brand-cyan hover:bg-white/5 px-4 py-3 rounded-md transition-all"
                 >
                   {link.name}
                 </a>
@@ -91,7 +78,7 @@ export default function Navbar() {
               <Link
                 href="/resume"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-medium text-brand-cyan hover:bg-cyan-50 px-4 py-3 rounded-md transition-all"
+                className="text-sm font-semibold text-brand-cyan hover:bg-white/5 px-4 py-3 rounded-md transition-all"
               >
                 Resume
               </Link>

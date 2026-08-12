@@ -59,7 +59,7 @@ export default function Robotics() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-gray-100 aspect-video mb-16 relative group"
+          className="rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-slate-200 aspect-video mb-16 relative group"
         >
           <video
             controls
@@ -92,7 +92,7 @@ export default function Robotics() {
           />
         ) : (
           <div className="mb-16">
-            <h3 className="text-xl font-serif font-bold text-slate-900 mb-6">
+            <h3 className="text-xl font-extrabold tracking-tight text-slate-900 mb-6">
               Certificates
             </h3>
             <button
@@ -172,7 +172,7 @@ function ImageGrid({
 }) {
   return (
     <div className="mb-16">
-      <h3 className="text-xl font-serif font-bold text-slate-900 mb-6">
+      <h3 className="text-xl font-extrabold tracking-tight text-slate-900 mb-6">
         {title}
       </h3>
       <div className={`grid gap-5 ${cols === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
@@ -183,7 +183,7 @@ function ImageGrid({
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="relative rounded-xl overflow-hidden cursor-zoom-in bg-white border border-gray-100 group shadow-sm hover:shadow-lg transition-shadow duration-300"
+            className="relative rounded-xl overflow-hidden cursor-zoom-in bg-white border border-slate-200 group shadow-sm hover:shadow-lg transition-shadow duration-300"
             onClick={() => onClick(items, i)}
           >
             <div className="aspect-[4/3] w-full relative">

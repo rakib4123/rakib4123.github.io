@@ -102,7 +102,7 @@ export default function Timeline() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="bg-white border border-gray-100 rounded-lg p-5 hover:shadow-md hover:border-gray-200 transition-all group relative overflow-hidden"
+                  className="bg-white border border-slate-200 rounded-lg p-5 hover:shadow-md hover:border-slate-300 transition-all group relative overflow-hidden"
                 >
                   <div className="absolute top-0 left-0 w-0.5 h-full bg-brand-cyan scale-y-0 group-hover:scale-y-100 transition-transform origin-top"></div>
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-3">
@@ -143,7 +143,7 @@ export default function Timeline() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="bg-white border border-gray-100 rounded-lg p-5 hover:shadow-md hover:border-gray-200 transition-all group relative overflow-hidden"
+                  className="bg-white border border-slate-200 rounded-lg p-5 hover:shadow-md hover:border-slate-300 transition-all group relative overflow-hidden"
                 >
                   <div className="absolute top-0 left-0 w-0.5 h-full bg-brand-emerald scale-y-0 group-hover:scale-y-100 transition-transform origin-top"></div>
                   <div className="text-xs font-semibold text-brand-emerald mb-1">

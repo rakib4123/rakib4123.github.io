@@ -52,7 +52,7 @@ export default function Skills() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
             >
-              <h4 className="font-serif text-sm font-bold text-slate-900 mb-4 pb-2 border-b-2 border-brand-cyan/30 inline-block uppercase tracking-wider">
+              <h4 className="text-sm font-extrabold text-slate-900 mb-4 pb-2 border-b-2 border-brand-cyan/30 inline-block uppercase tracking-wider">
                 {category.title}
               </h4>
               <div className="flex flex-wrap gap-2">

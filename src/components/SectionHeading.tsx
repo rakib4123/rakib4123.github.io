@@ -18,9 +18,8 @@ export function SectionHeading({
           initial={{ opacity: 0, x: -10 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="text-xs tracking-[0.25em] uppercase font-semibold text-brand-cyan mb-4 flex items-center gap-3"
+          className="text-xs tracking-[0.25em] uppercase font-semibold text-slate-400 mb-4"
         >
-          <span className="w-6 h-px bg-brand-cyan"></span>
           {tag}
         </motion.div>
       )}
@@ -28,7 +27,7 @@ export function SectionHeading({
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        className="text-3xl md:text-4xl font-serif font-bold text-slate-900"
+        className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900"
       >
         {title}
       </motion.h2>
