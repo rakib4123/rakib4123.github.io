@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Roboto_Slab } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const robotoSlab = Roboto_Slab({
-  subsets: ["latin"],
-  variable: "--font-roboto-slab",
-});
 
 export const metadata: Metadata = {
   title: "Md. Rakib Hossain | AI, ML, Computer Vision & Data Science",
@@ -24,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${robotoSlab.variable} font-sans antialiased bg-bg-main text-slate-800`}
+        className={`${inter.variable} font-sans antialiased bg-bg-main text-slate-800`}
       >
         <ScrollProgress />
         <CustomCursor />

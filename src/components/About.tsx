@@ -66,7 +66,7 @@ export default function About() {
                 ["Languages", "Bangla · English"],
               ].map(([label, value]) => (
                 <div key={label}>
-                  <span className="block text-slate-900 font-serif text-sm font-semibold mb-0.5">
+                  <span className="block text-slate-900 text-sm font-bold mb-0.5">
                     {label}
                   </span>
                   <span className="text-slate-500 text-sm">{value}</span>

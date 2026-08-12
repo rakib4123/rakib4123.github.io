@@ -9,8 +9,8 @@ import Magnetic from "./Magnetic";
 
 export default function Hero() {
   return (
-    <section id="top" className="relative bg-bg-main">
-      <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="top" className="relative bg-slate-950">
+      <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-32 pb-16 text-center">
         {/* Antigravity Animation */}
         <div className="absolute inset-0 z-0">
           <AntigravityBackground />
@@ -18,83 +18,95 @@ export default function Hero() {
 
         {/* Subtle grid pattern */}
         <div
-          className="absolute inset-0 z-0 opacity-[0.03]"
+          className="absolute inset-0 z-0 opacity-[0.04]"
           style={{
             backgroundImage:
-              "linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)",
+              "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         ></div>
 
-        <div className="relative z-20 max-w-5xl mx-auto px-6 w-full pt-20 pb-10">
-          <div className="grid md:grid-cols-[360px_1fr] gap-8 md:gap-10 items-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="justify-self-center md:justify-self-start"
-            >
-              <div className="relative w-64 h-64 md:w-[22rem] md:h-[22rem] rounded-full overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
-                <Image
-                  src="/images/profile.jpg"
-                  alt="Md. Rakib Hossain"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative z-20 text-xs tracking-[0.25em] uppercase font-semibold text-slate-300 border border-slate-700 rounded-full px-5 py-2 mb-10"
+        >
+          AI · ML · Computer Vision · Data Science
+        </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="text-xs tracking-[0.25em] uppercase font-semibold text-brand-cyan mb-6 flex items-center gap-3">
-                <span className="w-8 h-px bg-brand-cyan"></span>
-                Final-year CSE · AIUB · Dhaka
-              </div>
+        <div className="relative z-20 flex flex-col items-center w-full">
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="select-none font-extrabold tracking-tighter text-slate-800 leading-[0.85] text-[18vw] sm:text-[14vw] md:text-[7rem]"
+          >
+            Hi, I&apos;m
+            <br />
+            Rakib.
+          </motion.h1>
 
-              <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 leading-[1.1] mb-6">
-                I explore{" "}
-                <span className="text-brand-cyan">
-                  AI, ML, computer vision & data science
-                </span>{" "}
-                through software I build myself.
-              </h1>
-
-              <p className="text-lg md:text-xl text-slate-500 leading-relaxed mb-12">
-                Mainly AI, machine learning, computer vision, and data
-                science — plus full-stack apps and robotics along the way.
-              </p>
-
-              <div className="flex flex-wrap gap-4">
-                <Magnetic>
-                  <a
-                    href="#projects"
-                    className="inline-flex items-center gap-2 bg-slate-900 text-white font-medium text-sm px-7 py-3 rounded-md transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(15,23,42,0.15)]"
-                  >
-                    See the work ↓
-                  </a>
-                </Magnetic>
-                <Magnetic>
-                  <Link
-                    href="/resume"
-                    className="inline-flex items-center gap-2 bg-white border border-gray-200 text-slate-700 font-medium text-sm px-7 py-3 rounded-md transition-all hover:border-brand-cyan hover:text-brand-cyan hover:-translate-y-0.5 hover:shadow-sm"
-                  >
-                    <FileText size={16} /> Resume
-                  </Link>
-                </Magnetic>
-              </div>
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0 flex items-end justify-center"
+          >
+            <Image
+              src="/images/profile-transparent.png"
+              alt="Md. Rakib Hossain"
+              width={864}
+              height={1821}
+              priority
+              className="h-[46vh] sm:h-[52vh] md:h-[60vh] w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+            />
+          </motion.div>
         </div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-20 mt-8 max-w-2xl text-lg md:text-xl text-slate-300 leading-relaxed"
+        >
+          I explore{" "}
+          <span className="text-brand-cyan font-semibold">
+            AI, ML, computer vision &amp; data science
+          </span>{" "}
+          through software I build myself.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-20 flex flex-wrap justify-center gap-4 mt-10"
+        >
+          <Magnetic>
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2 bg-brand-cyan text-slate-950 font-semibold text-sm px-7 py-3 rounded-md transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(6,182,212,0.3)]"
+            >
+              See the work ↓
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <Link
+              href="/resume"
+              className="inline-flex items-center gap-2 border border-slate-600 text-slate-200 font-medium text-sm px-7 py-3 rounded-md transition-all hover:border-brand-cyan hover:text-brand-cyan hover:-translate-y-0.5"
+            >
+              <FileText size={16} /> Resume
+            </Link>
+          </Magnetic>
+        </motion.div>
 
         <motion.a
           href="#about"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.8 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-400 hover:text-brand-cyan transition-colors z-20 flex flex-col items-center gap-2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-500 hover:text-brand-cyan transition-colors z-20 flex flex-col items-center gap-2"
         >
           <motion.div
             animate={{ y: [0, 6, 0] }}

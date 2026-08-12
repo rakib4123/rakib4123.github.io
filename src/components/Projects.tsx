@@ -10,6 +10,7 @@ import TiltCard from "./TiltCard";
 
 const projects = [
   {
+    number: "01",
     title: "RideGuard",
     type: "Data analysis · Real-time ML",
     images: [
@@ -27,6 +28,7 @@ const projects = [
     featured: true,
   },
   {
+    number: "02",
     title: "PulseStone",
     type: "Embedded · Statistical user study",
     images: ["/images/project-pulsestone.jpg"],
@@ -90,6 +92,7 @@ export default function Projects() {
                   alt={p.title}
                   imageWidth={p.imageWidth}
                   imageHeight={p.imageHeight}
+                  number={p.number}
                 />
               </div>
 
@@ -149,7 +152,7 @@ export default function Projects() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <TiltCard className="h-full bg-white border border-gray-100 rounded-xl p-7 flex flex-col group hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300 relative overflow-hidden">
+              <TiltCard className="h-full bg-white border border-slate-200 rounded-xl p-7 flex flex-col group hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-cyan to-brand-emerald scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
                 <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
                   {p.type}
@@ -164,7 +167,7 @@ export default function Projects() {
                   {p.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-xs text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-gray-100"
+                      className="text-xs text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200"
                     >
                       {tag}
                     </span>
@@ -192,17 +195,22 @@ function ProjectGallery({
   alt,
   imageWidth,
   imageHeight,
+  number,
 }: {
   images: string[];
   alt: string;
   imageWidth: number;
   imageHeight: number;
+  number: string;
 }) {
   const [active, setActive] = useState(0);
 
   return (
     <div>
       <div className="rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] group relative">
+        <span className="absolute top-4 left-4 z-10 bg-slate-950 text-white text-xs font-extrabold tracking-widest px-2.5 py-1 rounded">
+          {number}
+        </span>
         <Image
           src={images[active]}
           alt={alt}
