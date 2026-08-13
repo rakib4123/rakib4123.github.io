@@ -46,7 +46,7 @@ export default function Stats() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <div className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-brand-cyan">
+              <div className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 bg-gradient-to-r from-brand-cyan via-emerald-400 to-brand-cyan bg-clip-text text-transparent animate-gradient">
                 <Counter value={stat.value} suffix={stat.suffix} />
               </div>
               <div className="text-slate-500 text-sm whitespace-pre-line leading-relaxed">
