@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { SectionHeading } from "./SectionHeading";
 import { useState } from "react";
+import SpotlightCard from "./SpotlightCard";
 
 const skillCategories = [
   {
@@ -31,6 +32,16 @@ const skillCategories = [
   },
 ];
 
+const tagContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.04 } },
+};
+
+const tagItem = {
+  hidden: { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export default function Skills() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
@@ -43,7 +54,7 @@ export default function Skills() {
           subtitle="Select any technology to highlight it."
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category, i) => (
             <motion.div
               key={category.title}
@@ -52,25 +63,34 @@ export default function Skills() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
             >
-              <h4 className="text-sm font-extrabold text-slate-900 mb-4 pb-2 border-b-2 border-brand-cyan/30 inline-block uppercase tracking-wider">
-                {category.title}
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    onMouseEnter={() => setHoveredSkill(skill)}
-                    onMouseLeave={() => setHoveredSkill(null)}
-                    className={`text-sm px-3 py-1.5 rounded-md border transition-all duration-300 cursor-default ${
-                      hoveredSkill === skill
-                        ? "bg-brand-cyan text-white border-brand-cyan shadow-[0_4px_12px_rgba(6,182,212,0.25)] -translate-y-0.5"
-                        : "bg-white text-slate-600 border-gray-200 hover:border-gray-300"
-                    }`}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
+              <SpotlightCard className="relative bg-white border border-slate-200 rounded-xl p-6 overflow-hidden">
+                <h4 className="text-sm font-extrabold text-slate-900 mb-4 pb-2 border-b-2 border-brand-cyan/30 inline-block uppercase tracking-wider">
+                  {category.title}
+                </h4>
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-50px" }}
+                  variants={tagContainer}
+                  className="flex flex-wrap gap-2"
+                >
+                  {category.skills.map((skill) => (
+                    <motion.span
+                      key={skill}
+                      variants={tagItem}
+                      onMouseEnter={() => setHoveredSkill(skill)}
+                      onMouseLeave={() => setHoveredSkill(null)}
+                      className={`text-sm px-3 py-1.5 rounded-md border transition-all duration-300 cursor-default ${
+                        hoveredSkill === skill
+                          ? "bg-brand-cyan text-white border-brand-cyan shadow-[0_4px_12px_rgba(6,182,212,0.25)] -translate-y-0.5"
+                          : "bg-white text-slate-600 border-gray-200 hover:border-gray-300"
+                      }`}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </motion.div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </div>

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { SectionHeading } from "./SectionHeading";
 import { GraduationCap, Trophy } from "lucide-react";
+import SpotlightCard from "./SpotlightCard";
 
 const education = [
   {
@@ -102,25 +103,26 @@ export default function Timeline() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="bg-white border border-slate-200 rounded-lg p-5 hover:shadow-md hover:border-slate-300 transition-all group relative overflow-hidden"
                 >
-                  <div className="absolute top-0 left-0 w-0.5 h-full bg-brand-cyan scale-y-0 group-hover:scale-y-100 transition-transform origin-top"></div>
-                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-3">
-                    <div>
-                      <div className="text-xs font-semibold text-brand-cyan mb-1">
-                        {aw.year}
+                  <SpotlightCard className="relative bg-white border border-slate-200 rounded-lg p-5 hover:shadow-md hover:border-slate-300 transition-all group overflow-hidden">
+                    <div className="absolute top-0 left-0 w-0.5 h-full bg-brand-cyan scale-y-0 group-hover:scale-y-100 transition-transform origin-top"></div>
+                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-3">
+                      <div>
+                        <div className="text-xs font-semibold text-brand-cyan mb-1">
+                          {aw.year}
+                        </div>
+                        <h4 className="text-base font-semibold text-slate-900 mb-0.5">
+                          {aw.title}
+                        </h4>
+                        <p className="text-sm text-slate-500">{aw.org}</p>
                       </div>
-                      <h4 className="text-base font-semibold text-slate-900 mb-0.5">
-                        {aw.title}
-                      </h4>
-                      <p className="text-sm text-slate-500">{aw.org}</p>
+                      <span
+                        className={`inline-block px-2.5 py-0.5 rounded text-xs font-semibold border whitespace-nowrap self-start ${aw.rankColor}`}
+                      >
+                        {aw.rank}
+                      </span>
                     </div>
-                    <span
-                      className={`inline-block px-2.5 py-0.5 rounded text-xs font-semibold border whitespace-nowrap self-start ${aw.rankColor}`}
-                    >
-                      {aw.rank}
-                    </span>
-                  </div>
+                  </SpotlightCard>
                 </motion.div>
               ))}
             </div>
@@ -143,16 +145,17 @@ export default function Timeline() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="bg-white border border-slate-200 rounded-lg p-5 hover:shadow-md hover:border-slate-300 transition-all group relative overflow-hidden"
                 >
-                  <div className="absolute top-0 left-0 w-0.5 h-full bg-brand-emerald scale-y-0 group-hover:scale-y-100 transition-transform origin-top"></div>
-                  <div className="text-xs font-semibold text-brand-emerald mb-1">
-                    {ed.year}
-                  </div>
-                  <h4 className="text-base font-semibold text-slate-900 mb-0.5">
-                    {ed.title}
-                  </h4>
-                  <p className="text-sm text-slate-500">{ed.org}</p>
+                  <SpotlightCard className="relative bg-white border border-slate-200 rounded-lg p-5 hover:shadow-md hover:border-slate-300 transition-all group overflow-hidden">
+                    <div className="absolute top-0 left-0 w-0.5 h-full bg-brand-emerald scale-y-0 group-hover:scale-y-100 transition-transform origin-top"></div>
+                    <div className="text-xs font-semibold text-brand-emerald mb-1">
+                      {ed.year}
+                    </div>
+                    <h4 className="text-base font-semibold text-slate-900 mb-0.5">
+                      {ed.title}
+                    </h4>
+                    <p className="text-sm text-slate-500">{ed.org}</p>
+                  </SpotlightCard>
                 </motion.div>
               ))}
             </div>

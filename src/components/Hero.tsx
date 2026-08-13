@@ -81,7 +81,7 @@ export default function Hero() {
           className="relative z-20 mt-4 max-w-2xl text-lg md:text-xl text-slate-300 leading-relaxed"
         >
           I explore{" "}
-          <span className="text-brand-cyan font-semibold">
+          <span className="font-semibold bg-gradient-to-r from-brand-cyan via-emerald-400 to-brand-cyan bg-clip-text text-transparent animate-gradient">
             AI, ML, computer vision &amp; data science
           </span>{" "}
           through software I build myself.

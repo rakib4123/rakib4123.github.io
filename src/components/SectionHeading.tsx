@@ -2,6 +2,16 @@
 
 import { motion } from "framer-motion";
 
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06 } },
+};
+
+const word = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export function SectionHeading({
   title,
   subtitle,
@@ -24,12 +34,17 @@ export function SectionHeading({
         </motion.div>
       )}
       <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial="hidden"
+        whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
+        variants={container}
         className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900"
       >
-        {title}
+        {title.split(" ").map((w, i) => (
+          <motion.span key={i} variants={word} className="inline-block mr-[0.25em]">
+            {w}
+          </motion.span>
+        ))}
       </motion.h2>
       {subtitle && (
         <motion.p
