@@ -40,7 +40,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="select-none font-extrabold tracking-tighter text-slate-800 leading-[0.85] text-[18vw] sm:text-[14vw] md:text-[7rem]"
+            className="select-none font-extrabold tracking-tighter text-slate-800 leading-[0.85] text-[22vw] sm:text-[18vw] md:text-[10rem]"
           >
             Hi, I&apos;m
             <br />
