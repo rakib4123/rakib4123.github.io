@@ -30,7 +30,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="relative z-20 text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.25em] uppercase font-semibold text-slate-300 border border-slate-700 rounded-full px-4 sm:px-5 py-2 mb-24 text-center"
+          className="relative z-20 text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.25em] uppercase font-semibold text-slate-300 border border-slate-700 rounded-full px-4 sm:px-5 py-2 mb-32 sm:mb-24 text-center"
         >
           AI · ML · Computer Vision · Data Science
         </motion.div>
@@ -56,10 +56,10 @@ export default function Hero() {
             <Image
               src="/images/profile-transparent.png"
               alt="Md. Rakib Hossain"
-              width={864}
-              height={1821}
+              width={1024}
+              height={935}
               priority
-              className="h-[26vh] sm:h-[30vh] md:h-[36vh] w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+              className="h-[22vh] sm:h-[30vh] md:h-[40vh] w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
             />
           </motion.div>
         </div>
