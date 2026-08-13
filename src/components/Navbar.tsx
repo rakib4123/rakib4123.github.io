@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -17,6 +17,25 @@ const navLinks = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+
+  useEffect(() => {
+    const sections = navLinks
+      .map((link) => document.getElementById(link.href.slice(1)))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-lg border-b border-white/10">
@@ -29,15 +48,27 @@ export default function Navbar() {
         </a>
 
         <nav className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-[13px] font-medium text-slate-300 hover:text-brand-cyan px-3.5 py-2 rounded-md transition-colors"
-            >
-              {link.name}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href.slice(1);
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                className={`relative text-[13px] font-medium px-3.5 py-2 rounded-md transition-colors ${
+                  isActive ? "text-brand-cyan" : "text-slate-300 hover:text-brand-cyan"
+                }`}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active-pill"
+                    className="absolute inset-0 bg-white/10 rounded-md -z-10"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                {link.name}
+              </a>
+            );
+          })}
           <Magnetic>
             <Link
               href="/resume"
@@ -65,16 +96,21 @@ export default function Navbar() {
             className="md:hidden bg-slate-950 border-t border-white/10 overflow-hidden"
           >
             <nav className="flex flex-col p-3">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm font-medium text-slate-300 hover:text-brand-cyan hover:bg-white/5 px-4 py-3 rounded-md transition-all"
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.slice(1);
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-sm font-medium hover:bg-white/5 px-4 py-3 rounded-md transition-all ${
+                      isActive ? "text-brand-cyan" : "text-slate-300 hover:text-brand-cyan"
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                );
+              })}
               <Link
                 href="/resume"
                 onClick={() => setMobileMenuOpen(false)}
