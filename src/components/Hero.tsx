@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AntigravityBackground from "./AntigravityBackground";
 import Magnetic from "./Magnetic";
+import TypewriterRole from "./TypewriterRole";
 
 export default function Hero() {
   return (
@@ -64,11 +65,20 @@ export default function Hero() {
           </motion.div>
         </div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-20 text-base md:text-lg text-slate-400 font-mono"
+        >
+          I work as <TypewriterRole />
+        </motion.div>
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 mt-8 max-w-2xl text-lg md:text-xl text-slate-300 leading-relaxed"
+          className="relative z-20 mt-4 max-w-2xl text-lg md:text-xl text-slate-300 leading-relaxed"
         >
           I explore{" "}
           <span className="text-brand-cyan font-semibold">
