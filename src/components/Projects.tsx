@@ -3,11 +3,12 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { SectionHeading } from "./SectionHeading";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Maximize2 } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { useState } from "react";
 import TiltCard from "./TiltCard";
 import SpotlightCard from "./SpotlightCard";
+import DemoModal from "./DemoModal";
 
 const tagContainer = {
   hidden: {},
@@ -35,6 +36,7 @@ const projects = [
     tags: ["Python", "SQL", "CatBoost", "XGBoost", "TensorFlow", "SHAP"],
     desc: "I cleaned and geocoded two raw datasets into an analysis-ready pipeline, then trained and calibrated gradient-boosting models against deep-learning baselines — reaching 0.973 macro-F1 while reporting calibrated confidence and explaining every prediction with SHAP. A self-audit layer caught the headline score coming from a label the data gave away, which I published as the central finding rather than the win. I built and deployed the full app — live risk map, route-level scoring, and voice & vibration alerts.",
     demo: "https://ride-guard-web-app-web.vercel.app/",
+    embeddable: true,
     github: "https://github.com/rakib4123/Ride_Guard_WebApp",
     featured: true,
   },
@@ -79,6 +81,10 @@ const smallProjects = [
 ];
 
 export default function Projects() {
+  const [activeDemo, setActiveDemo] = useState<{ url: string; title: string } | null>(
+    null
+  );
+
   return (
     <section id="projects" className="py-24 bg-white relative">
       <div className="max-w-5xl mx-auto px-6">
@@ -136,7 +142,15 @@ export default function Projects() {
                   {p.desc}
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  {p.demo && (
+                  {p.demo && p.embeddable && (
+                    <button
+                      onClick={() => setActiveDemo({ url: p.demo, title: p.title })}
+                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-slate-900 hover:bg-slate-800 px-5 py-2.5 rounded transition-colors cursor-pointer"
+                    >
+                      <Maximize2 size={14} /> Live Demo
+                    </button>
+                  )}
+                  {p.demo && !p.embeddable && (
                     <a
                       href={p.demo}
                       target="_blank"
@@ -226,6 +240,14 @@ export default function Projects() {
           ))}
         </div>
       </div>
+
+      {activeDemo && (
+        <DemoModal
+          url={activeDemo.url}
+          title={activeDemo.title}
+          onClose={() => setActiveDemo(null)}
+        />
+      )}
     </section>
   );
 }
