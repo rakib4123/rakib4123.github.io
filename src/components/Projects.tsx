@@ -66,6 +66,7 @@ const smallProjects = [
     type: "Full-stack",
     tags: ["Next.js", "NestJS", "PostgreSQL", "Prisma"],
     desc: "A full-featured e-commerce monorepo with two-factor login, rotating tokens, role-based access, and an admin panel.",
+    demo: "https://drikon-web-vert1v.vercel.app/",
     github: "https://github.com/rakib4123/drikon",
   },
   {
@@ -199,14 +200,26 @@ export default function Projects() {
                       </motion.span>
                     ))}
                   </motion.div>
-                  <a
-                    href={p.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-medium text-brand-cyan hover:text-cyan-600 transition-colors mt-auto"
-                  >
-                    <FaGithub size={14} /> View Repository
-                  </a>
+                  <div className="flex flex-wrap gap-4 mt-auto">
+                    {p.demo && (
+                      <a
+                        href={p.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-brand-cyan hover:text-cyan-600 transition-colors"
+                      >
+                        <ExternalLink size={14} /> Live Demo
+                      </a>
+                    )}
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
+                    >
+                      <FaGithub size={14} /> Source
+                    </a>
+                  </div>
                 </SpotlightCard>
               </TiltCard>
             </motion.div>
