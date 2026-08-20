@@ -63,6 +63,7 @@ const smallProjects = [
     desc: "Implemented the Apriori association-rule algorithm from scratch to power \"frequently bought together\" and personalised recommendations from real order history. 17 backend modules — products, orders, reviews, coupons, flash sales, wishlists — with voice search and secure accounts, fully localised in Bengali and English with an admin-editable storefront.",
     demo: "https://drikon-web-vert1v.vercel.app/",
     github: "https://github.com/rakib4123/drikon",
+    highlight: true,
   },
   {
     title: "DhakaNight",
@@ -184,10 +185,26 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
+              className={p.highlight ? "md:col-span-2" : ""}
             >
               <TiltCard className="h-full">
-                <SpotlightCard className="relative h-full bg-white border border-slate-200 rounded-xl p-7 flex flex-col group hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300 overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-cyan to-brand-emerald scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
+                <SpotlightCard
+                  className={`relative h-full rounded-xl p-7 flex flex-col group transition-shadow duration-300 overflow-hidden ${
+                    p.highlight
+                      ? "bg-gradient-to-br from-cyan-50/60 to-white border-2 border-brand-cyan/40 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]"
+                      : "bg-white border border-slate-200 hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+                  }`}
+                >
+                  <div
+                    className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-cyan to-brand-emerald origin-left transition-transform duration-500 ${
+                      p.highlight ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  ></div>
+                  {p.highlight && (
+                    <span className="absolute top-5 right-5 inline-flex items-center gap-1 text-[11px] font-bold tracking-wide text-brand-cyan bg-white border border-brand-cyan/30 px-2.5 py-1 rounded-full uppercase">
+                      ★ Flagship
+                    </span>
+                  )}
                   <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
                     {p.type}
                   </div>
