@@ -9,11 +9,11 @@ const publications = [
   {
     title:
       "DhakaNight: A Benchmark for Low-Light Object Detection in Dense Urban Night Traffic",
-    venue: "Accepted, ICCA 2026, Dhaka · ACM Digital Library",
+    venue: "ICCA 2026, Dhaka · ACM Digital Library",
   },
   {
     title: "PulseStone: A Tangible Single-Action Anxiety Companion",
-    venue: "Accepted, ICCA 2026, Dhaka",
+    venue: "ICCA 2026, Dhaka",
   },
 ];
 
@@ -36,9 +36,15 @@ export default function Publications() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <SpotlightCard className="relative h-full bg-white border border-slate-200 rounded-xl p-7 overflow-hidden">
-                <div className="w-10 h-10 rounded-lg bg-brand-cyan/10 text-brand-cyan flex items-center justify-center mb-4">
-                  <FileText size={18} />
+              <SpotlightCard className="relative h-full bg-gradient-to-br from-emerald-50/60 to-white border-2 border-brand-emerald/30 rounded-xl p-7 overflow-hidden hover:shadow-[0_10px_30px_rgba(16,185,129,0.15)] transition-shadow duration-300">
+                <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-emerald to-brand-cyan"></div>
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-cyan to-brand-emerald text-white flex items-center justify-center shadow-[0_4px_12px_rgba(16,185,129,0.3)]">
+                    <FileText size={18} />
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-bold tracking-wide text-brand-emerald bg-white border border-brand-emerald/30 px-2.5 py-1 rounded-full uppercase">
+                    ✓ Accepted
+                  </span>
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2 leading-snug">
                   {pub.title}
