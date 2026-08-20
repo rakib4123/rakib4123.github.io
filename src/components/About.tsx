@@ -61,7 +61,7 @@ export default function About() {
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 pt-6 border-t border-gray-100">
               {[
-                ["Education", "B.Sc. CSE — AIUB (CGPA 3.28/4.00)"],
+                ["Education", "B.Sc. CSE — AIUB"],
                 ["Focus", "Full-Stack · AI/ML · Computer Vision"],
                 ["Role", "Founder, Khepa Chakka"],
                 ["Affiliation", "ESAB, AIUB"],
