@@ -33,7 +33,7 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className="relative z-20 text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.25em] uppercase font-semibold text-slate-300 border border-slate-700 rounded-full px-4 sm:px-5 py-2 mb-32 sm:mb-24 text-center"
         >
-          AI · ML · Computer Vision · Data Science
+          Full-Stack Development · AI &amp; Machine Learning
         </motion.div>
 
         <div className="relative z-20 flex flex-col items-center w-full">
@@ -80,11 +80,11 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="relative z-20 mt-4 max-w-2xl text-lg md:text-xl text-slate-300 leading-relaxed"
         >
-          I explore{" "}
+          I ship{" "}
           <span className="font-semibold bg-gradient-to-r from-brand-cyan via-emerald-400 to-brand-cyan bg-clip-text text-transparent animate-gradient">
-            AI, ML, computer vision &amp; data science
+            full-stack applications and machine-learning systems
           </span>{" "}
-          through software I build myself.
+          — from live products to published research.
         </motion.p>
 
         <motion.div

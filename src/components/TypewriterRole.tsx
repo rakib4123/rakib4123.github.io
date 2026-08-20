@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 
 const roles = [
+  "a Full-Stack Developer",
   "an AI/ML Engineer",
   "a Computer Vision Engineer",
   "a Data Scientist",
-  "a Software Developer",
 ];
 
 const TYPE_SPEED = 70;

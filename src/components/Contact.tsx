@@ -14,7 +14,7 @@ export default function Contact() {
       <div className="max-w-4xl mx-auto px-6 relative z-10">
         <SectionHeading
           title="Let's build software that solves real problems."
-          tag="06 — Contact"
+          tag="07 — Contact"
         />
 
         <motion.p
@@ -23,9 +23,9 @@ export default function Contact() {
           viewport={{ once: true, margin: "-50px" }}
           className="text-lg text-slate-500 max-w-xl mb-10 leading-relaxed"
         >
-          I&apos;m open to roles and opportunities in AI/ML, computer vision,
-          data science, and software development. The fastest way to reach
-          me is email.
+          I&apos;m open to roles and opportunities in full-stack development,
+          AI/ML, or software engineering. The fastest way to reach me is
+          email.
         </motion.p>
 
         <motion.div
@@ -36,7 +36,7 @@ export default function Contact() {
           className="flex flex-wrap gap-4"
         >
           <a
-            href="mailto:000.mdrakibhossain@gmail.com"
+            href="mailto:r1.rakibhossain1@gmail.com"
             className="inline-flex items-center gap-2 bg-slate-900 text-white font-medium text-sm px-7 py-3 rounded-md transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(15,23,42,0.15)]"
           >
             <Mail size={16} /> Email me
@@ -65,7 +65,7 @@ export default function Contact() {
           </span>
           <span>
             <strong className="text-slate-700">Email:</strong>{" "}
-            000.mdrakibhossain@gmail.com
+            r1.rakibhossain1@gmail.com
           </span>
           <span>
             <strong className="text-slate-700">Based in:</strong> Dhaka,

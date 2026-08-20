@@ -7,9 +7,9 @@ import ScrollProgress from "@/components/ScrollProgress";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Md. Rakib Hossain | AI, ML, Computer Vision & Data Science",
+  title: "Md. Rakib Hossain | Full-Stack Developer & AI/ML Engineer",
   description:
-    "Md. Rakib Hossain — final-year CSE student at AIUB, exploring AI, machine learning, computer vision, and data science, plus software and robotics.",
+    "Md. Rakib Hossain — CSE student at AIUB who ships full-stack applications and machine-learning systems, with two papers accepted at ICCA 2026.",
 };
 
 export default function RootLayout({

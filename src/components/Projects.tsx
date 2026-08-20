@@ -23,7 +23,7 @@ const projects = [
   {
     number: "01",
     title: "RideGuard",
-    type: "Data analysis · Real-time ML",
+    type: "Calibrated & auditable ML risk framework",
     images: [
       "/images/rideguard-map.jpg",
       "/images/rideguard-now.jpg",
@@ -33,7 +33,7 @@ const projects = [
     imageWidth: 460,
     imageHeight: 1022,
     tags: ["Python", "SQL", "CatBoost", "XGBoost", "TensorFlow", "SHAP"],
-    desc: "I cleaned and geocoded two raw datasets into an analysis-ready pipeline, ran exploratory analysis to find the factors driving risk, then trained and calibrated gradient-boosting models against deep-learning baselines. SHAP makes every prediction explainable. I built and deployed the full app — live risk map, route-level scoring, and voice & vibration alerts.",
+    desc: "I cleaned and geocoded two raw datasets into an analysis-ready pipeline, then trained and calibrated gradient-boosting models against deep-learning baselines — reaching 0.973 macro-F1 while reporting calibrated confidence and explaining every prediction with SHAP. A self-audit layer caught the headline score coming from a label the data gave away, which I published as the central finding rather than the win. I built and deployed the full app — live risk map, route-level scoring, and voice & vibration alerts.",
     demo: "https://ride-guard-web-app-web.vercel.app/",
     github: "https://github.com/rakib4123/Ride_Guard_WebApp",
     featured: true,
@@ -46,7 +46,7 @@ const projects = [
     imageWidth: 1200,
     imageHeight: 1593,
     tags: ["ESP32-C3", "Arduino C++", "Sensors", "Statistics"],
-    desc: "A palm-sized, squeeze-activated device that guides a 4-7-8 breathing exercise the instant it's squeezed — no phone, no app. I wrote the firmware in Arduino C++, driving synchronized LED, haptic, and on-screen feedback. I designed and ran a within-subjects study (15 participants, 150 trials) and analysed it with a paired t-test: 14.5× faster to start than a phone app (p < 0.001).",
+    desc: "A palm-sized, squeeze-activated device that guides a 4-7-8 breathing exercise the instant it's squeezed — no phone, no app. I wrote the firmware in Arduino C++, driving synchronized LED, haptic, and on-screen feedback. In a 15-participant, 150-trial study, users started in 0.52s versus 7.49s on a phone app — 14.5× faster — and all 15 preferred it.",
     github: "https://github.com/rakib4123/PulseStone",
     featured: true,
     flip: true,
@@ -55,19 +55,19 @@ const projects = [
 
 const smallProjects = [
   {
+    title: "Drikon",
+    type: "Full-stack · E-commerce",
+    tags: ["Next.js", "NestJS", "PostgreSQL", "Prisma"],
+    desc: "Implemented the Apriori association-rule algorithm from scratch to power \"frequently bought together\" and personalised recommendations from real order history. 17 backend modules — products, orders, reviews, coupons, flash sales, wishlists — with voice search and secure accounts, fully localised in Bengali and English with an admin-editable storefront.",
+    demo: "https://drikon-web-vert1v.vercel.app/",
+    github: "https://github.com/rakib4123/drikon",
+  },
+  {
     title: "DhakaNight",
     type: "Vision · Data",
     tags: ["PyTorch", "YOLO", "OpenCV"],
-    desc: "Built and annotated a ~2,300-image low-light street dataset in Roboflow, trained a YOLO detector, and benchmarked four enhancement methods.",
+    desc: "Labelled a 2,300-image low-light street dataset in Roboflow, then benchmarked four enhancement methods — CLAHE, Gamma, Zero-DCE, RetinexFormer — against a YOLOv8 baseline. None improved detection; scaling the detector beat every pipeline.",
     github: "https://github.com/rakib4123/Dhaka_Night",
-  },
-  {
-    title: "Drikon",
-    type: "Full-stack",
-    tags: ["Next.js", "NestJS", "PostgreSQL", "Prisma"],
-    desc: "A full-featured e-commerce monorepo with two-factor login, rotating tokens, role-based access, and an admin panel.",
-    demo: "https://drikon-web-vert1v.vercel.app/",
-    github: "https://github.com/rakib4123/drikon",
   },
   {
     title: "AIUB STEAM",
@@ -83,9 +83,9 @@ export default function Projects() {
     <section id="projects" className="py-24 bg-white relative">
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeading
-          title="Projects in AI, ML, computer vision, and data science — plus software along the way."
+          title="Full-stack products and machine-learning systems, shipped end to end."
           tag="02 — Projects"
-          subtitle="Mostly AI, ML, computer vision, and data science, plus some full-stack software and embedded hardware."
+          subtitle="Live web apps and deployed ML services, plus computer vision, data science, and embedded hardware along the way."
         />
 
         <div className="space-y-28 mb-20">
