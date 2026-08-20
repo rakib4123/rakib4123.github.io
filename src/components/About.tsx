@@ -35,32 +35,34 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <p className="text-slate-600 text-[17px] mb-4 leading-relaxed">
-              I&apos;m an undergrad exploring AI, machine learning, computer
-              vision, and data science — from cleaning and analysing data, to
-              training and understanding models, to building the software
-              around them.
+              I&apos;m a CSE student who ships full-stack applications and
+              machine-learning systems: a live e-commerce platform with a
+              recommendation engine, a deployed ML risk service, and a
+              published hardware study. I use AI-assisted development with
+              Claude Code daily.
             </p>
             <p className="text-slate-600 text-[17px] mb-8 leading-relaxed">
+              <strong className="text-slate-900">Drikon</strong> is an
+              e-commerce platform where I built a recommendation engine from
+              scratch;{" "}
               <strong className="text-slate-900">RideGuard</strong> is a
-              real-time ML web app I deployed;{" "}
-              <strong className="text-slate-900">DhakaNight</strong> began with a
-              2,300-image dataset I built and annotated myself;{" "}
-              <strong className="text-slate-900">PulseStone</strong> is a
-              handheld ESP32-C3 device I designed from scratch and validated with
-              a user study. As founder of{" "}
+              real-time ML risk service I deployed and self-audited;{" "}
+              <strong className="text-slate-900">DhakaNight</strong> and{" "}
+              <strong className="text-slate-900">PulseStone</strong> grew into
+              two papers accepted at ICCA 2026. As founder of{" "}
               <strong className="text-slate-900">&quot;Khepa Chakka&quot;</strong>, I&apos;ve
               taken robots from concept to the competition floor. I&apos;m looking
               for opportunities in{" "}
               <strong className="text-slate-900">
-                AI/ML, computer vision, data science, or software development
+                full-stack development, AI/ML, or software engineering
               </strong>
               .
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 pt-6 border-t border-gray-100">
               {[
-                ["Education", "B.Sc. CSE — AIUB"],
-                ["Focus", "AI · ML · Computer Vision · Data Science"],
+                ["Education", "B.Sc. CSE — AIUB (CGPA 3.28/4.00)"],
+                ["Focus", "Full-Stack · AI/ML · Computer Vision"],
                 ["Role", "Founder, Khepa Chakka"],
                 ["Affiliation", "ESAB, AIUB"],
                 ["Languages", "Bangla · English"],

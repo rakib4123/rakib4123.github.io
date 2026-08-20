@@ -51,7 +51,7 @@ export default function Robotics() {
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeading
           title="Robotics — Khepa Chakka"
-          tag="03 — Robotics"
+          tag="04 — Robotics"
           subtitle="Founder & team lead. I take robots from concept to the competition floor — line-following, soccer, race, and battle bots."
         />
 

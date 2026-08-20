@@ -7,6 +7,10 @@ import SpotlightCard from "./SpotlightCard";
 
 const skillCategories = [
   {
+    title: "Full-Stack Development",
+    skills: ["TypeScript", "JavaScript", "React", "Next.js", "Tailwind CSS", "NestJS", "Node.js", "REST APIs", "Prisma", "PostgreSQL", "C++", ".NET", "SQL Server"],
+  },
+  {
     title: "AI, ML & Computer Vision",
     skills: ["scikit-learn", "PyTorch", "TensorFlow", "CatBoost", "XGBoost", "YOLO", "OpenCV", "SHAP"],
   },
@@ -15,16 +19,12 @@ const skillCategories = [
     skills: ["Python", "SQL", "pandas", "NumPy", "Excel", "Power BI"],
   },
   {
-    title: "Software",
-    skills: ["C++", "JavaScript", "Next.js", "NestJS", ".NET", "REST APIs", "PostgreSQL", "SQL Server"],
-  },
-  {
     title: "Embedded",
     skills: ["Arduino C++", "ESP32", "Sensor interfacing"],
   },
   {
     title: "Tools",
-    skills: ["Git", "GitHub", "VS Code", "Jupyter", "Roboflow", "Claude Code", "Antigravity"],
+    skills: ["Git", "GitHub", "VS Code", "Jupyter", "Roboflow", "Claude Code", "Antigravity", "Vercel", "Render"],
   },
   {
     title: "Ways of working",
@@ -50,7 +50,7 @@ export default function Skills() {
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeading
           title="Technologies I've built with."
-          tag="05 — Skills"
+          tag="06 — Skills"
           subtitle="Select any technology to highlight it."
         />
 

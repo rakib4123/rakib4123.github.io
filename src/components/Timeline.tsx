@@ -81,7 +81,7 @@ export default function Timeline() {
       <div className="max-w-4xl mx-auto px-6">
         <SectionHeading
           title="Awards & Education"
-          tag="04 — Timeline"
+          tag="05 — Timeline"
           subtitle="Podium finishes across national and inter-university robotics competitions, including one of Asia's largest science & technology festivals."
         />
 
