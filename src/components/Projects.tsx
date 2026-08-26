@@ -2,43 +2,29 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
 import { SectionHeading } from "./SectionHeading";
+import { ExternalLink, Maximize2 } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
+import { useState } from "react";
+import TiltCard from "./TiltCard";
+import SpotlightCard from "./SpotlightCard";
 import DemoModal from "./DemoModal";
-import Plate from "./Plate";
 
-type Project = {
-  number: string;
-  title: string;
-  type: string;
-  tags: string[];
-  desc: string;
-  images?: string[];
-  imageWidth?: number;
-  imageHeight?: number;
-  plate?: "a" | "b";
-  demo?: string;
-  embeddable?: boolean;
-  github?: string;
-  research?: string;
-  flip?: boolean;
+const tagContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06 } },
 };
 
-const projects: Project[] = [
+const tagItem = {
+  hidden: { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const projects = [
   {
     number: "01",
-    title: "Drikon",
-    type: "Full-stack · E-commerce platform with recommendation engine",
-    plate: "a",
-    tags: ["Next.js 15", "React 19", "NestJS 11", "PostgreSQL", "Prisma"],
-    desc: "I implemented the Apriori association-rule algorithm from scratch — level-wise itemset mining with candidate pruning, scored by support, confidence and lift — to power “frequently bought together” and personalised recommendations from real order history. Around it I built 17 backend modules: products, orders, reviews, coupons, flash sales, wishlists, banners, settings, with voice search, filtering, comparison and secure accounts on the storefront. Localised in Bengali and English, with branding, theme and homepage content editable from the admin panel without a redeploy.",
-    demo: "https://drikon-web-vert1v.vercel.app/",
-    github: "https://github.com/rakib4123/drikon",
-  },
-  {
-    number: "02",
     title: "RideGuard",
-    type: "Calibrated and auditable ML risk framework",
+    type: "Calibrated & auditable ML risk framework",
     images: [
       "/images/rideguard-map.jpg",
       "/images/rideguard-now.jpg",
@@ -47,125 +33,237 @@ const projects: Project[] = [
     ],
     imageWidth: 460,
     imageHeight: 1022,
-    tags: ["Python", "CatBoost", "scikit-learn", "SHAP"],
-    desc: "A live web app scoring motorcycle route risk in Dhaka, with a colour-coded risk map and real-time warnings for phone handling, speeding and accident hotspots. It predicts crash risk at 0.973 macro-F1, reporting calibrated confidence and explaining each prediction with SHAP attributions rather than acting as a black box. A self-audit layer traced the headline score to target leakage — a label the data gave away — which I published as the central finding rather than the accuracy number.",
+    tags: ["Python", "SQL", "CatBoost", "XGBoost", "TensorFlow", "SHAP"],
+    desc: "I cleaned and geocoded two raw datasets into an analysis-ready pipeline, then trained and calibrated gradient-boosting models against deep-learning baselines — reaching 0.973 macro-F1 while reporting calibrated confidence and explaining every prediction with SHAP. A self-audit layer caught the headline score coming from a label the data gave away, which I published as the central finding rather than the win. I built and deployed the full app — live risk map, route-level scoring, and voice & vibration alerts.",
     demo: "https://ride-guard-web-app-web.vercel.app/",
     embeddable: true,
     github: "https://github.com/rakib4123/Ride_Guard_WebApp",
-    flip: true,
+    featured: true,
   },
   {
-    number: "03",
-    title: "DhakaNight",
-    type: "Night-time object detection dataset and benchmark",
-    plate: "b",
-    tags: ["Python", "PyTorch", "YOLO", "OpenCV", "Roboflow"],
-    desc: "Detects vehicles and pedestrians on Dhaka streets after dark, where standard detectors fail. I curated and labelled a 2,300-image night dataset, then benchmarked CLAHE, Gamma, Zero-DCE and RetinexFormer against a YOLOv8 baseline under a controlled protocol — none improved detection, and scaling the detector beat every pipeline.",
-    github: "https://github.com/rakib4123/Dhaka_Night",
-  },
-  {
-    number: "04",
+    number: "02",
     title: "PulseStone",
-    type: "Handheld anxiety-relief device",
+    type: "Embedded · Statistical user study",
     images: ["/images/project-pulsestone.jpg"],
     imageWidth: 1200,
     imageHeight: 1593,
-    tags: ["ESP32-C3", "Arduino C++", "Python"],
-    desc: "A pocket device that starts a calming breathing exercise with one squeeze, guiding the user with light, vibration and screen cues. I designed and analysed a controlled 15-participant, 150-trial study: users started in 0.52 s versus 7.49 s on a phone app — 14.5× faster — and all 15 preferred it.",
+    tags: ["ESP32-C3", "Arduino C++", "Sensors", "Statistics"],
+    desc: "A palm-sized, squeeze-activated device that guides a 4-7-8 breathing exercise the instant it's squeezed — no phone, no app. I wrote the firmware in Arduino C++, driving synchronized LED, haptic, and on-screen feedback. In a 15-participant, 150-trial study, users started in 0.52s versus 7.49s on a phone app — 14.5× faster — and all 15 preferred it.",
     github: "https://github.com/rakib4123/PulseStone",
+    featured: true,
     flip: true,
   },
 ];
 
+const smallProjects = [
+  {
+    title: "Drikon",
+    type: "Full-stack · E-commerce",
+    tags: ["Next.js", "NestJS", "PostgreSQL", "Prisma"],
+    desc: "Implemented the Apriori association-rule algorithm from scratch to power \"frequently bought together\" and personalised recommendations from real order history. 17 backend modules — products, orders, reviews, coupons, flash sales, wishlists — with voice search and secure accounts, fully localised in Bengali and English with an admin-editable storefront.",
+    demo: "https://drikon-web-vert1v.vercel.app/",
+    github: "https://github.com/rakib4123/drikon",
+    highlight: true,
+  },
+  {
+    title: "DhakaNight",
+    type: "Vision · Data",
+    tags: ["PyTorch", "YOLO", "OpenCV"],
+    desc: "Labelled a 2,300-image low-light street dataset in Roboflow, then benchmarked four enhancement methods — CLAHE, Gamma, Zero-DCE, RetinexFormer — against a YOLOv8 baseline. None improved detection; scaling the detector beat every pipeline.",
+    github: "https://github.com/rakib4123/Dhaka_Night",
+  },
+  {
+    title: "AIUB STEAM",
+    type: "Desktop",
+    tags: ["C#", ".NET", "WinForms", "SQL Server"],
+    desc: "A Windows desktop university portal with role-based dashboards, course pre-registration, assignment uploads, grade viewing.",
+    github: "https://github.com/rakib4123/AiubSteam",
+  },
+];
+
 export default function Projects() {
-  const [activeDemo, setActiveDemo] = useState<{ url: string; title: string } | null>(null);
+  const [activeDemo, setActiveDemo] = useState<{ url: string; title: string } | null>(
+    null
+  );
 
   return (
-    <section id="projects" className="rule-b px-[var(--pad)] py-[var(--gap)]">
-      <SectionHeading
-        title="Full-stack products and machine-learning systems, shipped end to end."
-        tag="02 — Projects"
-        subtitle="Live web apps and deployed ML services, plus computer vision, data science and embedded hardware along the way."
-      />
+    <section id="projects" className="py-24 bg-white relative">
+      <div className="max-w-5xl mx-auto px-6">
+        <SectionHeading
+          title="Full-stack products and machine-learning systems, shipped end to end."
+          tag="02 — Projects"
+          subtitle="Live web apps and deployed ML services, plus computer vision, data science, and embedded hardware along the way."
+        />
 
-      <div className="flex flex-col gap-[clamp(3rem,7vw,5.5rem)]">
-        {projects.map((p) => (
-          <motion.article
-            key={p.title}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.45 }}
-            className="grid gap-[clamp(1.5rem,4vw,3rem)] items-start md:grid-cols-2"
-          >
-            <div className={p.flip ? "md:order-2" : ""}>
-              {p.images ? (
+        <div className="space-y-28 mb-20">
+          {projects.map((p) => (
+            <motion.div
+              key={p.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+              className="grid md:grid-cols-2 gap-10 items-center"
+            >
+              <div className={p.flip ? "md:order-2" : ""}>
                 <ProjectGallery
                   images={p.images}
                   alt={p.title}
-                  imageWidth={p.imageWidth ?? 800}
-                  imageHeight={p.imageHeight ?? 600}
+                  imageWidth={p.imageWidth}
+                  imageHeight={p.imageHeight}
+                  number={p.number}
                 />
-              ) : (
-                <div className="shadow-hard-hover">
-                  <Plate variant={p.plate ?? "a"} label={p.title} />
+              </div>
+
+              <div className={p.flip ? "md:order-1" : ""}>
+                <div className="text-xs font-semibold tracking-[0.15em] text-brand-cyan uppercase mb-3">
+                  {p.type}
                 </div>
-              )}
-            </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+                  {p.title}
+                </h3>
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-50px" }}
+                  variants={tagContainer}
+                  className="flex flex-wrap gap-2 mb-5"
+                >
+                  {p.tags.map((tag) => (
+                    <motion.span
+                      key={tag}
+                      variants={tagItem}
+                      className="text-xs font-medium text-slate-600 bg-slate-100 px-2.5 py-1 rounded"
+                    >
+                      {tag}
+                    </motion.span>
+                  ))}
+                </motion.div>
+                <p className="text-slate-500 text-[15px] leading-relaxed mb-8">
+                  {p.desc}
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {p.demo && p.embeddable && (
+                    <button
+                      onClick={() => setActiveDemo({ url: p.demo, title: p.title })}
+                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-slate-900 hover:bg-slate-800 px-5 py-2.5 rounded transition-colors cursor-pointer"
+                    >
+                      <Maximize2 size={14} /> Live Demo
+                    </button>
+                  )}
+                  {p.demo && !p.embeddable && (
+                    <a
+                      href={p.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-slate-900 hover:bg-slate-800 px-5 py-2.5 rounded transition-colors"
+                    >
+                      <ExternalLink size={14} /> Live Demo
+                    </a>
+                  )}
+                  {p.github && (
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 bg-white border border-gray-200 hover:border-slate-300 hover:text-slate-900 px-5 py-2.5 rounded transition-colors"
+                    >
+                      <FaGithub size={14} /> Source
+                    </a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
-            <div className={p.flip ? "md:order-1" : ""}>
-              <p className="font-mono text-[.74rem] tracking-[0.12em] uppercase text-petrol m-0 mb-2">
-                {p.number} — {p.type}
-              </p>
-              <h3 className="font-display uppercase text-petrol text-[clamp(1.5rem,1.2rem+1vw,2.25rem)] leading-none m-0 mb-4">
-                {p.title}
-              </h3>
-
-              <ul className="flex flex-wrap gap-2 m-0 mb-5 p-0 list-none">
-                {p.tags.map((tag) => (
-                  <li
-                    key={tag}
-                    className="rule-a bg-paper-lift px-2 py-[.15rem] font-mono text-[.72rem] tracking-[0.04em]"
+        <div className="grid md:grid-cols-3 gap-6">
+          {smallProjects.map((p, i) => (
+            <motion.div
+              key={p.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className={p.highlight ? "md:col-span-2" : ""}
+            >
+              <TiltCard className="h-full">
+                <SpotlightCard
+                  className={`relative h-full rounded-xl p-7 flex flex-col group transition-shadow duration-300 overflow-hidden ${
+                    p.highlight
+                      ? "bg-gradient-to-br from-cyan-50/60 to-white border-2 border-brand-cyan/40 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]"
+                      : "bg-white border border-slate-200 hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+                  }`}
+                >
+                  <div
+                    className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-cyan to-brand-emerald origin-left transition-transform duration-500 ${
+                      p.highlight ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  ></div>
+                  {p.highlight && (
+                    <span className="absolute top-5 right-5 inline-flex items-center gap-1 text-[11px] font-bold tracking-wide text-brand-cyan bg-white border border-brand-cyan/30 px-2.5 py-1 rounded-full uppercase">
+                      ★ Flagship
+                    </span>
+                  )}
+                  <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                    {p.type}
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900 mb-2">
+                    {p.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-5 flex-grow">
+                    {p.desc}
+                  </p>
+                  <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-50px" }}
+                    variants={tagContainer}
+                    className="flex flex-wrap gap-2 mb-5"
                   >
-                    {tag}
-                  </li>
-                ))}
-              </ul>
-
-              <p className="text-[.95rem] m-0 mb-6 max-w-[62ch]">{p.desc}</p>
-
-              <p className="flex flex-wrap gap-x-6 gap-y-2 m-0 font-mono text-[.8rem] uppercase tracking-[0.06em]">
-                {p.demo && p.embeddable && (
-                  <button
-                    onClick={() => setActiveDemo({ url: p.demo!, title: p.title })}
-                    className="nav-underline text-petrol cursor-pointer bg-transparent border-0 p-0 font-mono text-[.8rem] uppercase tracking-[0.06em]"
-                  >
-                    Live demo ⤢
-                  </button>
-                )}
-                {p.demo && !p.embeddable && (
-                  <a href={p.demo} target="_blank" rel="noopener noreferrer" className="nav-underline text-petrol">
-                    Live ↗
-                  </a>
-                )}
-                {p.research && (
-                  <a href={p.research} target="_blank" rel="noopener noreferrer" className="nav-underline text-petrol">
-                    Research ↗
-                  </a>
-                )}
-                {p.github && (
-                  <a href={p.github} target="_blank" rel="noopener noreferrer" className="nav-underline text-petrol">
-                    Code ↗
-                  </a>
-                )}
-              </p>
-            </div>
-          </motion.article>
-        ))}
+                    {p.tags.map((tag) => (
+                      <motion.span
+                        key={tag}
+                        variants={tagItem}
+                        className="text-xs text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200"
+                      >
+                        {tag}
+                      </motion.span>
+                    ))}
+                  </motion.div>
+                  <div className="flex flex-wrap gap-4 mt-auto">
+                    {p.demo && (
+                      <a
+                        href={p.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-brand-cyan hover:text-cyan-600 transition-colors"
+                      >
+                        <ExternalLink size={14} /> Live Demo
+                      </a>
+                    )}
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
+                    >
+                      <FaGithub size={14} /> Source
+                    </a>
+                  </div>
+                </SpotlightCard>
+              </TiltCard>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       {activeDemo && (
-        <DemoModal url={activeDemo.url} title={activeDemo.title} onClose={() => setActiveDemo(null)} />
+        <DemoModal
+          url={activeDemo.url}
+          title={activeDemo.title}
+          onClose={() => setActiveDemo(null)}
+        />
       )}
     </section>
   );
@@ -176,23 +274,28 @@ function ProjectGallery({
   alt,
   imageWidth,
   imageHeight,
+  number,
 }: {
   images: string[];
   alt: string;
   imageWidth: number;
   imageHeight: number;
+  number: string;
 }) {
   const [active, setActive] = useState(0);
 
   return (
     <div>
-      <div className="rule-a shadow-hard-hover bg-paper-lift">
+      <div className="rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] group relative">
+        <span className="absolute top-4 left-4 z-10 bg-slate-950 text-white text-xs font-extrabold tracking-widest px-2.5 py-1 rounded">
+          {number}
+        </span>
         <Image
           src={images[active]}
           alt={alt}
           width={imageWidth}
           height={imageHeight}
-          className="print-img w-full h-auto object-cover block"
+          className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700"
         />
       </div>
 
@@ -202,12 +305,11 @@ function ProjectGallery({
             <button
               key={img}
               onClick={() => setActive(i)}
-              aria-label={`Show ${alt} image ${i + 1}`}
-              className={`relative w-14 h-14 overflow-hidden border-[1.5px] cursor-pointer ${
-                i === active ? "border-fluoro" : "border-ink"
+              className={`relative w-14 h-14 rounded-lg overflow-hidden border-2 transition-colors cursor-pointer ${
+                i === active ? "border-brand-cyan" : "border-transparent"
               }`}
             >
-              <Image src={img} alt="" fill className="print-img object-cover" />
+              <Image src={img} alt={`${alt} thumbnail ${i + 1}`} fill className="object-cover" />
             </button>
           ))}
         </div>
