@@ -1,60 +1,27 @@
-"use client";
-
-import { animate, motion, useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-
-const stats = [
-  { value: 14, suffix: "+", l: "National & international\nrobotics podiums" },
-  { value: 6, suffix: "+", l: "Robot classes\ndesigned & built" },
-  { value: 2300, suffix: "+", l: "Images labelled\nfor DhakaNight" },
-  { value: 1, suffix: "", l: "Deployed\nML web app" },
+const stats: [string, string][] = [
+  ["2", "Papers accepted\nICCA 2026"],
+  ["4", "Classes of robot\ndesigned & built"],
+  ["2,300+", "Images labelled\nfor DhakaNight"],
+  ["14.5×", "Faster to first breath\nPulseStone vs. phone app"],
 ];
-
-function Counter({ value, suffix }: { value: number; suffix: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
-  const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(0, value, {
-      duration: 1.5,
-      ease: [0.22, 1, 0.36, 1],
-      onUpdate: (v) => setDisplay(Math.round(v)),
-    });
-    return () => controls.stop();
-  }, [inView, value]);
-
-  return (
-    <span ref={ref}>
-      {display.toLocaleString()}
-      {suffix}
-    </span>
-  );
-}
 
 export default function Stats() {
   return (
-    <section className="py-16 bg-bg-main relative border-y border-gray-100">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            >
-              <div className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 bg-gradient-to-r from-brand-cyan via-emerald-400 to-brand-cyan bg-clip-text text-transparent animate-gradient">
-                <Counter value={stat.value} suffix={stat.suffix} />
-              </div>
-              <div className="text-slate-500 text-sm whitespace-pre-line leading-relaxed">
-                {stat.l}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+    <section className="rule-b px-[var(--pad)] py-[clamp(2rem,5vw,3.5rem)]">
+      <div className="grid grid-cols-2 md:grid-cols-4">
+        {stats.map(([value, label], i) => (
+          <div
+            key={label}
+            className={`px-4 py-3 ${i > 0 ? "md:border-l md:border-ink" : ""}`}
+          >
+            <div className="font-display text-petrol text-[clamp(1.75rem,1.2rem+2vw,3rem)] leading-none">
+              {value}
+            </div>
+            <div className="font-mono text-[.72rem] uppercase tracking-[0.1em] whitespace-pre-line mt-2 leading-[1.5]">
+              {label}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
