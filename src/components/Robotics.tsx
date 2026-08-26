@@ -127,7 +127,7 @@ export default function Robotics() {
               src={lightbox.items[lightbox.index].img}
               alt={lightbox.items[lightbox.index].cap}
               fill
-              className="object-contain"
+              className="print-img object-contain"
             />
             <div className="absolute bottom-[-40px] inset-x-0 text-center font-mono text-[.78rem] uppercase tracking-[0.08em]">
               {lightbox.items[lightbox.index].cap}
