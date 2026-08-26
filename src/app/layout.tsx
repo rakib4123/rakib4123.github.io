@@ -31,10 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body
-        className={`${archivo.variable} ${grotesk.variable} ${spaceMono.variable} font-sans antialiased bg-paper text-ink`}
-      >
+    <html
+      lang="en"
+      className={`scroll-smooth ${archivo.variable} ${grotesk.variable} ${spaceMono.variable}`}
+    >
+      <body className="font-sans antialiased bg-paper text-ink">
         <ScrollProgress />
         {children}
       </body>
