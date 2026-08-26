@@ -1181,8 +1181,8 @@ Expected: both clean.
 Run: `grep -rn "TiltCard\|SpotlightCard\|AIUB STEAM\|XGBoost\|TensorFlow" src/components/Projects.tsx`
 Expected: no output.
 
-Run: `grep -c "number:" src/components/Projects.tsx`
-Expected: `4`.
+Run: `grep -c 'number: "' src/components/Projects.tsx`
+Expected: `4` — one per project entry. Note the quote in the pattern is load-bearing: a bare `number:` also matches the `Project` type's own `number: string;` field and returns 5.
 
 - [ ] **Step 6: Visual check**
 
