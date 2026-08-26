@@ -42,3 +42,6 @@ next-env.d.ts
 
 # superpowers scratch (SDD workspaces, brainstorming mockups)
 /.superpowers/
+
+# claude code worktrees
+/.claude/worktrees/
