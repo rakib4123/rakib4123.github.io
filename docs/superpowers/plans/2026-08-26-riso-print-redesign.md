@@ -1980,7 +1980,7 @@ Expected: no output.
 ```bash
 grep -rn "rounded-" src/
 ```
-Expected: **exactly four hits, all `rounded-full`** — the navbar mark dot (`Navbar.tsx`), the DemoModal close button (`DemoModal.tsx`), and the lightbox close/prev/next buttons (`Robotics.tsx`, three on one construct — count the actual lines and confirm each is a circular control). Any `rounded-md`, `rounded-lg` or `rounded-xl` is a miss; fix it.
+Expected: **exactly five hits, all `rounded-full`**, one per circular control — `Navbar.tsx` (the mark dot), `DemoModal.tsx` (close), and `Robotics.tsx` (lightbox close, prev, next). Any sixth hit, and any `rounded-md`, `rounded-lg` or `rounded-xl`, is a miss; fix it.
 
 ```bash
 grep -rn "shadow-\[0_\|shadow-md\|shadow-lg\|shadow-sm\|shadow-2xl\|backdrop-blur" src/
