@@ -1,14 +1,10 @@
 export default function Footer() {
   return (
-    <footer className="bg-bg-main text-slate-400 py-8 border-t border-gray-100 text-sm">
-      <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div className="text-slate-500">
-          © {new Date().getFullYear()} Md. Rakib Hossain
-        </div>
-        <div className="text-slate-400 text-xs">
-          Built with Next.js, Tailwind CSS & Framer Motion
-        </div>
-      </div>
+    <footer className="flex flex-wrap justify-between gap-x-8 gap-y-3 px-[var(--pad)] pt-6 pb-9 font-mono text-[.78rem]">
+      <p className="m-0">© {new Date().getFullYear()} Md. Rakib Hossain · Dhaka, Bangladesh</p>
+      <p className="m-0">
+        <a href="#top" className="text-petrol nav-underline">Back to top ↑</a>
+      </p>
     </footer>
   );
 }

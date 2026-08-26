@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import Magnetic from "./Magnetic";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -39,88 +38,63 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-lg border-b border-white/10">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a
-          href="#top"
-          className="font-extrabold tracking-tight text-base text-white"
-        >
-          Md. Rakib Hossain
+    <header className="sticky top-0 z-50 bg-paper rule-b">
+      <div className="flex items-center justify-between gap-4 px-[var(--pad)] py-3">
+        <a href="#top" className="group inline-flex items-center gap-2 font-mono font-bold tracking-[0.08em] no-underline">
+          <span className="w-[.7rem] h-[.7rem] rounded-full bg-fluoro transition-all duration-[250ms] group-hover:bg-petrol group-hover:scale-[1.4]" />
+          <span>M.R.H.</span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.href.slice(1);
-            return (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`relative text-[13px] font-medium px-3.5 py-2 rounded-md transition-colors ${
-                  isActive ? "text-brand-cyan" : "text-slate-300 hover:text-brand-cyan"
-                }`}
-              >
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-active-pill"
-                    className="absolute inset-0 bg-white/10 rounded-md -z-10"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                {link.name}
-              </a>
-            );
-          })}
-          <Magnetic>
-            <Link
-              href="/resume"
-              className="ml-2 text-[13px] font-semibold text-slate-950 bg-brand-cyan hover:bg-cyan-400 px-4 py-2 rounded-md transition-all"
+        <nav className="hidden md:flex flex-wrap items-center gap-[clamp(.75rem,2.5vw,1.75rem)] font-mono text-[.82rem] tracking-[0.06em] uppercase">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              data-active={activeSection === link.href.slice(1)}
+              className="nav-underline hover:text-petrol"
             >
-              Resume
-            </Link>
-          </Magnetic>
+              {link.name}
+            </a>
+          ))}
+          <Link href="/resume" className="rule-a px-3 py-1.5 text-petrol hover:bg-petrol hover:text-paper transition-colors">
+            Resume
+          </Link>
         </nav>
 
         <button
-          className="md:hidden text-slate-200 hover:text-white"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          onClick={() => setMobileMenuOpen((v) => !v)}
+          className="md:hidden p-1"
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileMenuOpen}
         >
-          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="md:hidden bg-slate-950 border-t border-white/10 overflow-hidden"
+          <motion.nav
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25 }}
+            className="md:hidden overflow-hidden bg-paper-lift rule-t"
           >
-            <nav className="flex flex-col p-3">
-              {navLinks.map((link) => {
-                const isActive = activeSection === link.href.slice(1);
-                return (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`text-sm font-medium hover:bg-white/5 px-4 py-3 rounded-md transition-all ${
-                      isActive ? "text-brand-cyan" : "text-slate-300 hover:text-brand-cyan"
-                    }`}
-                  >
+            <ul className="flex flex-col px-[var(--pad)] py-2 font-mono text-sm uppercase tracking-[0.06em]">
+              {navLinks.map((link) => (
+                <li key={link.name} className="py-2 border-b border-dotted border-ink/40">
+                  <a href={link.href} onClick={() => setMobileMenuOpen(false)}>
                     {link.name}
                   </a>
-                );
-              })}
-              <Link
-                href="/resume"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-semibold text-brand-cyan hover:bg-white/5 px-4 py-3 rounded-md transition-all"
-              >
-                Resume
-              </Link>
-            </nav>
-          </motion.div>
+                </li>
+              ))}
+              <li className="py-3">
+                <Link href="/resume" onClick={() => setMobileMenuOpen(false)} className="text-petrol">
+                  Resume →
+                </Link>
+              </li>
+            </ul>
+          </motion.nav>
         )}
       </AnimatePresence>
     </header>

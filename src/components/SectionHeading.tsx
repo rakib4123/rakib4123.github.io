@@ -2,16 +2,6 @@
 
 import { motion } from "framer-motion";
 
-const container = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.06 } },
-};
-
-const word = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0 },
-};
-
 export function SectionHeading({
   title,
   subtitle,
@@ -22,37 +12,28 @@ export function SectionHeading({
   tag?: string;
 }) {
   return (
-    <div className="mb-16">
+    <div className="mb-[clamp(1.5rem,4vw,2.5rem)]">
       {tag && (
-        <motion.div
-          initial={{ opacity: 0, x: -10 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-xs tracking-[0.25em] uppercase font-semibold text-slate-400 mb-4"
-        >
+        <p className="font-mono text-[.78rem] tracking-[0.18em] uppercase text-petrol mb-[clamp(1.5rem,4vw,2.5rem)]">
           {tag}
-        </motion.div>
+        </p>
       )}
       <motion.h2
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={container}
-        className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900"
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.45 }}
+        className="font-display uppercase text-ink text-[clamp(1.35rem,1.1rem+1.4vw,2.15rem)] leading-[1.15] max-w-[24ch] m-0"
       >
-        {title.split(" ").map((w, i) => (
-          <motion.span key={i} variants={word} className="inline-block mr-[0.25em]">
-            {w}
-          </motion.span>
-        ))}
+        {title}
       </motion.h2>
       {subtitle && (
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ delay: 0.2 }}
-          className="text-slate-500 max-w-2xl text-lg mt-4"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.45, delay: 0.1 }}
+          className="max-w-[62ch] mt-4"
         >
           {subtitle}
         </motion.p>
