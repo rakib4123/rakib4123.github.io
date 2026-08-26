@@ -7,15 +7,6 @@
   --color-petrol: #0c5661;
   --color-fluoro: #ff5c1a;
 
-  /* Legacy tokens — still referenced by not-yet-rewritten components.
-     Task 11 deletes these once the grep sweep comes back clean. */
-  --color-brand-cyan: #06b6d4;
-  --color-brand-teal: #14b8a6;
-  --color-brand-emerald: #10b981;
-  --color-brand-dark: #0f172a;
-  --color-bg-main: #e3e7e4;
-  --color-bg-card: #edf0ee;
-
   --font-display: var(--font-archivo), Impact, sans-serif;
   --font-sans: var(--font-grotesk), system-ui, sans-serif;
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
