@@ -2,80 +2,98 @@
 
 import { motion } from "framer-motion";
 import { SectionHeading } from "./SectionHeading";
+import { useState } from "react";
+import SpotlightCard from "./SpotlightCard";
 
-const skillGroups: { title: string; skills: string[] }[] = [
+const skillCategories = [
   {
-    title: "Languages",
-    skills: ["Python", "SQL", "C++", "TypeScript / JavaScript"],
+    title: "Full-Stack Development",
+    skills: ["TypeScript", "JavaScript", "React", "Next.js", "Tailwind CSS", "NestJS", "Node.js", "REST APIs", "Prisma", "PostgreSQL", "C++", ".NET", "SQL Server"],
   },
   {
-    title: "Data Science & ML",
-    skills: ["pandas", "NumPy", "scikit-learn", "CatBoost", "PyTorch", "YOLO", "OpenCV", "SHAP"],
+    title: "AI, ML & Computer Vision",
+    skills: ["scikit-learn", "PyTorch", "TensorFlow", "CatBoost", "XGBoost", "YOLO", "OpenCV", "SHAP"],
   },
   {
-    title: "Methods",
-    skills: [
-      "Exploratory data analysis",
-      "Feature engineering",
-      "Association-rule mining",
-      "Model calibration",
-      "Leakage auditing",
-      "Benchmarking",
-      "Experiment design",
-    ],
+    title: "Data Science & Analytics",
+    skills: ["Python", "SQL", "pandas", "NumPy", "Excel", "Power BI"],
   },
   {
-    title: "Backend",
-    skills: ["NestJS", "Node.js", "REST APIs", "Prisma", "PostgreSQL"],
-  },
-  {
-    title: "Frontend",
-    skills: ["React", "Next.js", "Tailwind CSS", "HTML / CSS"],
+    title: "Embedded",
+    skills: ["Arduino C++", "ESP32", "Sensor interfacing"],
   },
   {
     title: "Tools",
-    skills: [
-      "Git / GitHub",
-      "VS Code",
-      "Jupyter",
-      "Roboflow",
-      "Claude Code",
-      "Antigravity",
-      "Canva",
-      "Microsoft 365",
-      "Vercel",
-      "Render",
-    ],
+    skills: ["Git", "GitHub", "VS Code", "Jupyter", "Roboflow", "Claude Code", "Antigravity", "Vercel", "Render"],
+  },
+  {
+    title: "Ways of working",
+    skills: ["Data cleaning", "EDA", "Feature engineering", "Model explainability", "User studies"],
   },
 ];
 
-export default function Skills() {
-  return (
-    <section id="skills" className="rule-b px-[var(--pad)] py-[var(--gap)]">
-      <SectionHeading title="Technologies I've built with." tag="06 — Skills" />
+const tagContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.04 } },
+};
 
-      <div className="grid gap-x-[clamp(2rem,5vw,4.5rem)] gap-y-[clamp(1.5rem,4vw,2.75rem)] md:grid-cols-2 lg:grid-cols-3">
-        {skillGroups.map((group, i) => (
-          <motion.div
-            key={group.title}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.4, delay: i * 0.05 }}
-          >
-            <h3 className="font-display uppercase text-petrol text-[clamp(1.05rem,1rem+.5vw,1.3rem)] m-0 mb-3 pb-2 rule-b">
-              {group.title}
-            </h3>
-            <ul className="leaders">
-              {group.skills.map((skill) => (
-                <li key={skill}>
-                  <span className="font-medium">{skill}</span>
-                  <span className="leaders__fill" />
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        ))}
+const tagItem = {
+  hidden: { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0 },
+};
+
+export default function Skills() {
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+
+  return (
+    <section id="skills" className="py-24 bg-bg-main relative border-t border-gray-100">
+      <div className="max-w-5xl mx-auto px-6">
+        <SectionHeading
+          title="Technologies I've built with."
+          tag="06 — Skills"
+          subtitle="Select any technology to highlight it."
+        />
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skillCategories.map((category, i) => (
+            <motion.div
+              key={category.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+            >
+              <SpotlightCard className="relative bg-white border border-slate-200 rounded-xl p-6 overflow-hidden">
+                <h4 className="text-sm font-extrabold text-slate-900 mb-4 pb-2 border-b-2 border-brand-cyan/30 inline-block uppercase tracking-wider">
+                  {category.title}
+                </h4>
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-50px" }}
+                  variants={tagContainer}
+                  className="flex flex-wrap gap-2"
+                >
+                  {category.skills.map((skill) => (
+                    <motion.span
+                      key={skill}
+                      variants={tagItem}
+                      onMouseEnter={() => setHoveredSkill(skill)}
+                      onMouseLeave={() => setHoveredSkill(null)}
+                      className={`text-sm px-3 py-1.5 rounded-md border transition-all duration-300 cursor-default ${
+                        hoveredSkill === skill
+                          ? "bg-brand-cyan text-white border-brand-cyan shadow-[0_4px_12px_rgba(6,182,212,0.25)] -translate-y-0.5"
+                          : "bg-white text-slate-600 border-gray-200 hover:border-gray-300"
+                      }`}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </motion.div>
+              </SpotlightCard>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

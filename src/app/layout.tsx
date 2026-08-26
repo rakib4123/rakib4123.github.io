@@ -1,28 +1,15 @@
 import type { Metadata } from "next";
-import { Archivo_Black, Space_Grotesk, Space_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
 
-const archivo = Archivo_Black({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-archivo",
-});
-const grotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-grotesk",
-});
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-space-mono",
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Md. Rakib Hossain | Data Science and Machine Learning · Full-Stack Developer",
+  title: "Md. Rakib Hossain | Full-Stack Developer & AI/ML Engineer",
   description:
-    "Md. Rakib Hossain — CSE student in Dhaka who takes machine-learning systems end to end and ships the applications around them. Two papers accepted at ICCA 2026.",
+    "Md. Rakib Hossain — CSE student at AIUB who ships full-stack applications and machine-learning systems, with two papers accepted at ICCA 2026.",
 };
 
 export default function RootLayout({
@@ -31,12 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`scroll-smooth ${archivo.variable} ${grotesk.variable} ${spaceMono.variable}`}
-    >
-      <body className="font-sans antialiased bg-paper text-ink">
+    <html lang="en" className="scroll-smooth">
+      <body
+        className={`${inter.variable} font-sans antialiased bg-bg-main text-slate-800`}
+      >
         <ScrollProgress />
+        <CustomCursor />
         {children}
       </body>
     </html>
