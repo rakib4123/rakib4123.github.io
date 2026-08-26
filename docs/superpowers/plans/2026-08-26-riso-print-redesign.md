@@ -1646,8 +1646,8 @@ Expected: both clean.
 Run: `grep -rn "SpotlightCard\|Trophy\|GraduationCap\|rankColor\|CGPA\|3.28" src/components/Timeline.tsx`
 Expected: no output.
 
-Run: `grep -c "year:" src/components/Timeline.tsx`
-Expected: `10` — seven awards and three education rows, all preserved.
+Run: `grep -c 'year: "' src/components/Timeline.tsx`
+Expected: `10` — seven awards and three education rows, all preserved. As in Task 5, the quote in the pattern is load-bearing: a bare `year:` also matches the two inline type annotations and returns 12.
 
 - [ ] **Step 4: Visual check**
 
