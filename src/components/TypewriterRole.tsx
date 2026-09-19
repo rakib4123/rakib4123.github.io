@@ -44,9 +44,9 @@ export default function TypewriterRole() {
 
   return (
     <span className="inline-flex items-center">
-      <span className="text-brand-cyan font-semibold">{text}</span>
+      <span className="text-brand-red font-semibold">{text}</span>
       <span
-        className="w-[2px] h-[1em] bg-brand-cyan ml-1 animate-pulse"
+        className="w-[2px] h-[1em] bg-brand-red ml-1 animate-pulse"
         aria-hidden="true"
       />
     </span>

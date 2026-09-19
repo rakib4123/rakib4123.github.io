@@ -101,9 +101,9 @@ export default function AntigravityBackground() {
         ctx.rotate(p.rotation);
         ctx.globalAlpha = p.opacity;
 
-        // Teal/cyan color family
-        ctx.strokeStyle = "#06b6d4";
-        ctx.fillStyle = "#06b6d4";
+        // Red / orange ember palette
+        ctx.strokeStyle = p.size > 6 ? "#d7263d" : "#f47c20";
+        ctx.fillStyle = p.size > 6 ? "#d7263d" : "#f47c20";
         ctx.lineWidth = 1.5;
 
         if (p.type === "circle") {

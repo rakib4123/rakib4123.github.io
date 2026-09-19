@@ -35,7 +35,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 
 export default function Stats() {
   return (
-    <section className="py-16 bg-bg-main relative border-y border-gray-100">
+    <section className="py-16 bg-bg-main relative border-y border-line">
       <div className="max-w-5xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
           {stats.map((stat, i) => (
@@ -46,10 +46,10 @@ export default function Stats() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <div className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 bg-gradient-to-r from-brand-cyan via-emerald-400 to-brand-cyan bg-clip-text text-transparent animate-gradient">
+              <div className="font-serif text-4xl md:text-5xl font-semibold tracking-tight mb-2 bg-gradient-to-r from-brand-red via-brand-orange to-brand-red bg-clip-text text-transparent animate-gradient">
                 <Counter value={stat.value} suffix={stat.suffix} />
               </div>
-              <div className="text-slate-500 text-sm whitespace-pre-line leading-relaxed">
+              <div className="text-muted text-sm whitespace-pre-line leading-relaxed">
                 {stat.l}
               </div>
             </motion.div>

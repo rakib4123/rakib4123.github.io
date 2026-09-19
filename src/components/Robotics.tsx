@@ -60,14 +60,14 @@ export default function Robotics() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-slate-200 aspect-video mb-16 relative group"
+          className="rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] border border-line aspect-video mb-16 relative group"
         >
           <video
             controls
             preload="metadata"
             playsInline
             poster="/images/build-battlebot.jpg"
-            className="w-full h-full object-cover bg-slate-100"
+            className="w-full h-full object-cover bg-surface-2"
           >
             <source src="/v1 robo.mp4" type="video/mp4" />
           </video>
@@ -93,12 +93,12 @@ export default function Robotics() {
           />
         ) : (
           <div className="mb-16">
-            <h3 className="text-xl font-extrabold tracking-tight text-slate-900 mb-6">
+            <h3 className="font-serif text-2xl font-semibold tracking-tight text-ink mb-6">
               Certificates
             </h3>
             <button
               onClick={() => setShowCerts(true)}
-              className="inline-flex items-center gap-2 text-sm font-medium text-slate-700 bg-white border border-gray-200 hover:border-brand-cyan hover:text-brand-cyan px-5 py-2.5 rounded-md transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-ink-soft bg-surface border border-line hover:border-brand-red hover:text-brand-red px-5 py-2.5 rounded-md transition-all cursor-pointer"
             >
               View certificates ({certs.length})
             </button>
@@ -108,11 +108,11 @@ export default function Robotics() {
 
       {lightbox && (
         <div
-          className="fixed inset-0 z-[100] bg-white/95 backdrop-blur-sm flex items-center justify-center p-6 cursor-zoom-out"
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-6 cursor-zoom-out"
           onClick={() => setLightbox(null)}
         >
           <button
-            className="absolute top-6 right-6 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-colors"
+            className="absolute top-6 right-6 w-10 h-10 bg-surface-2 hover:bg-line-strong rounded-full flex items-center justify-center text-ink-soft transition-colors"
             onClick={() => setLightbox(null)}
           >
             <X size={20} />
@@ -121,7 +121,7 @@ export default function Robotics() {
           {lightbox.items.length > 1 && (
             <>
               <button
-                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-colors cursor-pointer"
+                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 bg-surface-2 hover:bg-line-strong rounded-full flex items-center justify-center text-ink-soft transition-colors cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation();
                   showPrev();
@@ -130,7 +130,7 @@ export default function Robotics() {
                 <ChevronLeft size={20} />
               </button>
               <button
-                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-colors cursor-pointer"
+                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 bg-surface-2 hover:bg-line-strong rounded-full flex items-center justify-center text-ink-soft transition-colors cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation();
                   showNext();
@@ -148,7 +148,7 @@ export default function Robotics() {
               fill
               className="object-contain rounded-lg shadow-2xl"
             />
-            <div className="absolute bottom-[-40px] inset-x-0 text-center text-slate-600 font-medium text-sm">
+            <div className="absolute bottom-[-40px] inset-x-0 text-center text-ink-soft font-medium text-sm">
               {lightbox.items[lightbox.index].cap}
             </div>
           </div>
@@ -173,7 +173,7 @@ function ImageGrid({
 }) {
   return (
     <div className="mb-16">
-      <h3 className="text-xl font-extrabold tracking-tight text-slate-900 mb-6">
+      <h3 className="font-serif text-2xl font-semibold tracking-tight text-ink mb-6">
         {title}
       </h3>
       <div className={`grid gap-5 ${cols === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
@@ -184,7 +184,7 @@ function ImageGrid({
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="relative rounded-xl overflow-hidden cursor-zoom-in bg-white border border-slate-200 group shadow-sm hover:shadow-lg transition-shadow duration-300"
+            className="relative rounded-xl overflow-hidden cursor-zoom-in bg-surface border border-line group shadow-sm hover:shadow-lg transition-shadow duration-300"
             onClick={() => onClick(items, i)}
           >
             <div className="aspect-[4/3] w-full relative">
@@ -197,9 +197,9 @@ function ImageGrid({
                 } group-hover:scale-105 transition-transform duration-500`}
               />
             </div>
-            <figcaption className="absolute inset-x-0 bottom-0 p-4 pt-10 bg-gradient-to-t from-white/95 to-transparent text-slate-700 text-sm font-medium translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex justify-between items-end">
+            <figcaption className="absolute inset-x-0 bottom-0 p-4 pt-10 bg-gradient-to-t from-black/85 to-transparent text-ink-soft text-sm font-medium translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex justify-between items-end">
               <span>{item.cap}</span>
-              <ZoomIn size={14} className="text-brand-cyan" />
+              <ZoomIn size={14} className="text-brand-red" />
             </figcaption>
           </motion.figure>
         ))}

@@ -10,7 +10,7 @@ import TypewriterRole from "./TypewriterRole";
 
 export default function Hero() {
   return (
-    <section id="top" className="relative bg-slate-950">
+    <section id="top" className="relative bg-bg-main">
       <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-32 pb-16 text-center">
         {/* Antigravity Animation */}
         <div className="absolute inset-0 z-0">
@@ -31,7 +31,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="relative z-20 text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.25em] uppercase font-semibold text-slate-300 border border-slate-700 rounded-full px-4 sm:px-5 py-2 mb-32 sm:mb-24 text-center"
+          className="relative z-20 text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.25em] uppercase font-semibold text-ink-soft border border-line-strong rounded-full px-4 sm:px-5 py-2 mb-32 sm:mb-24 text-center"
         >
           Data Science &amp; Machine Learning · Full-Stack
         </motion.div>
@@ -41,7 +41,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="select-none font-extrabold tracking-tighter text-slate-800 leading-[0.85] text-[22vw] sm:text-[18vw] md:text-[10rem]"
+            className="select-none font-serif font-bold tracking-tight text-[#2a1d19] leading-[0.85] text-[22vw] sm:text-[18vw] md:text-[10rem]"
           >
             Hi, I&apos;m
             <br />
@@ -69,7 +69,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 text-base md:text-lg text-slate-400 font-mono"
+          className="relative z-20 text-base md:text-lg text-muted-2 font-mono"
         >
           I work as <TypewriterRole />
         </motion.div>
@@ -78,10 +78,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 mt-4 max-w-2xl text-lg md:text-xl text-slate-300 leading-relaxed"
+          className="relative z-20 mt-4 max-w-2xl text-lg md:text-xl text-ink-soft leading-relaxed"
         >
           I work on{" "}
-          <span className="font-semibold bg-gradient-to-r from-brand-cyan via-emerald-400 to-brand-cyan bg-clip-text text-transparent animate-gradient">
+          <span className="font-semibold bg-gradient-to-r from-brand-red via-brand-orange to-brand-gold bg-clip-text text-transparent animate-gradient">
             data science and machine-learning systems
           </span>{" "}
           and build the applications around them — from live products to published research.
@@ -96,7 +96,7 @@ export default function Hero() {
           <Magnetic>
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 bg-brand-cyan text-slate-950 font-semibold text-sm px-7 py-3 rounded-md transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(6,182,212,0.3)]"
+              className="inline-flex items-center gap-2 bg-brand-red text-white font-semibold text-sm px-7 py-3 rounded-md transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
             >
               See the work ↓
             </a>
@@ -104,7 +104,7 @@ export default function Hero() {
           <Magnetic>
             <Link
               href="/resume"
-              className="inline-flex items-center gap-2 border border-slate-600 text-slate-200 font-medium text-sm px-7 py-3 rounded-md transition-all hover:border-brand-cyan hover:text-brand-cyan hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 border border-line-strong text-ink font-medium text-sm px-7 py-3 rounded-md transition-all hover:border-brand-red hover:text-brand-red hover:-translate-y-0.5"
             >
               <FileText size={16} /> Resume
             </Link>
@@ -116,7 +116,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.8 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-500 hover:text-brand-cyan transition-colors z-20 flex flex-col items-center gap-2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted hover:text-brand-red transition-colors z-20 flex flex-col items-center gap-2"
         >
           <motion.div
             animate={{ y: [0, 6, 0] }}

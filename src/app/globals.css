@@ -1,20 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-cyan: #06b6d4;
-  --color-brand-teal: #14b8a6;
-  --color-brand-emerald: #10b981;
-  --color-brand-dark: #0f172a;
-  
-  --color-bg-main: #fafbfc;
-  --color-bg-card: #ffffff;
-  
+  --color-brand-red: #d7263d;
+  --color-brand-orange: #f47c20;
+  --color-brand-gold: #f5b547;
+
+  --color-bg-main: #0b0908;
+  --color-surface: #131110;
+  --color-surface-2: #1c1816;
+  --color-line: #ffffff14;
+  --color-line-strong: #ffffff2e;
+
+  --color-ink: #f4ede4;
+  --color-ink-soft: #d3cabf;
+  --color-muted: #a2978c;
+  --color-muted-2: #756b62;
+
   --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
 }
 
 :root {
-  --background: #fafbfc;
-  --foreground: #0f172a;
+  --background: #0b0908;
+  --foreground: #f4ede4;
 }
 
 body {
@@ -30,14 +38,14 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #fafbfc; 
+  background: #0b0908;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db; 
+  background: #2e2825;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af; 
+  background: #d7263d;
 }
 
 @keyframes gradientAnim {
@@ -53,8 +61,8 @@ body {
 
 /* Selection color */
 ::selection {
-  background: rgba(6, 182, 212, 0.15);
-  color: #0f172a;
+  background: rgba(215, 38, 61, 0.35);
+  color: #f4ede4;
 }
 
 /* Custom cursor */
@@ -76,7 +84,7 @@ body {
 
 .crosshair-line {
   position: absolute;
-  background: #06b6d4;
+  background: #f47c20;
   transition: background 0.15s ease;
 }
 
@@ -111,5 +119,5 @@ body {
 }
 
 .cursor-crosshair-active .crosshair-line {
-  background: #0e7490;
+  background: #d7263d;
 }
