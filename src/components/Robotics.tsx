@@ -24,6 +24,7 @@ const podiums = [
 const certs = [
   { img: "/images/cert-csfest.jpg", cap: "AIUB CS Fest 2024" },
   { img: "/images/cert-techfest.jpg", cap: "Techfest IIT Bombay 2024" },
+  { img: "/images/cert-technoxian.jpg", cap: "Technoxian Bangladesh 2024 (Robo Race Runner-up)" },
   { img: "/images/cert-autofest-soccer.jpg", cap: "BUET Autofest 2024 (Soccer)" },
   { img: "/images/cert-autofest-race.jpg", cap: "BUET Autofest 2024 (Race)" },
 ];

@@ -4,10 +4,10 @@ import { animate, motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { value: 14, suffix: "+", l: "National & international\nrobotics podiums" },
-  { value: 6, suffix: "+", l: "Robot classes\ndesigned & built" },
-  { value: 2300, suffix: "+", l: "Images labelled\nfor DhakaNight" },
-  { value: 1, suffix: "", l: "Deployed\nML web app" },
+  { value: 3, suffix: "", l: "Papers accepted\nIEEE COMPAS & ICCA 2026" },
+  { value: 6, suffix: "", l: "National & international\nrobotics podiums" },
+  { value: 4, suffix: "", l: "Robot classes\ndesigned & built" },
+  { value: 2300, suffix: "", l: "Night images labelled\nfor DhakaNight" },
 ];
 
 function Counter({ value, suffix }: { value: number; suffix: string }) {

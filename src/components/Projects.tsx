@@ -33,8 +33,8 @@ const projects = [
     ],
     imageWidth: 460,
     imageHeight: 1022,
-    tags: ["Python", "SQL", "CatBoost", "XGBoost", "TensorFlow", "SHAP"],
-    desc: "I cleaned and geocoded two raw datasets into an analysis-ready pipeline, then trained and calibrated gradient-boosting models against deep-learning baselines — reaching 0.973 macro-F1 while reporting calibrated confidence and explaining every prediction with SHAP. A self-audit layer caught the headline score coming from a label the data gave away, which I published as the central finding rather than the win. I built and deployed the full app — live risk map, route-level scoring, and voice & vibration alerts.",
+    tags: ["Python", "CatBoost", "scikit-learn", "SHAP"],
+    desc: "A live web app scoring motorcycle route risk in Dhaka, with a colour-coded risk map and real-time warnings for phone handling, speeding, and accident hotspots. It predicts crash risk at 0.973 macro-F1, reporting calibrated confidence and explaining each prediction with SHAP attributions rather than acting as a black box. A self-audit layer traced the headline score to target leakage — a label the data gave away — which I published as the central finding rather than the accuracy number. Accepted at IEEE COMPAS 2026 (first author).",
     demo: "https://ride-guard-web-app-web.vercel.app/",
     embeddable: true,
     github: "https://github.com/rakib4123/Ride_Guard_WebApp",
@@ -43,12 +43,12 @@ const projects = [
   {
     number: "02",
     title: "PulseStone",
-    type: "Embedded · Statistical user study",
+    type: "Embedded · Controlled user study",
     images: ["/images/project-pulsestone.jpg"],
     imageWidth: 1200,
     imageHeight: 1593,
-    tags: ["ESP32-C3", "Arduino C++", "Sensors", "Statistics"],
-    desc: "A palm-sized, squeeze-activated device that guides a 4-7-8 breathing exercise the instant it's squeezed — no phone, no app. I wrote the firmware in Arduino C++, driving synchronized LED, haptic, and on-screen feedback. In a 15-participant, 150-trial study, users started in 0.52s versus 7.49s on a phone app — 14.5× faster — and all 15 preferred it.",
+    tags: ["ESP32-C3", "Arduino C++", "Python"],
+    desc: "A pocket device that starts a calming breathing exercise with one squeeze, guiding the user with light, vibration, and screen cues. I designed and analysed a controlled 15-participant, 150-trial study: users started in 0.52 s versus 7.49 s on a phone app — 14.5× faster — and all 15 preferred it. Accepted at ICCA 2026 (first author).",
     github: "https://github.com/rakib4123/PulseStone",
     featured: true,
     flip: true,
@@ -58,19 +58,26 @@ const projects = [
 const smallProjects = [
   {
     title: "Drikon",
-    type: "Full-stack · E-commerce",
-    tags: ["Next.js", "NestJS", "PostgreSQL", "Prisma"],
-    desc: "Implemented the Apriori association-rule algorithm from scratch to power \"frequently bought together\" and personalised recommendations from real order history. 17 backend modules — products, orders, reviews, coupons, flash sales, wishlists — with voice search and secure accounts, fully localised in Bengali and English with an admin-editable storefront.",
+    type: "Full-stack · E-commerce with a recommendation engine",
+    tags: ["Next.js 15", "React 19", "NestJS 11", "PostgreSQL", "Prisma"],
+    desc: "Implemented the Apriori association-rule algorithm from scratch — level-wise itemset mining with candidate pruning, scored by support, confidence, and lift — to power \"frequently bought together\" and personalised recommendations from real order history. Built 17 backend modules (products, orders, reviews, coupons, flash sales, wishlists, banners, settings) with voice search, filtering, comparison, and secure accounts, localised in Bengali and English, with branding, theme, and homepage content editable from the admin panel without a redeploy.",
     demo: "https://drikon-web-vert1v.vercel.app/",
     github: "https://github.com/rakib4123/drikon",
     highlight: true,
   },
   {
     title: "DhakaNight",
-    type: "Vision · Data",
-    tags: ["PyTorch", "YOLO", "OpenCV"],
-    desc: "Labelled a 2,300-image low-light street dataset in Roboflow, then benchmarked four enhancement methods — CLAHE, Gamma, Zero-DCE, RetinexFormer — against a YOLOv8 baseline. None improved detection; scaling the detector beat every pipeline.",
+    type: "Vision · Dataset & benchmark",
+    tags: ["Python", "PyTorch", "YOLO", "OpenCV", "Roboflow"],
+    desc: "Detects vehicles and pedestrians on Dhaka streets after dark, where standard detectors fail. I curated and labelled a 2,300-image night dataset, then benchmarked CLAHE, Gamma, Zero-DCE, and RetinexFormer against a YOLOv8 baseline under a controlled protocol — none improved detection, and scaling the detector beat every pipeline. Accepted at ICCA 2026 (first author).",
     github: "https://github.com/rakib4123/Dhaka_Night",
+  },
+  {
+    title: "Carbon Market Simulation",
+    type: "Forecasting · Agent-based modeling",
+    tags: ["Python", "CatBoost", "Mesa", "scikit-learn"],
+    desc: "CO2 forecasting and agent-based modeling. I benchmarked Ridge, XGBoost, LightGBM, and CatBoost on a 17-country CO2 panel; CatBoost won at 10.95% test MAPE. The forecasts feed a Mesa agent-based model of 48 firms, where linking markets cut costs in 55–62% of 100 runs. Third author.",
+    wide: true,
   },
   {
     title: "AIUB STEAM",
@@ -90,9 +97,9 @@ export default function Projects() {
     <section id="projects" className="py-24 bg-white relative">
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeading
-          title="Full-stack products and machine-learning systems, shipped end to end."
+          title="Machine-learning systems and the applications built around them."
           tag="02 — Projects"
-          subtitle="Live web apps and deployed ML services, plus computer vision, data science, and embedded hardware along the way."
+          subtitle="Deployed ML services, benchmarks and forecasting, plus a live e-commerce platform and embedded hardware."
         />
 
         <div className="space-y-28 mb-20">
@@ -185,7 +192,7 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={p.highlight ? "md:col-span-2" : ""}
+              className={p.highlight || p.wide ? "md:col-span-2" : ""}
             >
               <TiltCard className="h-full">
                 <SpotlightCard
@@ -242,14 +249,16 @@ export default function Projects() {
                         <ExternalLink size={14} /> Live Demo
                       </a>
                     )}
-                    <a
-                      href={p.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
-                    >
-                      <FaGithub size={14} /> Source
-                    </a>
+                    {p.github && (
+                      <a
+                        href={p.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
+                      >
+                        <FaGithub size={14} /> Source
+                      </a>
+                    )}
                   </div>
                 </SpotlightCard>
               </TiltCard>
