@@ -23,9 +23,9 @@ export default function Contact() {
           viewport={{ once: true, margin: "-50px" }}
           className="text-lg text-slate-500 max-w-xl mb-10 leading-relaxed"
         >
-          I&apos;m open to roles and opportunities in full-stack development,
-          AI/ML, or software engineering. The fastest way to reach me is
-          email.
+          I&apos;m open to roles and opportunities in data science, machine
+          learning, and full-stack development. The fastest way to reach me
+          is email.
         </motion.p>
 
         <motion.div

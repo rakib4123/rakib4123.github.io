@@ -7,13 +7,17 @@ import SpotlightCard from "./SpotlightCard";
 
 const publications = [
   {
+    title: "RideGuard: A Calibrated and Auditable ML Risk Framework",
+    venue: "IEEE COMPAS 2026 · First author",
+  },
+  {
     title:
       "DhakaNight: A Benchmark for Low-Light Object Detection in Dense Urban Night Traffic",
-    venue: "ICCA 2026, Dhaka · ACM Digital Library",
+    venue: "ICCA 2026, Dhaka · First author",
   },
   {
     title: "PulseStone: A Tangible Single-Action Anxiety Companion",
-    venue: "ICCA 2026, Dhaka",
+    venue: "ICCA 2026, Dhaka · First author",
   },
 ];
 
@@ -24,10 +28,10 @@ export default function Publications() {
         <SectionHeading
           title="Research accepted for publication."
           tag="03 — Publications"
-          subtitle="Two papers, grown out of the DhakaNight and PulseStone projects, accepted at ICCA 2026."
+          subtitle="Three first-author papers, grown out of the RideGuard, DhakaNight, and PulseStone projects, accepted at IEEE COMPAS 2026 and ICCA 2026."
         />
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
           {publications.map((pub, i) => (
             <motion.div
               key={pub.title}

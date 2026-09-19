@@ -7,28 +7,28 @@ import SpotlightCard from "./SpotlightCard";
 
 const skillCategories = [
   {
-    title: "Full-Stack Development",
-    skills: ["TypeScript", "JavaScript", "React", "Next.js", "Tailwind CSS", "NestJS", "Node.js", "REST APIs", "Prisma", "PostgreSQL", "C++", ".NET", "SQL Server"],
+    title: "Languages",
+    skills: ["Python", "SQL", "C++", "TypeScript", "JavaScript"],
   },
   {
-    title: "AI, ML & Computer Vision",
-    skills: ["scikit-learn", "PyTorch", "TensorFlow", "CatBoost", "XGBoost", "YOLO", "OpenCV", "SHAP"],
+    title: "Data Science & ML",
+    skills: ["pandas", "NumPy", "scikit-learn", "CatBoost", "PyTorch", "YOLO", "OpenCV", "SHAP"],
   },
   {
-    title: "Data Science & Analytics",
-    skills: ["Python", "SQL", "pandas", "NumPy", "Excel", "Power BI"],
+    title: "Methods",
+    skills: ["Exploratory data analysis", "Feature engineering", "Association-rule mining", "Model calibration", "Leakage auditing", "Benchmarking", "Experiment design"],
   },
   {
-    title: "Embedded",
-    skills: ["Arduino C++", "ESP32", "Sensor interfacing"],
+    title: "Backend",
+    skills: ["NestJS", "Node.js", "REST APIs", "Prisma", "PostgreSQL"],
+  },
+  {
+    title: "Frontend",
+    skills: ["React", "Next.js", "Tailwind CSS", "HTML/CSS"],
   },
   {
     title: "Tools",
-    skills: ["Git", "GitHub", "VS Code", "Jupyter", "Roboflow", "Claude Code", "Antigravity", "Vercel", "Render"],
-  },
-  {
-    title: "Ways of working",
-    skills: ["Data cleaning", "EDA", "Feature engineering", "Model explainability", "User studies"],
+    skills: ["Git/GitHub", "VS Code", "Jupyter", "Roboflow", "Claude Code", "Antigravity", "Canva", "Microsoft 365", "Vercel", "Render"],
   },
 ];
 
