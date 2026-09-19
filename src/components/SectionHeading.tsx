@@ -12,6 +12,12 @@ const word = {
   visible: { opacity: 1, y: 0 },
 };
 
+// "01 — Introduction" -> "SYS.01 // INTRODUCTION"
+function formatTag(tag: string) {
+  const [num, label] = tag.split(" — ");
+  return label ? `SYS.${num} // ${label}` : tag;
+}
+
 export function SectionHeading({
   title,
   subtitle,
@@ -28,9 +34,11 @@ export function SectionHeading({
           initial={{ opacity: 0, x: -10 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="text-xs tracking-[0.25em] uppercase font-semibold text-brand-orange mb-4"
+          className="font-mono text-xs tracking-[0.2em] uppercase text-brand-orange mb-4 flex items-center gap-3"
         >
-          {tag}
+          <span className="led" />
+          {formatTag(tag)}
+          <span className="h-px flex-1 max-w-[120px] bg-gradient-to-r from-brand-orange/60 to-transparent" />
         </motion.div>
       )}
       <motion.h2
@@ -38,7 +46,7 @@ export function SectionHeading({
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={container}
-        className="font-serif text-3xl md:text-5xl font-semibold tracking-tight text-ink leading-[1.1]"
+        className="font-display uppercase text-3xl md:text-5xl font-bold tracking-wide text-ink leading-[1.05]"
       >
         {title.split(" ").map((w, i) => (
           <motion.span key={i} variants={word} className="inline-block mr-[0.25em]">

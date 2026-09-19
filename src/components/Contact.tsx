@@ -37,7 +37,7 @@ export default function Contact() {
         >
           <a
             href="mailto:r1.rakibhossain1@gmail.com"
-            className="inline-flex items-center gap-2 bg-brand-red text-white font-medium text-sm px-7 py-3 rounded-md transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
+            className="inline-flex items-center gap-2 bg-brand-red text-white font-medium text-sm px-7 py-3 chamfer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
           >
             <Mail size={16} /> Email me
           </a>

@@ -126,7 +126,7 @@ export default function Projects() {
                 <div className="text-xs font-semibold tracking-[0.15em] text-brand-red uppercase mb-3">
                   {p.type}
                 </div>
-                <h3 className="font-serif text-3xl md:text-4xl font-semibold text-ink mb-4">
+                <h3 className="font-display text-3xl md:text-4xl font-semibold text-ink mb-4">
                   {p.title}
                 </h3>
                 <motion.div
@@ -140,7 +140,7 @@ export default function Projects() {
                     <motion.span
                       key={tag}
                       variants={tagItem}
-                      className="text-xs font-medium text-ink-soft bg-surface-2 px-2.5 py-1 rounded"
+                      className="font-mono text-[11px] font-medium text-ink-soft bg-surface-2 border border-line px-2.5 py-1 rounded-sm"
                     >
                       {tag}
                     </motion.span>
@@ -153,7 +153,7 @@ export default function Projects() {
                   {p.demo && p.embeddable && (
                     <button
                       onClick={() => setActiveDemo({ url: p.demo, title: p.title })}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-brand-red hover:bg-red-700 px-5 py-2.5 rounded transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-brand-red hover:bg-red-700 px-5 py-2.5 chamfer transition-colors cursor-pointer"
                     >
                       <Maximize2 size={14} /> Live Demo
                     </button>
@@ -163,7 +163,7 @@ export default function Projects() {
                       href={p.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-brand-red hover:bg-red-700 px-5 py-2.5 rounded transition-colors"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-brand-red hover:bg-red-700 px-5 py-2.5 chamfer transition-colors"
                     >
                       <ExternalLink size={14} /> Live Demo
                     </a>
@@ -208,14 +208,14 @@ export default function Projects() {
                     }`}
                   ></div>
                   {p.highlight && (
-                    <span className="absolute top-5 right-5 inline-flex items-center gap-1 text-[11px] font-bold tracking-wide text-brand-red bg-surface border border-brand-red/30 px-2.5 py-1 rounded-full uppercase">
+                    <span className="absolute top-5 right-5 inline-flex items-center gap-1 font-mono text-[10px] font-bold tracking-widest text-brand-red bg-surface border border-brand-red/30 px-2.5 py-1 rounded-full uppercase">
                       ★ Flagship
                     </span>
                   )}
                   <div className="text-xs font-semibold text-muted-2 uppercase tracking-wider mb-2">
                     {p.type}
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-ink mb-2">
+                  <h3 className="font-display text-xl font-semibold text-ink mb-2">
                     {p.title}
                   </h3>
                   <p className="text-muted text-sm leading-relaxed mb-5 flex-grow">
@@ -232,7 +232,7 @@ export default function Projects() {
                       <motion.span
                         key={tag}
                         variants={tagItem}
-                        className="text-xs text-muted bg-surface-2 px-2 py-0.5 rounded border border-line"
+                        className="font-mono text-[11px] text-muted bg-surface-2 px-2 py-0.5 rounded-sm border border-line"
                       >
                         {tag}
                       </motion.span>

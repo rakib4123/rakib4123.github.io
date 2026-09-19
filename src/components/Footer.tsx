@@ -5,8 +5,9 @@ export default function Footer() {
         <div className="text-muted">
           © {new Date().getFullYear()} Md. Rakib Hossain
         </div>
-        <div className="text-muted-2 text-xs">
-          Built with Next.js, Tailwind CSS & Framer Motion
+        <div className="font-mono uppercase tracking-wider text-muted-2 text-[11px] flex items-center gap-2">
+          <span className="led led-orange" style={{ width: 6, height: 6 }} />
+          All systems operational · Built with Next.js, Tailwind CSS &amp; Framer Motion
         </div>
       </div>
     </footer>

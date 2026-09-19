@@ -46,10 +46,10 @@ export default function Stats() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <div className="font-serif text-4xl md:text-5xl font-semibold tracking-tight mb-2 bg-gradient-to-r from-brand-red via-brand-orange to-brand-red bg-clip-text text-transparent animate-gradient">
+              <div className="font-display text-5xl md:text-6xl font-bold tracking-tight mb-2 bg-gradient-to-r from-brand-red via-brand-orange to-brand-red bg-clip-text text-transparent animate-gradient">
                 <Counter value={stat.value} suffix={stat.suffix} />
               </div>
-              <div className="text-muted text-sm whitespace-pre-line leading-relaxed">
+              <div className="font-mono uppercase tracking-wider text-muted text-[11px] whitespace-pre-line leading-relaxed">
                 {stat.l}
               </div>
             </motion.div>

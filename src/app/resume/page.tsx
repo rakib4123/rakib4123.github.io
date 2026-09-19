@@ -19,7 +19,7 @@ export default function ResumePage() {
           <a
             href="/Rakib_Hossain_CV.pdf"
             download
-            className="inline-flex items-center gap-2 bg-brand-red text-white font-medium text-sm px-5 py-2.5 rounded-md transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
+            className="inline-flex items-center gap-2 bg-brand-red text-white font-medium text-sm px-5 py-2.5 chamfer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
           >
             <Download size={16} /> Download PDF
           </a>

@@ -31,9 +31,12 @@ export default function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="relative z-20 text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.25em] uppercase font-semibold text-ink-soft border border-line-strong rounded-full px-4 sm:px-5 py-2 mb-32 sm:mb-24 text-center"
+          className="hud relative z-20 font-mono text-[10px] sm:text-xs tracking-[0.18em] uppercase text-ink-soft border border-line-strong bg-surface/60 px-4 sm:px-5 py-2 mb-32 sm:mb-28 text-center flex items-center gap-3"
         >
-          Data Science &amp; Machine Learning · Full-Stack
+          <span className="led shrink-0" />
+          <span>
+            <span className="text-brand-orange">SYS ONLINE //</span>{" "}Data Science &amp; Machine Learning · Full-Stack
+          </span>
         </motion.div>
 
         <div className="relative z-20 flex flex-col items-center w-full">
@@ -41,7 +44,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="select-none font-serif font-bold tracking-tight text-[#2a1d19] leading-[0.85] text-[22vw] sm:text-[18vw] md:text-[10rem]"
+            className="select-none font-display uppercase font-bold tracking-tight text-[#2a1d19] leading-[0.85] text-[22vw] sm:text-[18vw] md:text-[10rem]"
           >
             Hi, I&apos;m
             <br />
@@ -54,14 +57,23 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0 flex items-end justify-center"
           >
-            <Image
-              src="/images/profile-transparent.png"
-              alt="Md. Rakib Hossain"
-              width={1024}
-              height={935}
-              priority
-              className="h-[22vh] sm:h-[30vh] md:h-[40vh] w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
-            />
+            <div className="hud relative overflow-hidden px-3 pt-3">
+              <span className="scan-beam" aria-hidden="true" />
+              <span className="absolute top-1.5 left-4 font-mono text-[9px] tracking-widest text-brand-orange/80">
+                UNIT R-4123
+              </span>
+              <span className="absolute bottom-1.5 right-4 z-10 font-mono text-[9px] tracking-widest text-brand-orange/80 flex items-center gap-1.5">
+                <span className="led led-orange" style={{ width: 5, height: 5 }} /> ACTIVE
+              </span>
+              <Image
+                src="/images/profile-transparent.png"
+                alt="Md. Rakib Hossain"
+                width={1024}
+                height={935}
+                priority
+                className="h-[22vh] sm:h-[30vh] md:h-[40vh] w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+              />
+            </div>
           </motion.div>
         </div>
 
@@ -71,7 +83,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="relative z-20 text-base md:text-lg text-muted-2 font-mono"
         >
-          I work as <TypewriterRole />
+          <span className="text-brand-orange">&gt;</span> I work as <TypewriterRole />
         </motion.div>
 
         <motion.p
@@ -96,7 +108,7 @@ export default function Hero() {
           <Magnetic>
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 bg-brand-red text-white font-semibold text-sm px-7 py-3 rounded-md transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
+              className="inline-flex items-center gap-2 bg-brand-red text-white font-semibold text-sm px-7 py-3 chamfer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
             >
               See the work ↓
             </a>

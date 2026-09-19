@@ -28,7 +28,7 @@ export default function SpotlightCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setOpacity(1)}
       onMouseLeave={() => setOpacity(0)}
-      className={className}
+      className={`hud ${className ?? ""}`}
     >
       <div
         className="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300"
