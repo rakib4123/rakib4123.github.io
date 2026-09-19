@@ -80,7 +80,7 @@ export default function Skills() {
                       variants={tagItem}
                       onMouseEnter={() => setHoveredSkill(skill)}
                       onMouseLeave={() => setHoveredSkill(null)}
-                      className={`text-sm px-3 py-1.5 rounded-md border transition-all duration-300 cursor-default ${
+                      className={`font-mono text-[13px] px-3 py-1.5 rounded-sm border transition-all duration-300 cursor-default ${
                         hoveredSkill === skill
                           ? "bg-brand-red text-white border-brand-red shadow-[0_4px_12px_rgba(215,38,61,0.25)] -translate-y-0.5"
                           : "bg-surface text-ink-soft border-line hover:border-line-strong"

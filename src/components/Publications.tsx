@@ -46,11 +46,11 @@ export default function Publications() {
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-red to-brand-orange text-white flex items-center justify-center shadow-[0_4px_12px_rgba(244,124,32,0.3)]">
                     <FileText size={18} />
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold tracking-wide text-brand-orange bg-surface border border-brand-orange/30 px-2.5 py-1 rounded-full uppercase">
+                  <span className="inline-flex items-center gap-1 font-mono text-[10px] font-bold tracking-widest text-brand-orange bg-surface border border-brand-orange/30 px-2.5 py-1 rounded-full uppercase">
                     ✓ Accepted
                   </span>
                 </div>
-                <h3 className="font-serif text-xl font-semibold text-ink mb-2 leading-snug">
+                <h3 className="font-display text-xl font-semibold text-ink mb-2 leading-snug">
                   {pub.title}
                 </h3>
                 <p className="text-sm text-muted">{pub.venue}</p>

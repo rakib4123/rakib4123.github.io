@@ -17,7 +17,8 @@
   --color-muted-2: #756b62;
 
   --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair);
+  --font-display: var(--font-rajdhani);
+  --font-mono: var(--font-jetbrains);
 }
 
 :root {
@@ -120,4 +121,92 @@ body {
 
 .cursor-crosshair-active .crosshair-line {
   background: #d7263d;
+}
+
+/* ---------- Robotic HUD layer ---------- */
+
+/* Full-page blueprint grid + scanlines, above content, never interactive */
+.hud-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 3px),
+    linear-gradient(rgba(244, 124, 32, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 124, 32, 0.035) 1px, transparent 1px);
+  background-size: 100% 3px, 80px 80px, 80px 80px;
+}
+
+/* Corner brackets on cards (draws on top of the card's own background) */
+.hud {
+  position: relative;
+}
+.hud::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  --hc: rgba(244, 124, 32, 0.75);
+  --hl: 14px;
+  background:
+    linear-gradient(var(--hc), var(--hc)) top left / var(--hl) 2px no-repeat,
+    linear-gradient(var(--hc), var(--hc)) top left / 2px var(--hl) no-repeat,
+    linear-gradient(var(--hc), var(--hc)) top right / var(--hl) 2px no-repeat,
+    linear-gradient(var(--hc), var(--hc)) top right / 2px var(--hl) no-repeat,
+    linear-gradient(var(--hc), var(--hc)) bottom left / var(--hl) 2px no-repeat,
+    linear-gradient(var(--hc), var(--hc)) bottom left / 2px var(--hl) no-repeat,
+    linear-gradient(var(--hc), var(--hc)) bottom right / var(--hl) 2px no-repeat,
+    linear-gradient(var(--hc), var(--hc)) bottom right / 2px var(--hl) no-repeat;
+}
+.hud:hover::after {
+  --hc: rgba(215, 38, 61, 1);
+}
+
+/* Machined, chamfered buttons */
+.chamfer {
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  border-radius: 0 !important;
+}
+
+/* Blinking status LED */
+@keyframes ledBlink {
+  0%, 60% { opacity: 1; }
+  70%, 100% { opacity: 0.25; }
+}
+.led {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 1px;
+  background: #d7263d;
+  box-shadow: 0 0 8px rgba(215, 38, 61, 0.9);
+  animation: ledBlink 1.6s steps(1) infinite;
+}
+.led-orange {
+  background: #f47c20;
+  box-shadow: 0 0 8px rgba(244, 124, 32, 0.9);
+}
+
+/* Slow scanning beam for the hero targeting frame */
+@keyframes scanBeam {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+.scan-beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(244, 124, 32, 0.9), transparent);
+  box-shadow: 0 0 12px rgba(244, 124, 32, 0.7);
+  animation: scanBeam 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .led, .scan-beam, .animate-gradient { animation: none; }
+  .scan-beam { display: none; }
 }

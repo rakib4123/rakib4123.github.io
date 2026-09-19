@@ -91,7 +91,7 @@ export default function Timeline() {
             <div className="absolute -left-[21px] md:-left-[25px] bg-brand-red p-2 rounded-full text-white shadow-[0_4px_12px_rgba(215,38,61,0.3)]">
               <Trophy size={16} />
             </div>
-            <h3 className="font-serif text-2xl font-semibold text-ink ml-8 md:ml-10 mb-6">
+            <h3 className="font-display text-2xl font-semibold text-ink ml-8 md:ml-10 mb-6">
               Awards & Honors
             </h3>
 
@@ -108,7 +108,7 @@ export default function Timeline() {
                     <div className="absolute top-0 left-0 w-0.5 h-full bg-brand-red scale-y-0 group-hover:scale-y-100 transition-transform origin-top"></div>
                     <div className="flex flex-col md:flex-row md:items-start justify-between gap-3">
                       <div>
-                        <div className="text-xs font-semibold text-brand-red mb-1">
+                        <div className="font-mono text-xs font-semibold text-brand-red mb-1">
                           {aw.year}
                         </div>
                         <h4 className="text-base font-semibold text-ink mb-0.5">
@@ -117,7 +117,7 @@ export default function Timeline() {
                         <p className="text-sm text-muted">{aw.org}</p>
                       </div>
                       <span
-                        className={`inline-block px-2.5 py-0.5 rounded text-xs font-semibold border whitespace-nowrap self-start ${aw.rankColor}`}
+                        className={`inline-block px-2.5 py-0.5 rounded-sm font-mono uppercase text-[10px] tracking-wider font-semibold border whitespace-nowrap self-start ${aw.rankColor}`}
                       >
                         {aw.rank}
                       </span>
@@ -133,7 +133,7 @@ export default function Timeline() {
             <div className="absolute -left-[21px] md:-left-[25px] bg-brand-orange p-2 rounded-full text-white shadow-[0_4px_12px_rgba(244,124,32,0.3)]">
               <GraduationCap size={16} />
             </div>
-            <h3 className="font-serif text-2xl font-semibold text-ink ml-8 md:ml-10 mb-6">
+            <h3 className="font-display text-2xl font-semibold text-ink ml-8 md:ml-10 mb-6">
               Education
             </h3>
 
@@ -148,7 +148,7 @@ export default function Timeline() {
                 >
                   <SpotlightCard className="relative bg-surface border border-line rounded-lg p-5 hover:shadow-md hover:border-line-strong transition-all group overflow-hidden">
                     <div className="absolute top-0 left-0 w-0.5 h-full bg-brand-orange scale-y-0 group-hover:scale-y-100 transition-transform origin-top"></div>
-                    <div className="text-xs font-semibold text-brand-orange mb-1">
+                    <div className="font-mono text-xs font-semibold text-brand-orange mb-1">
                       {ed.year}
                     </div>
                     <h4 className="text-base font-semibold text-ink mb-0.5">

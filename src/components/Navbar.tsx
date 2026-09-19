@@ -43,8 +43,9 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <a
           href="#top"
-          className="font-serif font-semibold tracking-wide text-lg text-ink"
+          className="font-display uppercase font-bold tracking-[0.12em] text-lg text-ink flex items-center gap-2.5"
         >
+          <span className="led" />
           Md. Rakib Hossain
         </a>
 
@@ -55,7 +56,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className={`relative text-[13px] font-medium px-3.5 py-2 rounded-md transition-colors ${
+                className={`relative font-mono uppercase tracking-wider text-[11px] font-medium px-3 py-2 rounded-md transition-colors ${
                   isActive ? "text-brand-red" : "text-ink-soft hover:text-brand-red"
                 }`}
               >
@@ -73,7 +74,7 @@ export default function Navbar() {
           <Magnetic>
             <Link
               href="/resume"
-              className="ml-2 text-[13px] font-semibold text-white bg-brand-red hover:bg-red-500 px-4 py-2 rounded-md transition-all"
+              className="ml-2 font-mono uppercase tracking-wider text-[11px] font-bold text-white bg-brand-red hover:bg-red-500 px-4 py-2 chamfer transition-all"
             >
               Resume
             </Link>

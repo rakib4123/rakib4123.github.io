@@ -93,7 +93,7 @@ export default function Robotics() {
           />
         ) : (
           <div className="mb-16">
-            <h3 className="font-serif text-2xl font-semibold tracking-tight text-ink mb-6">
+            <h3 className="font-display text-2xl font-semibold tracking-tight text-ink mb-6">
               Certificates
             </h3>
             <button
@@ -173,7 +173,7 @@ function ImageGrid({
 }) {
   return (
     <div className="mb-16">
-      <h3 className="font-serif text-2xl font-semibold tracking-tight text-ink mb-6">
+      <h3 className="font-display text-2xl font-semibold tracking-tight text-ink mb-6">
         {title}
       </h3>
       <div className={`grid gap-5 ${cols === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
