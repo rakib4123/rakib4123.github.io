@@ -39,11 +39,11 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-lg border-b border-white/10">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-bg-main/90 backdrop-blur-lg border-b border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <a
           href="#top"
-          className="font-extrabold tracking-tight text-base text-white"
+          className="font-serif font-semibold tracking-wide text-lg text-ink"
         >
           Md. Rakib Hossain
         </a>
@@ -56,7 +56,7 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 className={`relative text-[13px] font-medium px-3.5 py-2 rounded-md transition-colors ${
-                  isActive ? "text-brand-cyan" : "text-slate-300 hover:text-brand-cyan"
+                  isActive ? "text-brand-red" : "text-ink-soft hover:text-brand-red"
                 }`}
               >
                 {isActive && (
@@ -73,7 +73,7 @@ export default function Navbar() {
           <Magnetic>
             <Link
               href="/resume"
-              className="ml-2 text-[13px] font-semibold text-slate-950 bg-brand-cyan hover:bg-cyan-400 px-4 py-2 rounded-md transition-all"
+              className="ml-2 text-[13px] font-semibold text-white bg-brand-red hover:bg-red-500 px-4 py-2 rounded-md transition-all"
             >
               Resume
             </Link>
@@ -81,7 +81,7 @@ export default function Navbar() {
         </nav>
 
         <button
-          className="md:hidden text-slate-200 hover:text-white"
+          className="md:hidden text-ink hover:text-white"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -94,7 +94,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden bg-slate-950 border-t border-white/10 overflow-hidden"
+            className="md:hidden bg-bg-main border-t border-white/10 overflow-hidden"
           >
             <nav className="flex flex-col p-3">
               {navLinks.map((link) => {
@@ -105,7 +105,7 @@ export default function Navbar() {
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`text-sm font-medium hover:bg-white/5 px-4 py-3 rounded-md transition-all ${
-                      isActive ? "text-brand-cyan" : "text-slate-300 hover:text-brand-cyan"
+                      isActive ? "text-brand-red" : "text-ink-soft hover:text-brand-red"
                     }`}
                   >
                     {link.name}
@@ -115,7 +115,7 @@ export default function Navbar() {
               <Link
                 href="/resume"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-semibold text-brand-cyan hover:bg-white/5 px-4 py-3 rounded-md transition-all"
+                className="text-sm font-semibold text-brand-red hover:bg-white/5 px-4 py-3 rounded-md transition-all"
               >
                 Resume
               </Link>

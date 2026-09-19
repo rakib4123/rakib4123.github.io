@@ -46,7 +46,7 @@ export default function Skills() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
   return (
-    <section id="skills" className="py-24 bg-bg-main relative border-t border-gray-100">
+    <section id="skills" className="py-24 bg-bg-main relative border-t border-line">
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeading
           title="Technologies I've built with."
@@ -63,8 +63,8 @@ export default function Skills() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
             >
-              <SpotlightCard className="relative bg-white border border-slate-200 rounded-xl p-6 overflow-hidden">
-                <h4 className="text-sm font-extrabold text-slate-900 mb-4 pb-2 border-b-2 border-brand-cyan/30 inline-block uppercase tracking-wider">
+              <SpotlightCard className="relative bg-surface border border-line rounded-xl p-6 overflow-hidden">
+                <h4 className="text-sm font-extrabold text-ink mb-4 pb-2 border-b-2 border-brand-red/30 inline-block uppercase tracking-wider">
                   {category.title}
                 </h4>
                 <motion.div
@@ -82,8 +82,8 @@ export default function Skills() {
                       onMouseLeave={() => setHoveredSkill(null)}
                       className={`text-sm px-3 py-1.5 rounded-md border transition-all duration-300 cursor-default ${
                         hoveredSkill === skill
-                          ? "bg-brand-cyan text-white border-brand-cyan shadow-[0_4px_12px_rgba(6,182,212,0.25)] -translate-y-0.5"
-                          : "bg-white text-slate-600 border-gray-200 hover:border-gray-300"
+                          ? "bg-brand-red text-white border-brand-red shadow-[0_4px_12px_rgba(215,38,61,0.25)] -translate-y-0.5"
+                          : "bg-surface text-ink-soft border-line hover:border-line-strong"
                       }`}
                     >
                       {skill}

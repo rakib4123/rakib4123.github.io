@@ -23,7 +23,7 @@ const publications = [
 
 export default function Publications() {
   return (
-    <section id="publications" className="py-24 bg-white relative border-t border-gray-100">
+    <section id="publications" className="py-24 bg-surface relative border-t border-line">
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeading
           title="Research accepted for publication."
@@ -40,20 +40,20 @@ export default function Publications() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <SpotlightCard className="relative h-full bg-gradient-to-br from-emerald-50/60 to-white border-2 border-brand-emerald/30 rounded-xl p-7 overflow-hidden hover:shadow-[0_10px_30px_rgba(16,185,129,0.15)] transition-shadow duration-300">
-                <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-emerald to-brand-cyan"></div>
+              <SpotlightCard className="relative h-full bg-gradient-to-br from-brand-orange/10 to-transparent border-2 border-brand-orange/30 rounded-xl p-7 overflow-hidden hover:shadow-[0_10px_30px_rgba(244,124,32,0.15)] transition-shadow duration-300">
+                <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-orange to-brand-red"></div>
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-cyan to-brand-emerald text-white flex items-center justify-center shadow-[0_4px_12px_rgba(16,185,129,0.3)]">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-red to-brand-orange text-white flex items-center justify-center shadow-[0_4px_12px_rgba(244,124,32,0.3)]">
                     <FileText size={18} />
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold tracking-wide text-brand-emerald bg-white border border-brand-emerald/30 px-2.5 py-1 rounded-full uppercase">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-bold tracking-wide text-brand-orange bg-surface border border-brand-orange/30 px-2.5 py-1 rounded-full uppercase">
                     ✓ Accepted
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2 leading-snug">
+                <h3 className="font-serif text-xl font-semibold text-ink mb-2 leading-snug">
                   {pub.title}
                 </h3>
-                <p className="text-sm text-slate-500">{pub.venue}</p>
+                <p className="text-sm text-muted">{pub.venue}</p>
               </SpotlightCard>
             </motion.div>
           ))}

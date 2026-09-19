@@ -94,7 +94,7 @@ export default function Projects() {
   );
 
   return (
-    <section id="projects" className="py-24 bg-white relative">
+    <section id="projects" className="py-24 bg-surface relative">
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeading
           title="Machine-learning systems and the applications built around them."
@@ -123,10 +123,10 @@ export default function Projects() {
               </div>
 
               <div className={p.flip ? "md:order-1" : ""}>
-                <div className="text-xs font-semibold tracking-[0.15em] text-brand-cyan uppercase mb-3">
+                <div className="text-xs font-semibold tracking-[0.15em] text-brand-red uppercase mb-3">
                   {p.type}
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+                <h3 className="font-serif text-3xl md:text-4xl font-semibold text-ink mb-4">
                   {p.title}
                 </h3>
                 <motion.div
@@ -140,20 +140,20 @@ export default function Projects() {
                     <motion.span
                       key={tag}
                       variants={tagItem}
-                      className="text-xs font-medium text-slate-600 bg-slate-100 px-2.5 py-1 rounded"
+                      className="text-xs font-medium text-ink-soft bg-surface-2 px-2.5 py-1 rounded"
                     >
                       {tag}
                     </motion.span>
                   ))}
                 </motion.div>
-                <p className="text-slate-500 text-[15px] leading-relaxed mb-8">
+                <p className="text-muted text-[15px] leading-relaxed mb-8">
                   {p.desc}
                 </p>
                 <div className="flex flex-wrap gap-3">
                   {p.demo && p.embeddable && (
                     <button
                       onClick={() => setActiveDemo({ url: p.demo, title: p.title })}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-slate-900 hover:bg-slate-800 px-5 py-2.5 rounded transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-brand-red hover:bg-red-700 px-5 py-2.5 rounded transition-colors cursor-pointer"
                     >
                       <Maximize2 size={14} /> Live Demo
                     </button>
@@ -163,7 +163,7 @@ export default function Projects() {
                       href={p.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-slate-900 hover:bg-slate-800 px-5 py-2.5 rounded transition-colors"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-brand-red hover:bg-red-700 px-5 py-2.5 rounded transition-colors"
                     >
                       <ExternalLink size={14} /> Live Demo
                     </a>
@@ -173,7 +173,7 @@ export default function Projects() {
                       href={p.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 bg-white border border-gray-200 hover:border-slate-300 hover:text-slate-900 px-5 py-2.5 rounded transition-colors"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-ink-soft bg-surface border border-line hover:border-line-strong hover:text-ink px-5 py-2.5 rounded transition-colors"
                     >
                       <FaGithub size={14} /> Source
                     </a>
@@ -198,27 +198,27 @@ export default function Projects() {
                 <SpotlightCard
                   className={`relative h-full rounded-xl p-7 flex flex-col group transition-shadow duration-300 overflow-hidden ${
                     p.highlight
-                      ? "bg-gradient-to-br from-cyan-50/60 to-white border-2 border-brand-cyan/40 hover:shadow-[0_10px_30px_rgba(6,182,212,0.15)]"
-                      : "bg-white border border-slate-200 hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+                      ? "bg-gradient-to-br from-brand-red/10 to-transparent border-2 border-brand-red/40 hover:shadow-[0_10px_30px_rgba(215,38,61,0.15)]"
+                      : "bg-surface border border-line hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
                   }`}
                 >
                   <div
-                    className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-cyan to-brand-emerald origin-left transition-transform duration-500 ${
+                    className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-red to-brand-orange origin-left transition-transform duration-500 ${
                       p.highlight ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                     }`}
                   ></div>
                   {p.highlight && (
-                    <span className="absolute top-5 right-5 inline-flex items-center gap-1 text-[11px] font-bold tracking-wide text-brand-cyan bg-white border border-brand-cyan/30 px-2.5 py-1 rounded-full uppercase">
+                    <span className="absolute top-5 right-5 inline-flex items-center gap-1 text-[11px] font-bold tracking-wide text-brand-red bg-surface border border-brand-red/30 px-2.5 py-1 rounded-full uppercase">
                       ★ Flagship
                     </span>
                   )}
-                  <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                  <div className="text-xs font-semibold text-muted-2 uppercase tracking-wider mb-2">
                     {p.type}
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">
+                  <h3 className="font-serif text-xl font-semibold text-ink mb-2">
                     {p.title}
                   </h3>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-5 flex-grow">
+                  <p className="text-muted text-sm leading-relaxed mb-5 flex-grow">
                     {p.desc}
                   </p>
                   <motion.div
@@ -232,7 +232,7 @@ export default function Projects() {
                       <motion.span
                         key={tag}
                         variants={tagItem}
-                        className="text-xs text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200"
+                        className="text-xs text-muted bg-surface-2 px-2 py-0.5 rounded border border-line"
                       >
                         {tag}
                       </motion.span>
@@ -244,7 +244,7 @@ export default function Projects() {
                         href={p.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-medium text-brand-cyan hover:text-cyan-600 transition-colors"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-brand-red hover:text-brand-orange transition-colors"
                       >
                         <ExternalLink size={14} /> Live Demo
                       </a>
@@ -254,7 +254,7 @@ export default function Projects() {
                         href={p.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-ink transition-colors"
                       >
                         <FaGithub size={14} /> Source
                       </a>
@@ -295,8 +295,8 @@ function ProjectGallery({
 
   return (
     <div>
-      <div className="rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] group relative">
-        <span className="absolute top-4 left-4 z-10 bg-slate-950 text-white text-xs font-extrabold tracking-widest px-2.5 py-1 rounded">
+      <div className="rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] group relative">
+        <span className="absolute top-4 left-4 z-10 bg-bg-main text-white text-xs font-extrabold tracking-widest px-2.5 py-1 rounded">
           {number}
         </span>
         <Image
@@ -315,7 +315,7 @@ function ProjectGallery({
               key={img}
               onClick={() => setActive(i)}
               className={`relative w-14 h-14 rounded-lg overflow-hidden border-2 transition-colors cursor-pointer ${
-                i === active ? "border-brand-cyan" : "border-transparent"
+                i === active ? "border-brand-red" : "border-transparent"
               }`}
             >
               <Image src={img} alt={`${alt} thumbnail ${i + 1}`} fill className="object-cover" />
