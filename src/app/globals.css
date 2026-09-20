@@ -1,21 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  /* Accents are darkened from the night palette so they stay legible on paper. */
-  --color-brand-red: #c4162f;
-  --color-brand-orange: #cf6208;
-  --color-brand-gold: #a2741a;
+  --color-brand-red: #d7263d;
+  --color-brand-orange: #f47c20;
+  --color-brand-gold: #f5b547;
 
-  --color-bg-main: #f7f3ee;
-  --color-surface: #ffffff;
-  --color-surface-2: #ece5db;
-  --color-line: #1915120f;
-  --color-line-strong: #19151229;
+  --color-bg-main: #0b0908;
+  --color-surface: #131110;
+  --color-surface-2: #1c1816;
+  --color-line: #ffffff14;
+  --color-line-strong: #ffffff2e;
 
-  --color-ink: #16120f;
-  --color-ink-soft: #3a332c;
-  --color-muted: #6c6258;
-  --color-muted-2: #8d8379;
+  --color-ink: #f4ede4;
+  --color-ink-soft: #d3cabf;
+  --color-muted: #a2978c;
+  --color-muted-2: #756b62;
 
   --font-sans: var(--font-inter);
   --font-display: var(--font-rajdhani);
@@ -23,8 +22,8 @@
 }
 
 :root {
-  --background: #f7f3ee;
-  --foreground: #16120f;
+  --background: #0b0908;
+  --foreground: #f4ede4;
 }
 
 body {
@@ -40,14 +39,14 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #ece5db;
+  background: #0b0908;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c6bcb0;
+  background: #2e2825;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #c4162f;
+  background: #d7263d;
 }
 
 @keyframes gradientAnim {
@@ -63,8 +62,8 @@ body {
 
 /* Selection color */
 ::selection {
-  background: rgba(196, 22, 47, 0.18);
-  color: #16120f;
+  background: rgba(215, 38, 61, 0.35);
+  color: #f4ede4;
 }
 
 /* Custom cursor */
@@ -86,7 +85,7 @@ body {
 
 .crosshair-line {
   position: absolute;
-  background: #cf6208;
+  background: #f47c20;
   transition: background 0.15s ease;
 }
 
@@ -121,7 +120,7 @@ body {
 }
 
 .cursor-crosshair-active .crosshair-line {
-  background: #c4162f;
+  background: #d7263d;
 }
 
 /* ---------- Robotic HUD layer ---------- */
@@ -133,9 +132,9 @@ body {
   pointer-events: none;
   z-index: 40;
   background-image:
-    repeating-linear-gradient(0deg, rgba(25, 21, 18, 0.016) 0 1px, transparent 1px 3px),
-    linear-gradient(rgba(207, 98, 8, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(207, 98, 8, 0.06) 1px, transparent 1px);
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 3px),
+    linear-gradient(rgba(244, 124, 32, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 124, 32, 0.035) 1px, transparent 1px);
   background-size: 100% 3px, 80px 80px, 80px 80px;
 }
 
@@ -149,7 +148,7 @@ body {
   inset: 0;
   pointer-events: none;
   border-radius: inherit;
-  --hc: rgba(207, 98, 8, 0.8);
+  --hc: rgba(244, 124, 32, 0.75);
   --hl: 14px;
   background:
     linear-gradient(var(--hc), var(--hc)) top left / var(--hl) 2px no-repeat,
@@ -162,7 +161,7 @@ body {
     linear-gradient(var(--hc), var(--hc)) bottom right / 2px var(--hl) no-repeat;
 }
 .hud:hover::after {
-  --hc: rgba(196, 22, 47, 1);
+  --hc: rgba(215, 38, 61, 1);
 }
 
 /* Machined, chamfered buttons */
@@ -181,13 +180,13 @@ body {
   width: 7px;
   height: 7px;
   border-radius: 1px;
-  background: #c4162f;
-  box-shadow: 0 0 6px rgba(196, 22, 47, 0.55);
+  background: #d7263d;
+  box-shadow: 0 0 8px rgba(215, 38, 61, 0.9);
   animation: ledBlink 1.6s steps(1) infinite;
 }
 .led-orange {
-  background: #cf6208;
-  box-shadow: 0 0 6px rgba(207, 98, 8, 0.55);
+  background: #f47c20;
+  box-shadow: 0 0 8px rgba(244, 124, 32, 0.9);
 }
 
 /* Slow scanning beam for the hero targeting frame */
@@ -202,8 +201,8 @@ body {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(207, 98, 8, 0.75), transparent);
-  box-shadow: 0 0 10px rgba(207, 98, 8, 0.45);
+  background: linear-gradient(90deg, transparent, rgba(244, 124, 32, 0.9), transparent);
+  box-shadow: 0 0 12px rgba(244, 124, 32, 0.7);
   animation: scanBeam 3.2s ease-in-out infinite;
 }
 
@@ -253,10 +252,10 @@ body {
    still letting the particles read through. The hero is exempt: it has its own
    radial scrim and is where the scene is meant to be fully visible. */
 .scene-layer section:not(#top) {
-  background-color: rgba(247, 243, 238, 0.82) !important;
+  background-color: rgba(11, 9, 8, 0.78) !important;
 }
 .scene-layer footer {
-  background-color: rgba(247, 243, 238, 0.82);
+  background-color: rgba(11, 9, 8, 0.78);
 }
 .scene-layer section > div {
   position: relative;

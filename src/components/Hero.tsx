@@ -17,7 +17,7 @@ export default function Hero() {
           className="absolute inset-0 z-0 opacity-[0.04]"
           style={{
             backgroundImage:
-              "linear-gradient(#191512 1px, transparent 1px), linear-gradient(90deg, #191512 1px, transparent 1px)",
+              "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         ></div>
@@ -27,7 +27,7 @@ export default function Hero() {
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 58% 42% at 50% 68%, rgba(247,243,238,0.94) 0%, rgba(247,243,238,0.6) 58%, transparent 100%)",
+              "radial-gradient(ellipse 58% 42% at 50% 68%, rgba(11,9,8,0.92) 0%, rgba(11,9,8,0.55) 58%, transparent 100%)",
           }}
         />
 
@@ -54,7 +54,7 @@ export default function Hero() {
           >
             <ScrollHeadline
               lines={["Hi, I'm", "Rakib."]}
-              className="select-none font-display uppercase font-bold tracking-tight text-[#e4dacd] leading-[0.85] text-[22vw] sm:text-[18vw] md:text-[10rem]"
+              className="select-none font-display uppercase font-bold tracking-tight text-[#2a1d19] leading-[0.85] text-[22vw] sm:text-[18vw] md:text-[10rem]"
             />
           </motion.div>
 
@@ -78,7 +78,7 @@ export default function Hero() {
                 width={1024}
                 height={935}
                 priority
-                className="h-[22vh] sm:h-[30vh] md:h-[40vh] w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.18)]"
+                className="h-[22vh] sm:h-[30vh] md:h-[40vh] w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
               />
             </div>
           </motion.div>
@@ -115,7 +115,7 @@ export default function Hero() {
           <Magnetic>
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 bg-brand-red text-white font-semibold text-sm px-7 py-3 chamfer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(196,22,47,0.3)]"
+              className="inline-flex items-center gap-2 bg-brand-red text-white font-semibold text-sm px-7 py-3 chamfer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
             >
               See the work ↓
             </a>

@@ -50,7 +50,7 @@ const awards = [
     title: "2nd Runner-up — Robo Race",
     org: "National Robotics Championship",
     rank: "2nd Runner-up",
-    rankColor: "bg-brand-orange/10 text-brand-orange border-brand-orange/30",
+    rankColor: "bg-brand-orange/10 text-orange-300 border-brand-orange/30",
   },
   {
     year: "2024",
@@ -71,7 +71,7 @@ const awards = [
     title: "Competitor — Soccer Bot & Robo Race",
     org: "BUET Autofest, plus further national & inter-university events",
     rank: "Competed",
-    rankColor: "bg-brand-red/10 text-brand-red border-brand-red/30",
+    rankColor: "bg-brand-red/10 text-red-300 border-brand-red/30",
   },
 ];
 
@@ -88,7 +88,7 @@ export default function Timeline() {
         <div className="relative border-l-2 border-line ml-4 md:ml-8 mt-12 space-y-12 pb-8">
           {/* Awards */}
           <div className="relative">
-            <div className="absolute -left-[21px] md:-left-[25px] bg-brand-red p-2 rounded-full text-white shadow-[0_4px_12px_rgba(196,22,47,0.3)]">
+            <div className="absolute -left-[21px] md:-left-[25px] bg-brand-red p-2 rounded-full text-white shadow-[0_4px_12px_rgba(215,38,61,0.3)]">
               <Trophy size={16} />
             </div>
             <h3 className="font-display text-2xl font-semibold text-ink ml-8 md:ml-10 mb-6">
@@ -130,7 +130,7 @@ export default function Timeline() {
 
           {/* Education */}
           <div className="relative pt-4">
-            <div className="absolute -left-[21px] md:-left-[25px] bg-brand-orange p-2 rounded-full text-white shadow-[0_4px_12px_rgba(207,98,8,0.3)]">
+            <div className="absolute -left-[21px] md:-left-[25px] bg-brand-orange p-2 rounded-full text-white shadow-[0_4px_12px_rgba(244,124,32,0.3)]">
               <GraduationCap size={16} />
             </div>
             <h3 className="font-display text-2xl font-semibold text-ink ml-8 md:ml-10 mb-6">
