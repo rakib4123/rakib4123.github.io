@@ -18,7 +18,7 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="flex justify-center"
           >
-            <div className="relative w-52 h-52 md:w-60 md:h-60 rounded-full overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_rgba(215,38,61,0.12)] hover:-translate-y-1 transition-all duration-500">
+            <div className="relative w-52 h-52 md:w-60 md:h-60 rounded-full overflow-hidden shadow-[0_18px_36px_rgba(0,0,0,0.14)] hover:shadow-[0_20px_40px_rgba(196,22,47,0.12)] hover:-translate-y-1 transition-all duration-500">
               <Image
                 src="/images/profile.jpg"
                 alt="Md. Rakib Hossain"

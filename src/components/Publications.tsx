@@ -40,10 +40,10 @@ export default function Publications() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <SpotlightCard className="relative h-full bg-surface/45 backdrop-blur-md bg-gradient-to-br from-brand-orange/10 to-transparent border-2 border-brand-orange/30 rounded-xl p-7 overflow-hidden hover:shadow-[0_10px_30px_rgba(244,124,32,0.15)] transition-shadow duration-300">
+              <SpotlightCard className="relative h-full bg-surface/45 backdrop-blur-md bg-gradient-to-br from-brand-orange/10 to-transparent border-2 border-brand-orange/30 rounded-xl p-7 overflow-hidden hover:shadow-[0_10px_30px_rgba(207,98,8,0.15)] transition-shadow duration-300">
                 <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-orange to-brand-red"></div>
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-red to-brand-orange text-white flex items-center justify-center shadow-[0_4px_12px_rgba(244,124,32,0.3)]">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-red to-brand-orange text-white flex items-center justify-center shadow-[0_4px_12px_rgba(207,98,8,0.3)]">
                     <FileText size={18} />
                   </div>
                   <span className="inline-flex items-center gap-1 font-mono text-[10px] font-bold tracking-widest text-brand-orange bg-surface border border-brand-orange/30 px-2.5 py-1 rounded-full uppercase">

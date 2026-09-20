@@ -39,7 +39,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-bg-main/90 backdrop-blur-lg border-b border-white/10">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-bg-main/90 backdrop-blur-lg border-b border-line-strong">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <a
           href="#top"
@@ -63,7 +63,7 @@ export default function Navbar() {
                 {isActive && (
                   <motion.span
                     layoutId="nav-active-pill"
-                    className="absolute inset-0 bg-white/10 rounded-md -z-10"
+                    className="absolute inset-0 bg-ink/[0.07] rounded-md -z-10"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -82,7 +82,7 @@ export default function Navbar() {
         </nav>
 
         <button
-          className="md:hidden text-ink hover:text-white"
+          className="md:hidden text-ink hover:text-brand-red"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -105,7 +105,7 @@ export default function Navbar() {
                     key={link.name}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`text-sm font-medium hover:bg-white/5 px-4 py-3 rounded-md transition-all ${
+                    className={`text-sm font-medium hover:bg-ink/5 px-4 py-3 rounded-md transition-all ${
                       isActive ? "text-brand-red" : "text-ink-soft hover:text-brand-red"
                     }`}
                   >
@@ -116,7 +116,7 @@ export default function Navbar() {
               <Link
                 href="/resume"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-semibold text-brand-red hover:bg-white/5 px-4 py-3 rounded-md transition-all"
+                className="text-sm font-semibold text-brand-red hover:bg-ink/5 px-4 py-3 rounded-md transition-all"
               >
                 Resume
               </Link>
