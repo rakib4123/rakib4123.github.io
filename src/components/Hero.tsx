@@ -5,6 +5,7 @@ import { ArrowDown, FileText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Magnetic from "./Magnetic";
+import ScrollHeadline from "./ScrollHeadline";
 import TypewriterRole from "./TypewriterRole";
 
 export default function Hero() {
@@ -26,7 +27,7 @@ export default function Hero() {
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 92% 62% at 50% 56%, rgba(11,9,8,0.9) 0%, rgba(11,9,8,0.6) 48%, transparent 84%)",
+              "radial-gradient(ellipse 58% 42% at 50% 68%, rgba(11,9,8,0.92) 0%, rgba(11,9,8,0.55) 58%, transparent 100%)",
           }}
         />
 
@@ -43,16 +44,19 @@ export default function Hero() {
         </motion.div>
 
         <div className="relative z-20 flex flex-col items-center w-full">
-          <motion.h1
+          <h1 className="sr-only">Md. Rakib Hossain</h1>
+
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="select-none font-display uppercase font-bold tracking-tight text-[#2a1d19] leading-[0.85] text-[22vw] sm:text-[18vw] md:text-[10rem]"
+            aria-hidden="true"
           >
-            Hi, I&apos;m
-            <br />
-            Rakib.
-          </motion.h1>
+            <ScrollHeadline
+              lines={["Hi, I'm", "Rakib."]}
+              className="select-none font-display uppercase font-bold tracking-tight text-[#2a1d19] leading-[0.85] text-[22vw] sm:text-[18vw] md:text-[10rem]"
+            />
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
