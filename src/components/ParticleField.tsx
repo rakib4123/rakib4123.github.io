@@ -5,57 +5,58 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 /**
- * Persistent full-screen WebGL scene behind the whole page: a cosmic timeline
- * driven by scroll.
+ * A single, continuous Milky Way behind the whole page.
  *
- *   hero        -> a spiral galaxy turning around a black hole with a glowing
- *                  accretion disk (brighter on the approaching side)
- *   projects    -> the camera falls into the core and the particles erupt
- *                  outward into a white-hole starfield tunnel
- *   about / end -> the particles settle into a wave matrix under a nebula
+ * There is only one formation. Scroll does not rearrange the stars — it moves
+ * the camera along a fixed orbital path around them:
  *
- * All three formations live on the GPU as vertex attributes and are blended in
- * the vertex shader, so the per-frame CPU cost stays flat no matter the count.
+ *   hero     -> a wide, almost edge-on view from well outside the disc
+ *   work     -> an arc inward and over the plane, close to one spiral arm
+ *   about    -> a pull back to a symmetrical top-down view of the core, where
+ *               the rotation slows to a near-standstill
+ *
+ * The cursor only parallaxes the camera. Nothing scatters, nothing is pulled:
+ * the scene is a backdrop and has to stay out of the way of the text.
  */
 
-const COUNT_DESKTOP = 18000;
-const COUNT_MOBILE = 6000;
+const COUNT_DESKTOP = 40000;
+const COUNT_MOBILE = 12000;
+const DUST_DESKTOP = 1400;
+const DUST_MOBILE = 420;
 
-/**
- * Where the galactic core sits in the hero so it never lands behind the copy:
- * out to the left on desktop, lifted above the photo on narrow screens.
- */
-function heroOffset() {
-  return window.innerWidth < 768 ? { x: 0, y: 3.75 } : { x: -3.8, y: 1.0 };
-}
+const ARMS = 4;
+const GALAXY_R = 14;
+const SPIRAL_TIGHTNESS = 0.42;
+
+/** Monochrome star classes: warm ivory, platinum, muted stellar blue. */
+const IVORY = new THREE.Color("#fffdf5");
+const PLATINUM = new THREE.Color("#e5e5e5");
+const STELLAR_BLUE = new THREE.Color("#d0e0ff");
+
+/** Camera keyframes in spherical coordinates around the galactic centre. */
+type Key = { at: number; radius: number; azimuth: number; elevation: number };
+const PATH: Key[] = [
+  { at: 0.0, radius: 26, azimuth: 0.0, elevation: 0.42 },
+  { at: 0.46, radius: 12.5, azimuth: 1.3, elevation: 0.34 },
+  { at: 1.0, radius: 23, azimuth: 2.5, elevation: 1.5 },
+];
 
 function smoothstep(edge0: number, edge1: number, x: number) {
   const t = Math.min(1, Math.max(0, (x - edge0) / (edge1 - edge0)));
   return t * t * (3 - 2 * t);
 }
 
-// On a light page the scene is drawn as ink on paper: the densest, darkest
-// particles sit at the core and thin out to a pale warm dust at the rim.
-const EMBER = new THREE.Color("#3d1607");
-const RUST = new THREE.Color("#a33a08");
-const ORANGE = new THREE.Color("#cf6208");
-const RED = new THREE.Color("#c4162f");
-const DUST = new THREE.Color("#a3927f");
-
-const PARTICLE_VERT = `
+const STAR_VERT = `
 uniform float uTime;
-uniform float uToTunnel;
-uniform float uToGrid;
+uniform float uSpin;
 uniform float uSize;
 uniform float uPixelRatio;
-uniform vec2  uPointer;
-uniform float uPointerOn;
+uniform float uWarp;
+uniform float uFog;
 
-attribute vec3  aTunnel;
-attribute vec3  aGrid;
 attribute vec3  aColor;
 attribute float aSeed;
-attribute float aKind;   // 0 = galaxy star, 1 = accretion disk
+attribute float aRadius;
 
 varying vec3  vColor;
 varying float vAlpha;
@@ -66,159 +67,80 @@ vec3 rotY(vec3 p, float a) {
 }
 
 void main() {
-  // ---- formation 1: spiral galaxy, differential rotation (inner bands turn faster)
-  float r = length(position.xz);
-  float spin = uTime * (0.55 / (0.45 + r)) * mix(1.0, 4.2, aKind);
-  vec3 gal = rotY(position, spin);
-  gal.y += sin(uTime * 0.7 + aSeed * 24.0) * 0.05;
+  // Differential rotation: the inner disc turns faster than the arms, which is
+  // what keeps the spiral from reading as a rigid pinwheel.
+  vec3 p = rotY(position, uSpin * (1.0 / (1.4 + aRadius * 0.28)));
+  p.y += sin(uTime * 0.35 + aSeed * 30.0) * 0.035;
 
-  // Relativistic beaming. Adding light would only wash out on a pale page, so
-  // the approaching side of the disk gets denser and heavier instead.
-  float beam = 1.0;
-  if (aKind > 0.5) {
-    float ang = atan(gal.z, gal.x);
-    beam = 0.25 + 0.75 * smoothstep(-1.0, 1.0, sin(ang));
-  }
-
-  // cursor gravity while the galaxy is on screen
-  vec2 d = uPointer - gal.xy;
-  float pull = uPointerOn * (1.0 - uToTunnel) * smoothstep(3.4, 0.0, length(d)) * 0.42;
-  gal.xy += d * pull;
-
-  // ---- formation 2: white-hole tunnel streaming past the camera
-  vec3 tun = aTunnel;
-  tun.z = mod(aTunnel.z + uTime * 11.0, 86.0) - 66.0;
-  // mid-transition kick so the change reads as an eruption, not a slide
-  float burst = sin(uToTunnel * 3.14159) * 2.2;
-  tun.xy += normalize(aTunnel.xy + vec2(0.001)) * burst;
-
-  // ---- formation 3: wave matrix
-  vec3 grd = aGrid;
-  grd.y += sin(aGrid.x * 0.38 + uTime * 1.25) * 0.8
-         + cos(aGrid.z * 0.38 + uTime * 0.95) * 0.8;
-
-  vec3 pos = mix(gal, tun, uToTunnel);
-  pos = mix(pos, grd, uToGrid);
-
-  vec4 mv = modelViewMatrix * vec4(pos, 1.0);
+  vec4 mv = modelViewMatrix * vec4(p, 1.0);
+  float dist = -mv.z;
   gl_Position = projectionMatrix * mv;
 
-  float size = uSize * (0.55 + aSeed * 0.85) * mix(1.0, 1.1 + beam * 0.5, aKind);
-  gl_PointSize = size * uPixelRatio * (320.0 / max(0.6, -mv.z));
+  // uWarp rises while the camera is arcing, so the field gains a little bloom
+  // in the direction of travel rather than sitting perfectly still.
+  float size = uSize * (0.45 + aSeed * 0.95) * (1.0 + uWarp * 1.4);
+  gl_PointSize = size * uPixelRatio * (300.0 / max(0.8, dist));
 
   vColor = aColor;
-  vAlpha = (0.34 + aSeed * 0.34) * mix(1.0, 0.35 + beam * 0.65, aKind)
-         * (1.0 - uToGrid * 0.10);
+  // Distance haze gives the arms depth without adding any geometry.
+  vAlpha = (0.42 + aSeed * 0.58) * exp(-dist * uFog) * (1.0 + uWarp * 0.35);
 }
 `;
 
-const PARTICLE_FRAG = `
+const STAR_FRAG = `
 varying vec3  vColor;
 varying float vAlpha;
 
 void main() {
   float d = length(gl_PointCoord - 0.5);
-  float a = smoothstep(0.5, 0.05, d);
+  float a = smoothstep(0.5, 0.06, d);
   if (a < 0.01) discard;
   gl_FragColor = vec4(vColor, a * vAlpha);
 }
 `;
 
-const HOLE_VERT = `
-varying vec2 vUv;
-void main() {
-  vUv = uv;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-}
-`;
-
-/** Photon ring + asymmetric halo inked around the black shadow disc. */
-const HOLE_FRAG = `
+/** Broad, very faint motes that give the arms body. */
+const DUST_VERT = `
 uniform float uTime;
-uniform float uOpacity;
-varying vec2 vUv;
+uniform float uSpin;
+uniform float uPixelRatio;
+uniform float uFog;
+
+attribute float aSeed;
+attribute float aRadius;
+
+varying float vAlpha;
+
+vec3 rotY(vec3 p, float a) {
+  float c = cos(a), s = sin(a);
+  return vec3(c * p.x + s * p.z, p.y, -s * p.x + c * p.z);
+}
 
 void main() {
-  vec2 p = vUv - 0.5;
-  float r = length(p) * 2.0;
-  float ang = atan(p.y, p.x);
-
-  // An engraved annulus: paper shows between the silhouette and a thin dark
-  // ring, which is how a bright photon ring has to be drawn on a light page.
-  float ring = exp(-pow((r - 0.465) / 0.014, 2.0));
-  float inner = exp(-pow((r - 0.42) / 0.05, 2.0)) * 0.22;
-
-  // denser on one side, like a tilted accretion disk turning toward us
-  float beam = 0.35 + 0.65 * smoothstep(-1.0, 1.0, cos(ang - 0.35));
-  float halo = exp(-pow((r - 0.60) / 0.26, 2.0)) * 0.20 * beam;
-
-  // Nothing paints inside the shadow: the silhouette has to stay solid black.
-  float outside = smoothstep(0.335, 0.378, r);
-  inner *= outside;
-  halo *= outside;
-  float flicker = 0.93 + 0.07 * sin(uTime * 2.3 + ang * 3.0);
-
-  float a = clamp(ring * 0.9 + inner + halo, 0.0, 1.0) * uOpacity * flicker;
-  vec3 col = mix(vec3(0.81, 0.38, 0.03), vec3(0.13, 0.05, 0.02), ring);
-
-  gl_FragColor = vec4(col, a);
+  vec3 p = rotY(position, uSpin * (1.0 / (1.4 + aRadius * 0.28)));
+  vec4 mv = modelViewMatrix * vec4(p, 1.0);
+  float dist = -mv.z;
+  gl_Position = projectionMatrix * mv;
+  gl_PointSize = (0.85 + aSeed * 1.5) * uPixelRatio * (300.0 / max(0.8, dist));
+  vAlpha = (0.018 + aSeed * 0.022) * exp(-dist * uFog);
 }
 `;
 
-const NEBULA_VERT = `
-varying vec2 vUv;
-void main() {
-  vUv = uv;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-}
-`;
-
-const NEBULA_FRAG = `
-uniform float uTime;
-uniform float uOpacity;
-varying vec2 vUv;
-
-float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
-
-float noise(vec2 p) {
-  vec2 i = floor(p), f = fract(p);
-  f = f * f * (3.0 - 2.0 * f);
-  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
-             mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
-}
-
-float fbm(vec2 p) {
-  float v = 0.0, a = 0.5;
-  for (int i = 0; i < OCTAVES; i++) {
-    v += a * noise(p);
-    p *= 2.03;
-    a *= 0.5;
-  }
-  return v;
-}
+const DUST_FRAG = `
+varying float vAlpha;
 
 void main() {
-  vec2 uv = vUv * vec2(2.4, 1.4);
-  float t = uTime * 0.035;
-  float n = fbm(uv * 1.8 + vec2(t, -t * 0.6));
-  float m = fbm(uv * 3.4 - vec2(t * 0.8, t));
-
-  float cloud = smoothstep(0.42, 0.95, n * 0.75 + m * 0.35);
-  vec3 col = mix(vec3(0.72, 0.30, 0.24), vec3(0.83, 0.47, 0.13), m);
-  col = mix(col, vec3(0.55, 0.20, 0.10), pow(cloud, 3.0) * 0.7);
-
-  // fade at the frame edges so it never looks like a pasted rectangle
-  vec2 e = abs(vUv - 0.5) * 2.0;
-  float vig = (1.0 - smoothstep(0.55, 1.0, e.x)) * (1.0 - smoothstep(0.45, 1.0, e.y));
-
-  gl_FragColor = vec4(col, cloud * vig * uOpacity * 0.30);
+  float d = length(gl_PointCoord - 0.5);
+  float a = smoothstep(0.5, 0.0, d);
+  a *= a;
+  gl_FragColor = vec4(0.87, 0.89, 0.96, a * vAlpha);
 }
 `;
 
 export default function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // The scene belongs to the landing page only. On /resume it would paint over
-  // the embedded PDF, since the fixed canvas outranks in-flow content.
+  // The scene belongs to the landing page only. On /resume the fixed canvas
+  // would paint over the embedded PDF, since it outranks in-flow content.
   const enabled = usePathname() === "/";
 
   useEffect(() => {
@@ -228,6 +150,9 @@ export default function ParticleField() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.innerWidth < 768;
     const count = isMobile ? COUNT_MOBILE : COUNT_DESKTOP;
+    // Narrow screens have no room to shift sideways, so they only drop it down.
+    const HERO_SHIFT_X = 0;
+    const dustCount = isMobile ? DUST_MOBILE : DUST_DESKTOP;
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -241,186 +166,161 @@ export default function ParticleField() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
-      60,
+      55,
       window.innerWidth / window.innerHeight,
       0.1,
-      300
+      400
     );
-    camera.position.set(0, 2.3, 9.6);
-    scene.add(camera);
 
-    // ---- particle formations ------------------------------------------------
-    const galaxy = new Float32Array(count * 3);
-    const tunnel = new Float32Array(count * 3);
-    const grid = new Float32Array(count * 3);
+    // ---- the galaxy ---------------------------------------------------------
+    const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
     const seeds = new Float32Array(count);
-    const kinds = new Float32Array(count);
-
-    const cols = Math.ceil(Math.sqrt(count));
-    const ARMS = 3;
-    const GALAXY_R = 7.4;
-    const DISK_SHARE = 0.09; // fraction of particles that form the accretion disk
+    const radii = new Float32Array(count);
     const c = new THREE.Color();
+
+    /** Logarithmic spiral: angle grows with the log of the radius. */
+    const armAngle = (r: number) => Math.log(1 + r * SPIRAL_TIGHTNESS) * 3.1;
 
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
-      seeds[i] = Math.random();
-      const isDisk = Math.random() < DISK_SHARE;
-      kinds[i] = isDisk ? 1 : 0;
+      const seed = Math.random();
+      seeds[i] = seed;
 
-      if (isDisk) {
-        // Thin, fast ring hugging the event horizon.
-        const a = Math.random() * Math.PI * 2;
-        const rr = 0.62 + Math.pow(Math.random(), 1.8) * 0.72;
-        galaxy[i3] = Math.cos(a) * rr;
-        galaxy[i3 + 1] = (Math.random() - 0.5) * 0.06;
-        galaxy[i3 + 2] = Math.sin(a) * rr;
-        c.copy(EMBER).lerp(RED, Math.min(1, (rr - 0.62) / 0.72));
-      } else {
-        // Logarithmic spiral arms, denser toward the core.
-        const rr = Math.pow(Math.random(), 0.62) * GALAXY_R;
-        const branch = ((i % ARMS) / ARMS) * Math.PI * 2;
-        const spin = rr * 0.66;
-        const jitter = () =>
-          Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * (0.22 + rr * 0.075);
-        galaxy[i3] = Math.cos(branch + spin) * rr + jitter();
-        galaxy[i3 + 1] = jitter() * 0.32;
-        galaxy[i3 + 2] = Math.sin(branch + spin) * rr + jitter();
+      // One star in eight belongs to a tight central bulge, so the core reads
+      // as the brightest part of the field rather than just the densest.
+      const inBulge = Math.random() < 0.13;
+      const r = inBulge
+        ? Math.pow(Math.random(), 2.4) * 3.2
+        : Math.pow(Math.random(), 0.75) * GALAXY_R;
+      radii[i] = r;
 
-        const t = rr / GALAXY_R;
-        if (t < 0.25) c.copy(EMBER).lerp(RUST, t / 0.25);
-        else if (t < 0.5) c.copy(RUST).lerp(ORANGE, (t - 0.25) / 0.25);
-        else if (t < 0.75) c.copy(ORANGE).lerp(RED, (t - 0.5) / 0.25);
-        else c.copy(RED).lerp(DUST, (t - 0.75) / 0.25);
-      }
+      const branch = ((i % ARMS) / ARMS) * Math.PI * 2;
+      // Bulge stars ignore the arms entirely and sit in a rounded swarm.
+      const theta = inBulge ? Math.random() * Math.PI * 2 : branch + armAngle(r);
+
+      // Scatter falls off toward the rim so the arms stay legible, and the disc
+      // is thickest at the core.
+      const spread = inBulge ? 0 : Math.pow(Math.random(), 2.6) * (0.5 + r * 0.16);
+      const sx = spread * (Math.random() < 0.5 ? 1 : -1);
+      const sz = spread * (Math.random() < 0.5 ? 1 : -1);
+      const thickness = inBulge
+        ? (Math.random() - 0.5) * 1.6
+        : (0.55 - Math.min(0.42, r * 0.03)) * (Math.random() - 0.5) * 2;
+
+      positions[i3] = Math.cos(theta) * r + sx;
+      positions[i3 + 1] = thickness * Math.pow(Math.random(), 1.6);
+      positions[i3 + 2] = Math.sin(theta) * r + sz;
+
+      // Warm ivory in the core, cooling to stellar blue in the outer arms.
+      const t = r / GALAXY_R;
+      const pick = Math.random();
+      if (pick < 0.45 - t * 0.3) c.copy(IVORY);
+      else if (pick < 0.8) c.copy(PLATINUM);
+      else c.copy(STELLAR_BLUE);
+      c.lerp(STELLAR_BLUE, t * 0.35);
 
       colors[i3] = c.r;
       colors[i3 + 1] = c.g;
       colors[i3 + 2] = c.b;
-
-      // Tunnel: a cylindrical shell along the camera axis.
-      const ta = Math.random() * Math.PI * 2;
-      const tubeR = 2.4 + Math.pow(Math.random(), 0.7) * 9.0;
-      tunnel[i3] = Math.cos(ta) * tubeR;
-      tunnel[i3 + 1] = Math.sin(ta) * tubeR;
-      tunnel[i3 + 2] = -66 + Math.random() * 86;
-
-      // Grid: a flat matrix that later ripples.
-      grid[i3] = ((i % cols) - cols / 2) * 0.34;
-      grid[i3 + 1] = -2.2;
-      grid[i3 + 2] = (Math.floor(i / cols) - cols / 2) * 0.34;
     }
 
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute("position", new THREE.BufferAttribute(galaxy, 3));
-    geometry.setAttribute("aTunnel", new THREE.BufferAttribute(tunnel, 3));
-    geometry.setAttribute("aGrid", new THREE.BufferAttribute(grid, 3));
-    geometry.setAttribute("aColor", new THREE.BufferAttribute(colors, 3));
-    geometry.setAttribute("aSeed", new THREE.BufferAttribute(seeds, 1));
-    geometry.setAttribute("aKind", new THREE.BufferAttribute(kinds, 1));
-    geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 120);
+    const starGeo = new THREE.BufferGeometry();
+    starGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    starGeo.setAttribute("aColor", new THREE.BufferAttribute(colors, 3));
+    starGeo.setAttribute("aSeed", new THREE.BufferAttribute(seeds, 1));
+    starGeo.setAttribute("aRadius", new THREE.BufferAttribute(radii, 1));
+    starGeo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), GALAXY_R * 1.6);
 
-    const material = new THREE.ShaderMaterial({
-      vertexShader: PARTICLE_VERT,
-      fragmentShader: PARTICLE_FRAG,
+    const starMat = new THREE.ShaderMaterial({
+      vertexShader: STAR_VERT,
+      fragmentShader: STAR_FRAG,
       uniforms: {
         uTime: { value: 0 },
-        uToTunnel: { value: 0 },
-        uToGrid: { value: 0 },
-        uSize: { value: isMobile ? 0.05 : 0.052 },
+        uSpin: { value: 0 },
+        uSize: { value: isMobile ? 0.15 : 0.125 },
         uPixelRatio: { value: pixelRatio },
-        uPointer: { value: new THREE.Vector2(-999, -999) },
-        uPointerOn: { value: 0 },
+        uWarp: { value: 0 },
+        uFog: { value: 0.014 },
       },
       transparent: true,
       depthWrite: false,
-      blending: THREE.NormalBlending,
+      depthTest: false,
+      blending: THREE.AdditiveBlending,
     });
 
-    // Everything cosmic rides in one group so the hero can hold the core off to
-    // the side of the copy, then recentre it as the camera dives in.
-    const world = new THREE.Group();
-    scene.add(world);
+    // Stars and dust share a group so the hero can hold the whole galaxy off
+    // to one side of the centred copy, then bring it back to centre on scroll.
+    const galaxy = new THREE.Group();
+    scene.add(galaxy);
 
-    const points = new THREE.Points(geometry, material);
-    points.frustumCulled = false;
-    world.add(points);
+    const stars = new THREE.Points(starGeo, starMat);
+    stars.frustumCulled = false;
+    galaxy.add(stars);
 
-    // ---- black hole: opaque shadow disc + additive photon ring ---------------
-    const shadowGeo = new THREE.CircleGeometry(0.55, 48);
-    const shadowMat = new THREE.MeshBasicMaterial({
-      color: 0x000000,
-      transparent: true,
-      depthWrite: true,
-    });
-    const shadowDisc = new THREE.Mesh(shadowGeo, shadowMat);
-    shadowDisc.renderOrder = -1; // writes depth first so far-side stars are eaten
-    world.add(shadowDisc);
+    // ---- dust ---------------------------------------------------------------
+    const dustPos = new Float32Array(dustCount * 3);
+    const dustSeed = new Float32Array(dustCount);
+    const dustRadius = new Float32Array(dustCount);
+    for (let i = 0; i < dustCount; i++) {
+      const i3 = i * 3;
+      const r = 1.5 + Math.pow(Math.random(), 0.8) * (GALAXY_R - 1.5);
+      const theta = ((i % ARMS) / ARMS) * Math.PI * 2 + armAngle(r);
+      const spread = Math.pow(Math.random(), 1.6) * (0.9 + r * 0.22);
+      dustPos[i3] = Math.cos(theta) * r + spread * (Math.random() < 0.5 ? 1 : -1);
+      dustPos[i3 + 1] = (Math.random() - 0.5) * 0.5;
+      dustPos[i3 + 2] = Math.sin(theta) * r + spread * (Math.random() < 0.5 ? 1 : -1);
+      dustSeed[i] = Math.random();
+      dustRadius[i] = r;
+    }
 
-    const ringGeo = new THREE.PlaneGeometry(3.2, 3.2);
-    const ringMat = new THREE.ShaderMaterial({
-      vertexShader: HOLE_VERT,
-      fragmentShader: HOLE_FRAG,
-      uniforms: { uTime: { value: 0 }, uOpacity: { value: 1 } },
+    const dustGeo = new THREE.BufferGeometry();
+    dustGeo.setAttribute("position", new THREE.BufferAttribute(dustPos, 3));
+    dustGeo.setAttribute("aSeed", new THREE.BufferAttribute(dustSeed, 1));
+    dustGeo.setAttribute("aRadius", new THREE.BufferAttribute(dustRadius, 1));
+    dustGeo.boundingSphere = starGeo.boundingSphere;
+
+    const dustMat = new THREE.ShaderMaterial({
+      vertexShader: DUST_VERT,
+      fragmentShader: DUST_FRAG,
+      uniforms: {
+        uTime: { value: 0 },
+        uSpin: { value: 0 },
+        uPixelRatio: { value: pixelRatio },
+        uFog: { value: 0.012 },
+      },
       transparent: true,
       depthWrite: false,
       depthTest: false,
-      blending: THREE.NormalBlending,
+      blending: THREE.AdditiveBlending,
     });
-    const photonRing = new THREE.Mesh(ringGeo, ringMat);
-    photonRing.renderOrder = 3;
-    world.add(photonRing);
 
-    // ---- nebula: full-frame cloud parented to the camera --------------------
-    const nebulaGeo = new THREE.PlaneGeometry(1, 1);
-    const nebulaMat = new THREE.ShaderMaterial({
-      vertexShader: NEBULA_VERT,
-      fragmentShader: NEBULA_FRAG.replace("OCTAVES", isMobile ? "2" : "4"),
-      uniforms: { uTime: { value: 0 }, uOpacity: { value: 0 } },
-      transparent: true,
-      depthWrite: false,
-      depthTest: false,
-      blending: THREE.NormalBlending,
-    });
-    const nebula = new THREE.Mesh(nebulaGeo, nebulaMat);
-    nebula.position.z = -46;
-    nebula.renderOrder = -2;
-    nebula.visible = false;
-    camera.add(nebula);
-
-    const fitNebula = () => {
-      const h = 2 * Math.tan((camera.fov * Math.PI) / 360) * 46;
-      nebula.scale.set(h * camera.aspect * 1.1, h * 1.1, 1);
-    };
-    fitNebula();
+    const dust = new THREE.Points(dustGeo, dustMat);
+    dust.frustumCulled = false;
+    dust.renderOrder = -1;
+    galaxy.add(dust);
 
     // ---- interaction --------------------------------------------------------
-    let hero = heroOffset();
-    const pointer = new THREE.Vector2(-999, -999);
     const parallax = new THREE.Vector2(0, 0);
     const parallaxTarget = new THREE.Vector2(0, 0);
     let dragging = false;
     let dragX = 0;
     let dragY = 0;
-    let orbitX = 0;
-    let orbitY = 0;
-    let orbitTargetX = 0;
-    let orbitTargetY = 0;
+    let orbitAz = 0;
+    let orbitEl = 0;
+    let orbitAzTarget = 0;
+    let orbitElTarget = 0;
     let scrollProgress = 0;
 
     const onPointerMove = (e: PointerEvent) => {
-      const ndcX = (e.clientX / window.innerWidth) * 2 - 1;
-      const ndcY = -(e.clientY / window.innerHeight) * 2 + 1;
-      const fovH = 2 * Math.tan((camera.fov * Math.PI) / 360) * Math.abs(camera.position.z);
-      pointer.set((ndcX * fovH * camera.aspect) / 2, (ndcY * fovH) / 2);
-      parallaxTarget.set(ndcX, ndcY);
-      material.uniforms.uPointerOn.value = 1;
-
+      parallaxTarget.set(
+        (e.clientX / window.innerWidth) * 2 - 1,
+        -(e.clientY / window.innerHeight) * 2 + 1
+      );
       if (dragging) {
-        orbitTargetY += (e.clientX - dragX) * 0.005;
-        orbitTargetX += (e.clientY - dragY) * 0.005;
-        orbitTargetX = Math.max(-0.8, Math.min(0.8, orbitTargetX));
+        orbitAzTarget += (e.clientX - dragX) * 0.004;
+        orbitElTarget += (e.clientY - dragY) * 0.003;
+        orbitElTarget = Math.max(-0.5, Math.min(0.5, orbitElTarget));
         dragX = e.clientX;
         dragY = e.clientY;
       }
@@ -434,7 +334,6 @@ export default function ParticleField() {
       dragging = false;
     };
     const onPointerLeave = () => {
-      material.uniforms.uPointerOn.value = 0;
       parallaxTarget.set(0, 0);
       dragging = false;
     };
@@ -446,8 +345,6 @@ export default function ParticleField() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-      hero = heroOffset();
-      fitNebula();
     };
 
     window.addEventListener("pointermove", onPointerMove, { passive: true });
@@ -459,63 +356,70 @@ export default function ParticleField() {
     window.addEventListener("resize", onResize);
     onScroll();
 
+    // ---- camera path --------------------------------------------------------
+    /** Eased interpolation between the spherical keyframes. */
+    const sample = (p: number) => {
+      let a = PATH[0];
+      let b = PATH[PATH.length - 1];
+      for (let i = 0; i < PATH.length - 1; i++) {
+        if (p >= PATH[i].at && p <= PATH[i + 1].at) {
+          a = PATH[i];
+          b = PATH[i + 1];
+          break;
+        }
+      }
+      if (p <= PATH[0].at) return { ...PATH[0] };
+      if (p >= PATH[PATH.length - 1].at) return { ...PATH[PATH.length - 1] };
+      const t = smoothstep(a.at, b.at, p);
+      return {
+        radius: a.radius + (b.radius - a.radius) * t,
+        azimuth: a.azimuth + (b.azimuth - a.azimuth) * t,
+        elevation: a.elevation + (b.elevation - a.elevation) * t,
+      };
+    };
+
     // ---- frame loop ---------------------------------------------------------
     let frame = 0;
     let time = 0;
+    let spin = 0;
     let smoothed = scrollProgress;
-    const lookAt = new THREE.Vector3();
+    let lastAzimuth = PATH[0].azimuth;
+    let warp = 0;
+    const target = new THREE.Vector3();
 
     const render = () => {
-      const toTunnel = smoothstep(0.1, 0.44, smoothed);
-      const toGrid = smoothstep(0.56, 0.86, smoothed);
+      const k = sample(smoothed);
 
-      material.uniforms.uTime.value = time;
-      material.uniforms.uToTunnel.value = toTunnel;
-      material.uniforms.uToGrid.value = toGrid;
-      material.uniforms.uPointer.value.set(
-        pointer.x - world.position.x,
-        pointer.y - world.position.y
-      );
-      material.uniforms.uSize.value =
-        (isMobile ? 0.05 : 0.052) * (1 + toTunnel * 0.45 - toGrid * 0.1);
+      starMat.uniforms.uTime.value = time;
+      starMat.uniforms.uSpin.value = spin;
+      dustMat.uniforms.uSpin.value = spin;
 
-      ringMat.uniforms.uTime.value = time;
-      nebulaMat.uniforms.uTime.value = time;
+      const az = k.azimuth + orbitAz;
+      const el = k.elevation + orbitEl;
 
-      // The black hole belongs to the hero; it is left behind on the way in.
-      const holeFade = 1 - smoothstep(0.03, 0.11, smoothed);
-      photonRing.visible = holeFade > 0.01;
-      shadowDisc.visible = holeFade > 0.01;
-      ringMat.uniforms.uOpacity.value = holeFade;
-      shadowMat.opacity = holeFade;
-      // The narrow mobile frame makes the silhouette dominate, so shrink it there.
-      const holeScale = (isMobile ? 0.62 : 1) * (1 + toTunnel * 2.5);
-      shadowDisc.scale.setScalar(holeScale);
-      photonRing.scale.setScalar(holeScale);
+      // Warp tracks how fast the camera is swinging round the disc.
+      const swing = Math.abs(az - lastAzimuth);
+      lastAzimuth = az;
+      warp += (Math.min(1, swing * 55) - warp) * 0.08;
+      starMat.uniforms.uWarp.value = warp;
 
-      nebulaMat.uniforms.uOpacity.value = toGrid;
-      nebula.visible = toGrid > 0.01;
-
-      // Camera: orbiting the galaxy -> down the tunnel -> above the matrix.
-      const dive = smoothstep(0.1, 0.5, smoothed);
-      const rise = smoothstep(0.56, 0.9, smoothed);
-      world.position.set(hero.x * (1 - dive), hero.y * (1 - dive), 0);
-      parallax.lerp(parallaxTarget, 0.05);
+      parallax.lerp(parallaxTarget, 0.035);
+      const cosEl = Math.cos(el);
       camera.position.set(
-        parallax.x * 0.7 * (1 - dive),
-        2.3 - dive * 2.3 + rise * 5.4 + parallax.y * 0.5 * (1 - dive),
-        9.6 - dive * 8.2 + rise * 8.6
+        k.radius * cosEl * Math.cos(az) + parallax.x * 0.9,
+        k.radius * Math.sin(el) + parallax.y * 0.7,
+        k.radius * cosEl * Math.sin(az)
       );
-      lookAt.set(0, rise * -1.7, -dive * 4 - rise * 2);
-      camera.lookAt(lookAt);
 
-      orbitX += (orbitTargetX - orbitX) * 0.08;
-      orbitY += (orbitTargetY - orbitY) * 0.08;
-      points.rotation.set(orbitX * (1 - toGrid), orbitY, 0);
+      // The hero holds the core low and out to one side, clear of the centred
+      // copy; by the top-down view the galaxy is centred and symmetrical.
+      const framed = 1 - smoothstep(0.06, 0.45, smoothed);
+      galaxy.position.set(HERO_SHIFT_X * framed, 0, 0);
+      target.set(0, 3.2 * framed, 0);
+      camera.lookAt(target);
 
-      // Keep the black hole facing the viewer and riding the same orbit.
-      shadowDisc.quaternion.copy(camera.quaternion);
-      photonRing.quaternion.copy(camera.quaternion);
+      orbitAz += (orbitAzTarget - orbitAz) * 0.07;
+      orbitEl += (orbitElTarget - orbitEl) * 0.07;
 
       renderer.render(scene, camera);
     };
@@ -523,7 +427,10 @@ export default function ParticleField() {
     const tick = () => {
       frame = requestAnimationFrame(tick);
       time += 0.0085;
-      smoothed += (scrollProgress - smoothed) * 0.06;
+      smoothed += (scrollProgress - smoothed) * 0.055;
+      // In the final top-down framing the galaxy settles to a bare drift.
+      const settle = 1 - smoothstep(0.72, 1, smoothed) * 0.88;
+      spin += 0.0016 * settle;
       render();
     };
 
@@ -543,14 +450,10 @@ export default function ParticleField() {
       document.removeEventListener("pointerleave", onPointerLeave);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
-      geometry.dispose();
-      material.dispose();
-      shadowGeo.dispose();
-      shadowMat.dispose();
-      ringGeo.dispose();
-      ringMat.dispose();
-      nebulaGeo.dispose();
-      nebulaMat.dispose();
+      starGeo.dispose();
+      starMat.dispose();
+      dustGeo.dispose();
+      dustMat.dispose();
       renderer.dispose();
     };
   }, [enabled]);

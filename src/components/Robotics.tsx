@@ -60,7 +60,7 @@ export default function Robotics() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="rounded-xl overflow-hidden shadow-[0_18px_36px_rgba(0,0,0,0.14)] border border-line aspect-video mb-16 relative group"
+          className="rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] border border-line aspect-video mb-16 relative group"
         >
           <video
             controls
