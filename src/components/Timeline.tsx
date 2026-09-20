@@ -104,7 +104,7 @@ export default function Timeline() {
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
                 >
-                  <SpotlightCard className="relative bg-surface border border-line rounded-lg p-5 hover:shadow-md hover:border-line-strong transition-all group overflow-hidden">
+                  <SpotlightCard className="relative bg-surface/55 backdrop-blur-md border border-line rounded-lg p-5 hover:shadow-md hover:border-line-strong transition-all group overflow-hidden">
                     <div className="absolute top-0 left-0 w-0.5 h-full bg-brand-red scale-y-0 group-hover:scale-y-100 transition-transform origin-top"></div>
                     <div className="flex flex-col md:flex-row md:items-start justify-between gap-3">
                       <div>
@@ -146,7 +146,7 @@ export default function Timeline() {
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
                 >
-                  <SpotlightCard className="relative bg-surface border border-line rounded-lg p-5 hover:shadow-md hover:border-line-strong transition-all group overflow-hidden">
+                  <SpotlightCard className="relative bg-surface/55 backdrop-blur-md border border-line rounded-lg p-5 hover:shadow-md hover:border-line-strong transition-all group overflow-hidden">
                     <div className="absolute top-0 left-0 w-0.5 h-full bg-brand-orange scale-y-0 group-hover:scale-y-100 transition-transform origin-top"></div>
                     <div className="font-mono text-xs font-semibold text-brand-orange mb-1">
                       {ed.year}

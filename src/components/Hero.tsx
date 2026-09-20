@@ -4,19 +4,13 @@ import { motion } from "framer-motion";
 import { ArrowDown, FileText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import AntigravityBackground from "./AntigravityBackground";
 import Magnetic from "./Magnetic";
 import TypewriterRole from "./TypewriterRole";
 
 export default function Hero() {
   return (
-    <section id="top" className="relative bg-bg-main">
+    <section id="top" className="relative">
       <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-32 pb-16 text-center">
-        {/* Antigravity Animation */}
-        <div className="absolute inset-0 z-0">
-          <AntigravityBackground />
-        </div>
-
         {/* Subtle grid pattern */}
         <div
           className="absolute inset-0 z-0 opacity-[0.04]"
@@ -26,6 +20,15 @@ export default function Hero() {
             backgroundSize: "60px 60px",
           }}
         ></div>
+
+        {/* Scrim: keeps the copy readable over the particle sphere */}
+        <div
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 92% 62% at 50% 56%, rgba(11,9,8,0.9) 0%, rgba(11,9,8,0.6) 48%, transparent 84%)",
+          }}
+        />
 
         <motion.div
           initial={{ opacity: 0, y: -10 }}
