@@ -248,9 +248,14 @@ body {
   pointer-events: auto;
 }
 
-/* Glassmorphic panels so the particles stay visible behind the content */
-.scene-layer section {
-  background-color: transparent !important;
+/* Content sections keep a dark veil so text always wins over the scene, while
+   still letting the particles read through. The hero is exempt: it has its own
+   radial scrim and is where the scene is meant to be fully visible. */
+.scene-layer section:not(#top) {
+  background-color: rgba(11, 9, 8, 0.78) !important;
+}
+.scene-layer footer {
+  background-color: rgba(11, 9, 8, 0.78);
 }
 .scene-layer section > div {
   position: relative;

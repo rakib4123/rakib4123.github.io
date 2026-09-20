@@ -468,7 +468,7 @@ export default function ParticleField() {
       nebulaMat.uniforms.uTime.value = time;
 
       // The black hole belongs to the hero; it is left behind on the way in.
-      const holeFade = 1 - smoothstep(0.06, 0.3, smoothed);
+      const holeFade = 1 - smoothstep(0.03, 0.11, smoothed);
       photonRing.visible = holeFade > 0.01;
       shadowDisc.visible = holeFade > 0.01;
       ringMat.uniforms.uOpacity.value = holeFade;
