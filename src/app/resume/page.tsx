@@ -19,13 +19,13 @@ export default function ResumePage() {
           <a
             href="/Rakib_Hossain_CV.pdf"
             download
-            className="inline-flex items-center gap-2 bg-brand-red text-white font-medium text-sm px-5 py-2.5 chamfer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
+            className="inline-flex items-center gap-2 bg-brand-red text-white font-medium text-sm px-5 py-2.5 chamfer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(196,22,47,0.3)]"
           >
             <Download size={16} /> Download PDF
           </a>
         </div>
 
-        <div className="rounded-xl overflow-hidden border border-line shadow-[0_20px_40px_rgba(0,0,0,0.5)] bg-surface aspect-[8.5/11]">
+        <div className="rounded-xl overflow-hidden border border-line shadow-[0_18px_36px_rgba(0,0,0,0.14)] bg-surface aspect-[8.5/11]">
           <iframe
             src="/Rakib_Hossain_CV.pdf"
             title="Md. Rakib Hossain — Resume"

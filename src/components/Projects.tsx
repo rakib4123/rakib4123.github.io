@@ -198,8 +198,8 @@ export default function Projects() {
                 <SpotlightCard
                   className={`relative h-full rounded-xl p-7 flex flex-col group transition-shadow duration-300 overflow-hidden backdrop-blur-md ${
                     p.highlight
-                      ? "bg-surface/45 bg-gradient-to-br from-brand-red/10 to-transparent border-2 border-brand-red/40 hover:shadow-[0_10px_30px_rgba(215,38,61,0.15)]"
-                      : "bg-surface/55 border border-line hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
+                      ? "bg-surface/45 bg-gradient-to-br from-brand-red/10 to-transparent border-2 border-brand-red/40 hover:shadow-[0_10px_30px_rgba(196,22,47,0.15)]"
+                      : "bg-surface/55 border border-line hover:shadow-[0_10px_30px_rgba(0,0,0,0.12)]"
                   }`}
                 >
                   <div
@@ -295,8 +295,8 @@ function ProjectGallery({
 
   return (
     <div>
-      <div className="rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] group relative">
-        <span className="absolute top-4 left-4 z-10 bg-bg-main text-white text-xs font-extrabold tracking-widest px-2.5 py-1 rounded">
+      <div className="rounded-xl overflow-hidden shadow-[0_18px_36px_rgba(0,0,0,0.14)] group relative">
+        <span className="absolute top-4 left-4 z-10 bg-ink text-bg-main text-xs font-extrabold tracking-widest px-2.5 py-1 rounded">
           {number}
         </span>
         <Image

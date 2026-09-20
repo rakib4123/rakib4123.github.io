@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
@@ -33,10 +34,13 @@ function smoothstep(edge0: number, edge1: number, x: number) {
   return t * t * (3 - 2 * t);
 }
 
-const WHITE_HOT = new THREE.Color("#fff3e0");
-const GOLD = new THREE.Color("#f5b547");
-const ORANGE = new THREE.Color("#f47c20");
-const RED = new THREE.Color("#d7263d");
+// On a light page the scene is drawn as ink on paper: the densest, darkest
+// particles sit at the core and thin out to a pale warm dust at the rim.
+const EMBER = new THREE.Color("#3d1607");
+const RUST = new THREE.Color("#a33a08");
+const ORANGE = new THREE.Color("#cf6208");
+const RED = new THREE.Color("#c4162f");
+const DUST = new THREE.Color("#a3927f");
 
 const PARTICLE_VERT = `
 uniform float uTime;
@@ -68,11 +72,12 @@ void main() {
   vec3 gal = rotY(position, spin);
   gal.y += sin(uTime * 0.7 + aSeed * 24.0) * 0.05;
 
-  // relativistic beaming: the side turning toward us reads much brighter
+  // Relativistic beaming. Adding light would only wash out on a pale page, so
+  // the approaching side of the disk gets denser and heavier instead.
   float beam = 1.0;
   if (aKind > 0.5) {
     float ang = atan(gal.z, gal.x);
-    beam = 0.30 + 1.45 * smoothstep(-1.0, 1.0, sin(ang));
+    beam = 0.25 + 0.75 * smoothstep(-1.0, 1.0, sin(ang));
   }
 
   // cursor gravity while the galaxy is on screen
@@ -98,11 +103,12 @@ void main() {
   vec4 mv = modelViewMatrix * vec4(pos, 1.0);
   gl_Position = projectionMatrix * mv;
 
-  float size = uSize * (0.55 + aSeed * 0.85) * mix(1.0, 1.5, aKind);
+  float size = uSize * (0.55 + aSeed * 0.85) * mix(1.0, 1.1 + beam * 0.5, aKind);
   gl_PointSize = size * uPixelRatio * (320.0 / max(0.6, -mv.z));
 
-  vColor = aColor * beam;
-  vAlpha = (0.70 + aSeed * 0.30) * (1.0 - uToGrid * 0.10);
+  vColor = aColor;
+  vAlpha = (0.34 + aSeed * 0.34) * mix(1.0, 0.35 + beam * 0.65, aKind)
+         * (1.0 - uToGrid * 0.10);
 }
 `;
 
@@ -126,7 +132,7 @@ void main() {
 }
 `;
 
-/** Photon ring + asymmetric halo drawn additively over the black shadow disc. */
+/** Photon ring + asymmetric halo inked around the black shadow disc. */
 const HOLE_FRAG = `
 uniform float uTime;
 uniform float uOpacity;
@@ -137,19 +143,24 @@ void main() {
   float r = length(p) * 2.0;
   float ang = atan(p.y, p.x);
 
-  float ring = exp(-pow((r - 0.355) / 0.018, 2.0));
-  float inner = exp(-pow((r - 0.40) / 0.07, 2.0)) * 0.45;
+  // An engraved annulus: paper shows between the silhouette and a thin dark
+  // ring, which is how a bright photon ring has to be drawn on a light page.
+  float ring = exp(-pow((r - 0.465) / 0.014, 2.0));
+  float inner = exp(-pow((r - 0.42) / 0.05, 2.0)) * 0.22;
 
-  // Doppler-bright on one side, like a tilted accretion disk
+  // denser on one side, like a tilted accretion disk turning toward us
   float beam = 0.35 + 0.65 * smoothstep(-1.0, 1.0, cos(ang - 0.35));
-  float halo = exp(-pow((r - 0.52) / 0.30, 2.0)) * 0.30 * beam;
-  float flicker = 0.92 + 0.08 * sin(uTime * 2.3 + ang * 3.0);
+  float halo = exp(-pow((r - 0.60) / 0.26, 2.0)) * 0.20 * beam;
 
-  vec3 col = vec3(1.0, 0.93, 0.80) * ring
-           + vec3(1.0, 0.63, 0.22) * inner
-           + vec3(0.92, 0.26, 0.12) * halo;
+  // Nothing paints inside the shadow: the silhouette has to stay solid black.
+  float outside = smoothstep(0.335, 0.378, r);
+  inner *= outside;
+  halo *= outside;
+  float flicker = 0.93 + 0.07 * sin(uTime * 2.3 + ang * 3.0);
 
-  float a = clamp(ring + inner + halo, 0.0, 1.0) * uOpacity * flicker;
+  float a = clamp(ring * 0.9 + inner + halo, 0.0, 1.0) * uOpacity * flicker;
+  vec3 col = mix(vec3(0.81, 0.38, 0.03), vec3(0.13, 0.05, 0.02), ring);
+
   gl_FragColor = vec4(col, a);
 }
 `;
@@ -193,23 +204,26 @@ void main() {
   float m = fbm(uv * 3.4 - vec2(t * 0.8, t));
 
   float cloud = smoothstep(0.42, 0.95, n * 0.75 + m * 0.35);
-  vec3 col = mix(vec3(0.42, 0.06, 0.10), vec3(0.85, 0.34, 0.09), m);
-  col = mix(col, vec3(0.96, 0.71, 0.28), pow(cloud, 3.0) * 0.8);
+  vec3 col = mix(vec3(0.72, 0.30, 0.24), vec3(0.83, 0.47, 0.13), m);
+  col = mix(col, vec3(0.55, 0.20, 0.10), pow(cloud, 3.0) * 0.7);
 
   // fade at the frame edges so it never looks like a pasted rectangle
   vec2 e = abs(vUv - 0.5) * 2.0;
   float vig = (1.0 - smoothstep(0.55, 1.0, e.x)) * (1.0 - smoothstep(0.45, 1.0, e.y));
 
-  gl_FragColor = vec4(col, cloud * vig * uOpacity * 0.55);
+  gl_FragColor = vec4(col, cloud * vig * uOpacity * 0.30);
 }
 `;
 
 export default function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // The scene belongs to the landing page only. On /resume it would paint over
+  // the embedded PDF, since the fixed canvas outranks in-flow content.
+  const enabled = usePathname() === "/";
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !enabled) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.innerWidth < 768;
@@ -262,7 +276,7 @@ export default function ParticleField() {
         galaxy[i3] = Math.cos(a) * rr;
         galaxy[i3 + 1] = (Math.random() - 0.5) * 0.06;
         galaxy[i3 + 2] = Math.sin(a) * rr;
-        c.copy(WHITE_HOT).lerp(ORANGE, Math.min(1, (rr - 0.62) / 0.72));
+        c.copy(EMBER).lerp(RED, Math.min(1, (rr - 0.62) / 0.72));
       } else {
         // Logarithmic spiral arms, denser toward the core.
         const rr = Math.pow(Math.random(), 0.62) * GALAXY_R;
@@ -275,9 +289,10 @@ export default function ParticleField() {
         galaxy[i3 + 2] = Math.sin(branch + spin) * rr + jitter();
 
         const t = rr / GALAXY_R;
-        if (t < 0.32) c.copy(WHITE_HOT).lerp(GOLD, t / 0.32);
-        else if (t < 0.66) c.copy(GOLD).lerp(ORANGE, (t - 0.32) / 0.34);
-        else c.copy(ORANGE).lerp(RED, (t - 0.66) / 0.34);
+        if (t < 0.25) c.copy(EMBER).lerp(RUST, t / 0.25);
+        else if (t < 0.5) c.copy(RUST).lerp(ORANGE, (t - 0.25) / 0.25);
+        else if (t < 0.75) c.copy(ORANGE).lerp(RED, (t - 0.5) / 0.25);
+        else c.copy(RED).lerp(DUST, (t - 0.75) / 0.25);
       }
 
       colors[i3] = c.r;
@@ -320,7 +335,7 @@ export default function ParticleField() {
       },
       transparent: true,
       depthWrite: false,
-      blending: THREE.AdditiveBlending,
+      blending: THREE.NormalBlending,
     });
 
     // Everything cosmic rides in one group so the hero can hold the core off to
@@ -351,7 +366,7 @@ export default function ParticleField() {
       transparent: true,
       depthWrite: false,
       depthTest: false,
-      blending: THREE.AdditiveBlending,
+      blending: THREE.NormalBlending,
     });
     const photonRing = new THREE.Mesh(ringGeo, ringMat);
     photonRing.renderOrder = 3;
@@ -366,7 +381,7 @@ export default function ParticleField() {
       transparent: true,
       depthWrite: false,
       depthTest: false,
-      blending: THREE.AdditiveBlending,
+      blending: THREE.NormalBlending,
     });
     const nebula = new THREE.Mesh(nebulaGeo, nebulaMat);
     nebula.position.z = -46;
@@ -473,7 +488,8 @@ export default function ParticleField() {
       shadowDisc.visible = holeFade > 0.01;
       ringMat.uniforms.uOpacity.value = holeFade;
       shadowMat.opacity = holeFade;
-      const holeScale = 1 + toTunnel * 2.5;
+      // The narrow mobile frame makes the silhouette dominate, so shrink it there.
+      const holeScale = (isMobile ? 0.62 : 1) * (1 + toTunnel * 2.5);
       shadowDisc.scale.setScalar(holeScale);
       photonRing.scale.setScalar(holeScale);
 
@@ -537,7 +553,9 @@ export default function ParticleField() {
       nebulaMat.dispose();
       renderer.dispose();
     };
-  }, []);
+  }, [enabled]);
+
+  if (!enabled) return null;
 
   return <canvas ref={canvasRef} className="scene-canvas" aria-hidden="true" />;
 }

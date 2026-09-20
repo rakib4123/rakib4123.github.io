@@ -82,7 +82,7 @@ export default function Skills() {
                       onMouseLeave={() => setHoveredSkill(null)}
                       className={`font-mono text-[13px] px-3 py-1.5 rounded-sm border transition-all duration-300 cursor-default ${
                         hoveredSkill === skill
-                          ? "bg-brand-red text-white border-brand-red shadow-[0_4px_12px_rgba(215,38,61,0.25)] -translate-y-0.5"
+                          ? "bg-brand-red text-white border-brand-red shadow-[0_4px_12px_rgba(196,22,47,0.25)] -translate-y-0.5"
                           : "bg-surface text-ink-soft border-line hover:border-line-strong"
                       }`}
                     >
