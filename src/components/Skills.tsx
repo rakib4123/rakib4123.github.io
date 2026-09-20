@@ -63,7 +63,7 @@ export default function Skills() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
             >
-              <SpotlightCard className="relative bg-surface border border-line rounded-xl p-6 overflow-hidden">
+              <SpotlightCard className="relative bg-surface/55 backdrop-blur-md border border-line rounded-xl p-6 overflow-hidden">
                 <h4 className="text-sm font-extrabold text-ink mb-4 pb-2 border-b-2 border-brand-red/30 inline-block uppercase tracking-wider">
                   {category.title}
                 </h4>

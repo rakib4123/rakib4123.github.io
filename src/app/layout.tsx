@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Rajdhani } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
+import ParticleField from "@/components/ParticleField";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const rajdhani = Rajdhani({
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body
         className={`font-sans antialiased bg-bg-main text-ink`}
       >
+        <ParticleField />
         <ScrollProgress />
         <CustomCursor />
         <div className="hud-overlay" aria-hidden="true" />

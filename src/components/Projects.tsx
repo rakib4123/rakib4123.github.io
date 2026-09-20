@@ -196,10 +196,10 @@ export default function Projects() {
             >
               <TiltCard className="h-full">
                 <SpotlightCard
-                  className={`relative h-full rounded-xl p-7 flex flex-col group transition-shadow duration-300 overflow-hidden ${
+                  className={`relative h-full rounded-xl p-7 flex flex-col group transition-shadow duration-300 overflow-hidden backdrop-blur-md ${
                     p.highlight
-                      ? "bg-gradient-to-br from-brand-red/10 to-transparent border-2 border-brand-red/40 hover:shadow-[0_10px_30px_rgba(215,38,61,0.15)]"
-                      : "bg-surface border border-line hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
+                      ? "bg-surface/45 bg-gradient-to-br from-brand-red/10 to-transparent border-2 border-brand-red/40 hover:shadow-[0_10px_30px_rgba(215,38,61,0.15)]"
+                      : "bg-surface/55 border border-line hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
                   }`}
                 >
                   <div
