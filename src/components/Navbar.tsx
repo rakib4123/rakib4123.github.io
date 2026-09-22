@@ -40,7 +40,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-bg-main/90 backdrop-blur-lg border-b border-white/10">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-6 h-[var(--nav-h)] flex items-center justify-between">
         <a
           href="#top"
           className="font-display uppercase font-bold tracking-[0.12em] text-lg text-ink flex items-center gap-2.5"
@@ -49,7 +49,7 @@ export default function Navbar() {
           Md. Rakib Hossain
         </a>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.slice(1);
             return (
@@ -82,7 +82,7 @@ export default function Navbar() {
         </nav>
 
         <button
-          className="md:hidden text-ink hover:text-white"
+          className="lg:hidden text-ink hover:text-white"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -95,7 +95,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden bg-bg-main border-t border-white/10 overflow-hidden"
+            className="lg:hidden bg-bg-main border-t border-white/10 overflow-hidden"
           >
             <nav className="flex flex-col p-3">
               {navLinks.map((link) => {

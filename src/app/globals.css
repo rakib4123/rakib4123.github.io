@@ -16,6 +16,15 @@
   --color-muted: #a2978c;
   --color-muted-2: #756b62;
 
+  /* Fluid type. Each step is driven by width AND height, so a short, wide
+     laptop (1366x768) is treated as tightly as a narrow phone instead of
+     overflowing its own hero. */
+  --text-display: var(--hero-display-fs);
+  --text-display--line-height: 0.85;
+  --text-h2: clamp(1.55rem, min(5vw, 6.2vh), 3.1rem);
+  --text-lead: clamp(1rem, min(2.4vw, 2.5vh), 1.3rem);
+  --text-lead--line-height: 1.55;
+
   --font-sans: var(--font-inter);
   --font-display: var(--font-rajdhani);
   --font-mono: var(--font-jetbrains);
@@ -24,6 +33,33 @@
 :root {
   --background: #0b0908;
   --foreground: #f4ede4;
+  /* The navbar is fixed, so its height is a layout constant that anything
+     underneath has to be able to reference. Declaring it here means the hero
+     can reserve exactly the right amount of room instead of guessing. */
+  --nav-h: 4.25rem;
+
+  /* Hero geometry, declared once so the pieces can be derived from each other
+     instead of being tuned independently and drifting apart. */
+  --hero-display-fs: clamp(2.5rem, min(17vw, 19vh), 9.5rem);
+  --hero-display-h: calc(1.7 * var(--hero-display-fs)); /* two lines at 0.85 */
+  --hero-portrait-h: min(34vh, 40vw, 19rem);
+  /* The portrait is anchored to the bottom of the headline block and sticks
+     out above it, so the status bar has to clear exactly that much. */
+  --hero-overhang: max(0px, calc(var(--hero-portrait-h) - var(--hero-display-h)));
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --nav-h: 4.75rem;
+  }
+}
+
+/* ---------- Responsive system ----------
+   Root scale, keyed to vmin rather than vw. Everything rem-based — type,
+   spacing, max-widths — grows on genuinely large displays but is not inflated
+   by a merely wide one, so 32:9 is treated like the 1440-tall screen it is. */
+html {
+  font-size: clamp(16px, 12px + 0.55vmin, 22px);
 }
 
 body {
@@ -204,6 +240,69 @@ body {
   background: linear-gradient(90deg, transparent, rgba(244, 124, 32, 0.9), transparent);
   box-shadow: 0 0 12px rgba(244, 124, 32, 0.7);
   animation: scanBeam 3.2s ease-in-out infinite;
+}
+
+/* When the hero is taller than the screen, plain centring overflows BOTH
+   edges and slides the top of the content up under the fixed navbar. Safe
+   centring keeps it centred when there is room and falls back to flush-start
+   when there is not. */
+.hero-pill {
+  margin-bottom: calc(var(--hero-overhang) + clamp(1rem, 5vh, 3.5rem));
+}
+
+.hero-portrait {
+  height: var(--hero-portrait-h);
+}
+
+.hero-shell {
+  justify-content: safe center;
+  padding-top: calc(var(--nav-h) + clamp(0.5rem, 8vh, 4rem));
+  padding-bottom: clamp(2rem, 8vh, 5rem);
+}
+
+/* Small or short viewports: tighten the hero's vertical rhythm and shrink the
+   portrait so the primary call to action stays above the fold. */
+@media (max-width: 380px), (max-height: 620px) {
+  :root {
+    --hero-portrait-h: min(26vh, 34vw, 19rem);
+  }
+
+  .hero-shell {
+    padding-top: calc(var(--nav-h) + 0.75rem);
+    padding-bottom: 1.25rem;
+  }
+
+  .hero-cta {
+    margin-top: 1rem;
+  }
+}
+
+/* Phone-landscape and other very short viewports: the hero has no vertical
+   room to scale into, so compress its rhythm rather than let it sprawl. */
+@media (orientation: landscape) and (max-height: 600px) {
+  :root {
+    --hero-portrait-h: min(34vh, 22vw);
+  }
+
+  .hero-shell {
+    padding-top: calc(var(--nav-h) + 0.4rem);
+    padding-bottom: 0.75rem;
+  }
+  .hero-portrait {
+    height: min(34vh, 22vw);
+  }
+  .hero-pill {
+    margin-bottom: calc(var(--hero-overhang) + 0.4rem);
+  }
+  .hero-lead {
+    margin-top: 0.5rem;
+  }
+  .hero-cta {
+    margin-top: 0.75rem;
+  }
+  .hero-scroll-cue {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

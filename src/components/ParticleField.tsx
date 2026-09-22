@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import * as THREE from "three";
 
 /**
@@ -40,6 +40,20 @@ const PATH: Key[] = [
   { at: 0.46, radius: 12.5, azimuth: 1.3, elevation: 0.34 },
   { at: 1.0, radius: 23, azimuth: 2.5, elevation: 1.5 },
 ];
+
+/**
+ * The camera has a fixed vertical field of view, so a narrow or portrait
+ * viewport crops the disc horizontally while an ultrawide one only reveals more
+ * empty space. Pulling the camera back on narrow aspects keeps the galaxy
+ * framed the same way everywhere; the pullback is capped so portrait phones
+ * crop a little rather than shrink the galaxy to a speck.
+ */
+const REFERENCE_ASPECT = 1.6;
+const MAX_PULLBACK = 1.85;
+
+function aspectPullback(aspect: number) {
+  return Math.min(MAX_PULLBACK, Math.max(1, REFERENCE_ASPECT / aspect));
+}
 
 function smoothstep(edge0: number, edge1: number, x: number) {
   const t = Math.min(1, Math.max(0, (x - edge0) / (edge1 - edge0)));
@@ -137,18 +151,38 @@ void main() {
 }
 `;
 
+type Tier = "mobile" | "desktop";
+
+function subscribeToViewport(onChange: () => void) {
+  window.addEventListener("resize", onChange);
+  window.addEventListener("orientationchange", onChange);
+  return () => {
+    window.removeEventListener("resize", onChange);
+    window.removeEventListener("orientationchange", onChange);
+  };
+}
+
+const readTier = (): Tier => (window.innerWidth < 768 ? "mobile" : "desktop");
+const readTierOnServer = (): Tier => "desktop";
+
 export default function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // The scene belongs to the landing page only. On /resume the fixed canvas
   // would paint over the embedded PDF, since it outranks in-flow content.
   const enabled = usePathname() === "/";
+  // Star budget and pixel ratio depend on the device class, and that class can
+  // change mid-session: rotating a phone, or dragging a window across the
+  // breakpoint. Subscribing to it re-renders only when the tier actually flips,
+  // so the scene is rebuilt at the right budget instead of being stuck with
+  // whatever was true at mount.
+  const tier = useSyncExternalStore(subscribeToViewport, readTier, readTierOnServer);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || !enabled) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isMobile = window.innerWidth < 768;
+    const isMobile = tier === "mobile";
     const count = isMobile ? COUNT_MOBILE : COUNT_DESKTOP;
     // Narrow screens have no room to shift sideways, so they only drop it down.
     const HERO_SHIFT_X = 0;
@@ -389,6 +423,11 @@ export default function ParticleField() {
 
     const render = () => {
       const k = sample(smoothed);
+      const pull = aspectPullback(camera.aspect);
+      // Haze is a function of distance, so it has to loosen as the camera
+      // retreats or narrow screens would wash the galaxy out.
+      starMat.uniforms.uFog.value = 0.014 / pull;
+      dustMat.uniforms.uFog.value = 0.012 / pull;
 
       starMat.uniforms.uTime.value = time;
       starMat.uniforms.uSpin.value = spin;
@@ -405,10 +444,11 @@ export default function ParticleField() {
 
       parallax.lerp(parallaxTarget, 0.035);
       const cosEl = Math.cos(el);
+      const radius = k.radius * pull;
       camera.position.set(
-        k.radius * cosEl * Math.cos(az) + parallax.x * 0.9,
-        k.radius * Math.sin(el) + parallax.y * 0.7,
-        k.radius * cosEl * Math.sin(az)
+        radius * cosEl * Math.cos(az) + parallax.x * 0.9 * pull,
+        radius * Math.sin(el) + parallax.y * 0.7 * pull,
+        radius * cosEl * Math.sin(az)
       );
 
       // The hero holds the core low and out to one side, clear of the centred
@@ -456,7 +496,7 @@ export default function ParticleField() {
       dustMat.dispose();
       renderer.dispose();
     };
-  }, [enabled]);
+  }, [enabled, tier]);
 
   if (!enabled) return null;
 
