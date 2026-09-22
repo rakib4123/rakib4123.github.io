@@ -11,7 +11,7 @@ import TypewriterRole from "./TypewriterRole";
 export default function Hero() {
   return (
     <section id="top" className="relative">
-      <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-32 pb-16 text-center">
+      <div className="hero-shell relative min-h-svh flex flex-col items-center justify-center overflow-hidden px-6 text-center">
         {/* Subtle grid pattern */}
         <div
           className="absolute inset-0 z-0 opacity-[0.04]"
@@ -35,7 +35,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="hud relative z-20 font-mono text-[10px] sm:text-xs tracking-[0.18em] uppercase text-ink-soft border border-line-strong bg-surface/60 px-4 sm:px-5 py-2 mb-32 sm:mb-28 text-center flex items-center gap-3"
+          className="hero-pill hud relative z-20 font-mono text-[10px] sm:text-xs tracking-[0.18em] uppercase text-ink-soft border border-line-strong bg-surface/60 px-4 sm:px-5 py-2 text-center flex items-center gap-3"
         >
           <span className="led shrink-0" />
           <span>
@@ -54,7 +54,7 @@ export default function Hero() {
           >
             <ScrollHeadline
               lines={["Hi, I'm", "Rakib."]}
-              className="select-none font-display uppercase font-bold tracking-tight text-[#2a1d19] leading-[0.85] text-[22vw] sm:text-[18vw] md:text-[10rem]"
+              className="select-none font-display uppercase font-bold tracking-tight text-[#2a1d19] text-display"
             />
           </motion.div>
 
@@ -78,7 +78,7 @@ export default function Hero() {
                 width={1024}
                 height={935}
                 priority
-                className="h-[22vh] sm:h-[30vh] md:h-[40vh] w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+                className="hero-portrait w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
               />
             </div>
           </motion.div>
@@ -88,16 +88,19 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 text-base md:text-lg text-muted-2 font-mono"
+          className="relative z-20 text-[clamp(0.8rem,min(1.9vw,2vh),1.05rem)] text-muted-2 font-mono leading-[1.45] min-h-[2.9em] md:min-h-[1.45em] flex items-center justify-center"
         >
-          <span className="text-brand-orange">&gt;</span> I work as <TypewriterRole />
+          {/* One flex child, so the spaces around the typed role survive. */}
+          <span>
+            <span className="text-brand-orange">&gt;</span> I work as <TypewriterRole />
+          </span>
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 mt-4 max-w-2xl text-lg md:text-xl text-ink-soft leading-relaxed"
+          className="hero-lead relative z-20 mt-4 max-w-2xl text-lead text-ink-soft"
         >
           I work on{" "}
           <span className="font-semibold bg-gradient-to-r from-brand-red via-brand-orange to-brand-gold bg-clip-text text-transparent animate-gradient">
@@ -110,12 +113,12 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 flex flex-wrap justify-center gap-4 mt-10"
+          className="hero-cta relative z-20 flex flex-wrap justify-center gap-4 mt-[clamp(1.25rem,5vh,2.5rem)]"
         >
           <Magnetic>
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 bg-brand-red text-white font-semibold text-sm px-7 py-3 chamfer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
+              className="inline-flex items-center gap-2 bg-brand-red text-white font-semibold text-sm px-[clamp(1rem,4.5vw,1.75rem)] py-3 chamfer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
             >
               See the work ↓
             </a>
@@ -123,7 +126,7 @@ export default function Hero() {
           <Magnetic>
             <Link
               href="/resume"
-              className="inline-flex items-center gap-2 border border-line-strong text-ink font-medium text-sm px-7 py-3 rounded-md transition-all hover:border-brand-red hover:text-brand-red hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 border border-line-strong text-ink font-medium text-sm px-[clamp(1rem,4.5vw,1.75rem)] py-3 rounded-md transition-all hover:border-brand-red hover:text-brand-red hover:-translate-y-0.5"
             >
               <FileText size={16} /> Resume
             </Link>
@@ -135,7 +138,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.8 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted hover:text-brand-red transition-colors z-20 flex flex-col items-center gap-2"
+          className="hero-scroll-cue absolute bottom-[clamp(1rem,3vh,2rem)] left-1/2 -translate-x-1/2 text-muted hover:text-brand-red transition-colors z-20 flex flex-col items-center gap-2"
         >
           <motion.div
             animate={{ y: [0, 6, 0] }}

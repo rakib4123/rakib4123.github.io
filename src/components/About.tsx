@@ -34,14 +34,14 @@ export default function About() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <p className="text-ink-soft text-[17px] mb-4 leading-relaxed">
+            <p className="text-ink-soft text-[clamp(1rem,min(1.9vw,2.1vh),1.12rem)] mb-4 leading-relaxed">
               I&apos;m a CSE student who takes machine-learning systems from
               dataset curation and exploratory analysis through feature
               engineering, model calibration, and deployment — and builds the
               applications around them. I use AI-assisted development with
               Claude Code daily.
             </p>
-            <p className="text-ink-soft text-[17px] mb-8 leading-relaxed">
+            <p className="text-ink-soft text-[clamp(1rem,min(1.9vw,2.1vh),1.12rem)] mb-8 leading-relaxed">
               <strong className="text-ink">RideGuard</strong> is a
               deployed ML risk service whose self-audit caught its own target
               leakage;{" "}

@@ -46,7 +46,7 @@ export function SectionHeading({
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={container}
-        className="font-display uppercase text-3xl md:text-5xl font-bold tracking-wide text-ink leading-[1.05]"
+        className="font-display uppercase text-h2 font-bold tracking-wide text-ink leading-[1.05]"
       >
         {title.split(" ").map((w, i) => (
           <motion.span key={i} variants={word} className="inline-block mr-[0.25em]">
