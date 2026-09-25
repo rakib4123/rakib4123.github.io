@@ -21,9 +21,15 @@ const podiums = [
   { img: "/images/comp-team-trophy.jpg", cap: "Team Khepa Chakka" },
 ];
 
+const floor = [
+  { img: "/images/floor-csfest-match.jpg", cap: "Robot Soccer match · AIUB CS Fest 2024" },
+  { img: "/images/floor-csfest-team.jpg", cap: "Robot Soccer teams · AIUB CS Fest 2024" },
+];
+
 const certs = [
   { img: "/images/cert-csfest.jpg", cap: "AIUB CS Fest 2024" },
-  { img: "/images/cert-techfest.jpg", cap: "Techfest IIT Bombay 2024" },
+  { img: "/images/cert-techfest-winner.jpg", cap: "Techfest IIT Bombay 2024 — Cozmo Clench Winner" },
+  { img: "/images/cert-techfest.jpg", cap: "Techfest IIT Bombay 2024 — Participation" },
   { img: "/images/cert-technoxian.jpg", cap: "Technoxian Bangladesh 2024 (Robo Race Runner-up)" },
   { img: "/images/cert-autofest-soccer.jpg", cap: "BUET Autofest 2024 (Soccer)" },
   { img: "/images/cert-autofest-race.jpg", cap: "BUET Autofest 2024 (Race)" },
@@ -81,6 +87,11 @@ export default function Robotics() {
         <ImageGrid
           title="On the podium"
           items={podiums}
+          onClick={(items, index) => setLightbox({ items, index })}
+        />
+        <ImageGrid
+          title="On the competition floor"
+          items={floor}
           onClick={(items, index) => setLightbox({ items, index })}
         />
         {showCerts ? (
