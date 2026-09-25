@@ -10,6 +10,7 @@ const robots = [
   { img: "/images/build-battlebot.jpg", cap: "Battle bot (Wedge + blade)" },
   { img: "/images/build-soccerbot-top.jpg", cap: "Soccer bot (Electronics)" },
   { img: "/images/build-soccerbot-angle.jpg", cap: "Soccer bot (Steel body)" },
+  { img: "/images/build-quadcopter.jpg", cap: "Quadcopter (Arduino UNO flight controller)" },
 ];
 
 const podiums = [
@@ -59,7 +60,7 @@ export default function Robotics() {
         <SectionHeading
           title="Robotics — Khepa Chakka"
           tag="04 — Robotics"
-          subtitle="Founder & team lead. I take robots from concept to the competition floor — line-following, soccer, race, and battle bots."
+          subtitle="Founder & team lead. I take robots from concept to the competition floor — line-following, soccer, race, and battle bots, plus an Arduino-based quadcopter."
         />
 
         <motion.div
