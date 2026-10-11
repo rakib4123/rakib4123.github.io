@@ -50,7 +50,7 @@ export default function About() {
               order history;{" "}
               <strong className="text-ink">DhakaNight</strong> and{" "}
               <strong className="text-ink">PulseStone</strong> grew into
-              papers too — three accepted in total, including IEEE COMPAS 2026.
+              papers too — three in total, the first presented at IEEE COMPAS 2026.
               As founder of{" "}
               <strong className="text-ink">&quot;Khepa Chakka&quot;</strong>, I&apos;ve
               taken robots from concept to the competition floor. I&apos;m looking

@@ -4,7 +4,7 @@ import { animate, motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { value: 3, suffix: "", l: "Papers accepted\nIEEE COMPAS & ICCA 2026" },
+  { value: 3, suffix: "", l: "First-author papers\n1 presented · IEEE COMPAS 2026" },
   { value: 6, suffix: "", l: "National & international\nrobotics podiums" },
   { value: 4, suffix: "", l: "Robot classes\ndesigned & built" },
   { value: 2300, suffix: "", l: "Night images labelled\nfor DhakaNight" },
