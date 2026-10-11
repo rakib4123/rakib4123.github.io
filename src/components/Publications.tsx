@@ -28,7 +28,7 @@ const publications = [
 
 const conference = [
   { img: "/images/compas-backdrop.jpg", cap: "IEEE COMPAS 2026 · University of Dhaka" },
-  { img: "/images/compas-authors.jpg", cap: "Conference day · 9–10 October 2026" },
+  { img: "/images/compas-authors.jpg", cap: "With co-authors at IEEE COMPAS 2026 · 9–10 October 2026" },
   { img: "/images/compas-certificate.jpg", cap: "Certificate of presentation · RideGuard (Paper 59)" },
 ];
 
