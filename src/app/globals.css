@@ -356,6 +356,7 @@ body {
 .scene-layer footer {
   background-color: rgba(11, 9, 8, 0.78);
 }
-.scene-layer section > div {
+/* Never applies to a fixed overlay: that would collapse `inset-0` to nothing. */
+.scene-layer section > div:not(.fixed) {
   position: relative;
 }

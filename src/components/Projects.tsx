@@ -3,12 +3,13 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { SectionHeading } from "./SectionHeading";
-import { ExternalLink, Maximize2 } from "lucide-react";
+import { ExternalLink, Maximize2, ZoomIn } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { useState } from "react";
 import TiltCard from "./TiltCard";
 import SpotlightCard from "./SpotlightCard";
 import DemoModal from "./DemoModal";
+import { Lightbox, useGallery } from "./Gallery";
 
 const tagContainer = {
   hidden: {},
@@ -92,6 +93,7 @@ export default function Projects() {
   const [activeDemo, setActiveDemo] = useState<{ url: string; title: string } | null>(
     null
   );
+  const { lightbox, open, close, prev, next } = useGallery();
 
   return (
     <section id="projects" className="py-24 bg-surface relative">
@@ -119,6 +121,7 @@ export default function Projects() {
                   imageWidth={p.imageWidth}
                   imageHeight={p.imageHeight}
                   number={p.number}
+                  onZoom={open}
                 />
               </div>
 
@@ -267,6 +270,8 @@ export default function Projects() {
         </div>
       </div>
 
+      <Lightbox lightbox={lightbox} close={close} prev={prev} next={next} />
+
       {activeDemo && (
         <DemoModal
           url={activeDemo.url}
@@ -284,18 +289,32 @@ function ProjectGallery({
   imageWidth,
   imageHeight,
   number,
+  onZoom,
 }: {
   images: string[];
   alt: string;
   imageWidth: number;
   imageHeight: number;
   number: string;
+  onZoom: (items: { img: string; cap: string }[], index: number) => void;
 }) {
   const [active, setActive] = useState(0);
+  const items = images.map((img, i) => ({
+    img,
+    cap: images.length > 1 ? `${alt} — ${i + 1} of ${images.length}` : alt,
+  }));
 
   return (
     <div>
-      <div className="rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] group relative">
+      <button
+        type="button"
+        aria-label={`View ${alt} full screen`}
+        className="block w-full text-left rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] group relative cursor-zoom-in"
+        onClick={() => onZoom(items, active)}
+      >
+        <span className="absolute bottom-3 right-3 z-10 w-8 h-8 rounded-full bg-bg-main/80 text-ink-soft flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+          <ZoomIn size={15} />
+        </span>
         <span className="absolute top-4 left-4 z-10 bg-bg-main text-white text-xs font-extrabold tracking-widest px-2.5 py-1 rounded">
           {number}
         </span>
@@ -306,7 +325,7 @@ function ProjectGallery({
           height={imageHeight}
           className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700"
         />
-      </div>
+      </button>
 
       {images.length > 1 && (
         <div className="flex gap-3 mt-4">
