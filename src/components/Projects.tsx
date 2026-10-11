@@ -24,7 +24,7 @@ const projects = [
   {
     number: "01",
     title: "RideGuard",
-    type: "Calibrated & auditable ML risk framework",
+    type: "Behavioural-spatial risk framework with conformal prediction",
     images: [
       "/images/rideguard-map.jpg",
       "/images/rideguard-now.jpg",
@@ -34,7 +34,7 @@ const projects = [
     imageWidth: 460,
     imageHeight: 1022,
     tags: ["Python", "CatBoost", "scikit-learn", "SHAP"],
-    desc: "A live web app scoring motorcycle route risk in Dhaka, with a colour-coded risk map and real-time warnings for phone handling, speeding, and accident hotspots. It predicts crash risk at 0.973 macro-F1, reporting calibrated confidence and explaining each prediction with SHAP attributions rather than acting as a black box. A self-audit layer traced the headline score to target leakage — a label the data gave away — which I published as the central finding rather than the accuracy number. Accepted at IEEE COMPAS 2026 (first author).",
+    desc: "A live web app scoring motorcycle route risk in Dhaka, with a colour-coded risk map and real-time warnings for phone handling, speeding, and accident hotspots. It predicts crash risk at 0.973 macro-F1, reporting calibrated confidence and explaining each prediction with SHAP attributions rather than acting as a black box. A self-audit layer traced the headline score to target leakage — a label the data gave away — which I published as the central finding rather than the accuracy number. Presented at IEEE COMPAS 2026, University of Dhaka (first author).",
     demo: "https://ride-guard-web-app-web.vercel.app/",
     embeddable: true,
     github: "https://github.com/rakib4123/Ride_Guard_WebApp",
