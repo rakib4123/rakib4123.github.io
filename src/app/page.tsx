@@ -1,29 +1,31 @@
+import NeuralScene from "@/components/NeuralScene";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
 import Stats from "@/components/Stats";
 import Projects from "@/components/Projects";
 import Publications from "@/components/Publications";
 import Robotics from "@/components/Robotics";
-import Timeline from "@/components/Timeline";
-import Skills from "@/components/Skills";
+import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="scene-layer min-h-screen text-ink">
-      <Navbar />
-      <Hero />
-      <About />
-      <Stats />
-      <Projects />
-      <Publications />
-      <Robotics />
-      <Timeline />
-      <Skills />
-      <Contact />
-      <Footer />
-    </main>
+    <>
+      <NeuralScene />
+      <div className="relative z-10">
+        <Navbar />
+        <main>
+          <Hero />
+          <Stats />
+          <Projects />
+          <Publications />
+          <Robotics />
+          <About />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }

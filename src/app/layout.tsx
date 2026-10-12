@@ -1,21 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Rajdhani } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "@/components/CustomCursor";
-import ScrollProgress from "@/components/ScrollProgress";
-import ParticleField from "@/components/ParticleField";
+import MotionProvider from "@/components/MotionProvider";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const rajdhani = Rajdhani({
-  subsets: ["latin"],
-  variable: "--font-rajdhani",
-  weight: ["500", "600", "700"],
-});
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains",
-  weight: ["400", "500", "700"],
-});
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export const metadata: Metadata = {
   title: "Md. Rakib Hossain | Data Science, Machine Learning & Full-Stack",
@@ -29,15 +18,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${rajdhani.variable} ${jetbrains.variable} scroll-smooth`}>
-      <body
-        className={`font-sans antialiased bg-bg-main text-ink`}
-      >
-        <ParticleField />
-        <ScrollProgress />
-        <CustomCursor />
-        <div className="hud-overlay" aria-hidden="true" />
-        {children}
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
+      <body className="font-sans antialiased bg-bg text-ink">
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

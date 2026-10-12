@@ -1,78 +1,53 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { SectionHeading } from "./SectionHeading";
 import { Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import Magnetic from "./Magnetic";
+import Reveal from "./Reveal";
+
+const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 export default function Contact() {
   return (
-    <section
-      id="contact"
-      className="py-24 relative overflow-hidden bg-surface border-t border-line"
-    >
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
-        <SectionHeading
-          title="Let's build software that solves real problems."
-          tag="07 — Contact"
-        />
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          className="text-lg text-muted max-w-xl mb-10 leading-relaxed"
-        >
-          I&apos;m open to roles and opportunities in data science, machine
-          learning, and full-stack development. The fastest way to reach me
-          is email.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ delay: 0.15 }}
-          className="flex flex-wrap gap-4"
-        >
-          <a
-            href="mailto:r1.rakibhossain1@gmail.com"
-            className="inline-flex items-center gap-2 bg-brand-red text-white font-medium text-sm px-7 py-3 chamfer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
-          >
-            <Mail size={16} /> Email me
-          </a>
-          <a
-            href="https://github.com/rakib4123"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-surface border border-line text-ink-soft font-medium text-sm px-7 py-3 rounded-md transition-all hover:border-line-strong hover:text-ink hover:-translate-y-0.5"
-          >
-            <FaGithub size={16} /> GitHub
-          </a>
-          <a
-            href="https://www.linkedin.com/in/md-rakib-hossain-519818263"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-surface border border-line text-ink-soft font-medium text-sm px-7 py-3 rounded-md transition-all hover:border-line-strong hover:text-ink hover:-translate-y-0.5"
-          >
-            <FaLinkedin size={16} /> LinkedIn
-          </a>
-        </motion.div>
-
-        <div className="mt-12 pt-8 border-t border-line flex flex-col sm:flex-row gap-6 text-sm text-muted">
-          <span>
-            <strong className="text-ink-soft">Phone:</strong> +8801632941507
-          </span>
-          <span>
-            <strong className="text-ink-soft">Email:</strong>{" "}
-            r1.rakibhossain1@gmail.com
-          </span>
-          <span>
-            <strong className="text-ink-soft">Based in:</strong> Dhaka,
-            Bangladesh
-          </span>
+    <section id="contact" className="mx-auto max-w-[1200px] px-5 pb-28 pt-32 sm:px-8 lg:px-12">
+      <Reveal>
+        <div className="flex flex-col items-start gap-7 rounded-3xl border border-line bg-surface/85 p-8 backdrop-blur-md sm:p-14 lg:p-20">
+          <span className="font-mono text-xs uppercase tracking-[0.1em] text-accent">05 — Contact</span>
+          <h2 className="max-w-[820px] text-[clamp(2.25rem,4.6vw,4rem)] font-semibold leading-[1.04] tracking-[-0.035em]">
+            Have a model that needs to ship? Let&apos;s talk.
+          </h2>
+          <p className="max-w-[560px] text-lg font-light text-ink-soft">
+            I&apos;m open to roles in data science, machine learning and full-stack development. Email
+            is the fastest way to reach me.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Magnetic>
+              <a
+                href="mailto:r1.rakibhossain1@gmail.com"
+                className="inline-flex h-[52px] items-center gap-2.5 rounded-full bg-accent px-6 text-[15px] font-semibold text-accent-ink transition-[filter] hover:brightness-110"
+              >
+                <Mail size={16} aria-hidden="true" /> r1.rakibhossain1@gmail.com
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href="https://github.com/rakib4123"
+                {...external}
+                className="inline-flex h-[52px] items-center gap-2.5 rounded-full border border-line-strong px-6 text-[15px] text-ink transition-colors hover:border-accent"
+              >
+                <FaGithub size={16} aria-hidden="true" /> GitHub
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href="https://www.linkedin.com/in/md-rakib-hossain-519818263"
+                {...external}
+                className="inline-flex h-[52px] items-center gap-2.5 rounded-full border border-line-strong px-6 text-[15px] text-ink transition-colors hover:border-accent"
+              >
+                <FaLinkedin size={16} aria-hidden="true" /> LinkedIn
+              </a>
+            </Magnetic>
+          </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Download } from "lucide-react";
+import { ArrowLeft, Download, ExternalLink } from "lucide-react";
 
 export const metadata = {
   title: "Resume | Md. Rakib Hossain",
@@ -7,29 +7,40 @@ export const metadata = {
 
 export default function ResumePage() {
   return (
-    <main className="min-h-screen bg-bg-main">
-      <div className="max-w-4xl mx-auto px-6 py-10">
-        <div className="flex items-center justify-between mb-8">
+    <main className="min-h-screen bg-bg">
+      <div className="mx-auto max-w-4xl px-5 py-10 sm:px-8">
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-ink-soft hover:text-brand-red transition-colors"
+            className="inline-flex min-h-11 items-center gap-2 text-sm text-ink-soft transition-colors hover:text-accent"
           >
-            <ArrowLeft size={16} /> Back to portfolio
+            <ArrowLeft size={16} aria-hidden="true" /> Back to portfolio
           </Link>
-          <a
-            href="/Rakib_Hossain_CV.pdf"
-            download
-            className="inline-flex items-center gap-2 bg-brand-red text-white font-medium text-sm px-5 py-2.5 chamfer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
-          >
-            <Download size={16} /> Download PDF
-          </a>
+          <div className="flex flex-wrap gap-3">
+            {/* Many phone browsers can't show a PDF inside a page. */}
+            <a
+              href="/Rakib_Hossain_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-5 text-sm text-ink transition-colors hover:border-accent"
+            >
+              <ExternalLink size={15} aria-hidden="true" /> Open PDF
+            </a>
+            <a
+              href="/Rakib_Hossain_CV.pdf"
+              download
+              className="inline-flex h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-semibold text-accent-ink transition-[filter] hover:brightness-110"
+            >
+              <Download size={15} aria-hidden="true" /> Download PDF
+            </a>
+          </div>
         </div>
 
-        <div className="rounded-xl overflow-hidden border border-line shadow-[0_20px_40px_rgba(0,0,0,0.5)] bg-surface aspect-[8.5/11]">
+        <div className="aspect-[8.5/11] overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
           <iframe
             src="/Rakib_Hossain_CV.pdf"
             title="Md. Rakib Hossain — Resume"
-            className="w-full h-full"
+            className="h-full w-full"
           />
         </div>
       </div>

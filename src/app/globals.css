@@ -1,362 +1,119 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-red: #d7263d;
-  --color-brand-orange: #f47c20;
-  --color-brand-gold: #f5b547;
+  --color-bg: #0a0b0d;
+  --color-surface: #0e1013;
+  --color-surface-2: #14171c;
+  --color-line: #1c1f26;
+  --color-line-strong: #2a2e37;
 
-  --color-bg-main: #0b0908;
-  --color-surface: #131110;
-  --color-surface-2: #1c1816;
-  --color-line: #ffffff14;
-  --color-line-strong: #ffffff2e;
+  --color-ink: #edeff3;
+  --color-ink-soft: #c4c9d2;
+  --color-muted: #8b93a1;
 
-  --color-ink: #f4ede4;
-  --color-ink-soft: #d3cabf;
-  --color-muted: #a2978c;
-  --color-muted-2: #756b62;
+  --color-accent: #5ce1e6;
+  --color-accent-ink: #04181a;
+  --color-accent-line: #23464a;
 
-  /* Fluid type. Each step is driven by width AND height, so a short, wide
-     laptop (1366x768) is treated as tightly as a narrow phone instead of
-     overflowing its own hero. */
-  --text-display: var(--hero-display-fs);
-  --text-display--line-height: 0.85;
-  --text-h2: clamp(1.55rem, min(5vw, 6.2vh), 3.1rem);
-  --text-lead: clamp(1rem, min(2.4vw, 2.5vh), 1.3rem);
-  --text-lead--line-height: 1.55;
-
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-rajdhani);
-  --font-mono: var(--font-jetbrains);
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-:root {
-  --background: #0b0908;
-  --foreground: #f4ede4;
-  /* The navbar is fixed, so its height is a layout constant that anything
-     underneath has to be able to reference. Declaring it here means the hero
-     can reserve exactly the right amount of room instead of guessing. */
-  --nav-h: 4.25rem;
-
-  /* Hero geometry, declared once so the pieces can be derived from each other
-     instead of being tuned independently and drifting apart. */
-  --hero-display-fs: clamp(2.5rem, min(17vw, 19vh), 9.5rem);
-  --hero-display-h: calc(1.7 * var(--hero-display-fs)); /* two lines at 0.85 */
-  --hero-portrait-h: min(34vh, 40vw, 19rem);
-  /* The portrait is anchored to the bottom of the headline block and sticks
-     out above it, so the status bar has to clear exactly that much. */
-  --hero-overhang: max(0px, calc(var(--hero-portrait-h) - var(--hero-display-h)));
-}
-
-@media (min-width: 1024px) {
-  :root {
-    --nav-h: 4.75rem;
-  }
-}
-
-/* ---------- Responsive system ----------
-   Root scale, keyed to vmin rather than vw. Everything rem-based — type,
-   spacing, max-widths — grows on genuinely large displays but is not inflated
-   by a merely wide one, so 32:9 is treated like the 1440-tall screen it is. */
 html {
-  font-size: clamp(16px, 12px + 0.55vmin, 22px);
-}
-
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #0b0908;
-}
-::-webkit-scrollbar-thumb {
-  background: #2e2825;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #d7263d;
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  overflow-x: clip;
 }
 
-@keyframes gradientAnim {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradientAnim 6s ease infinite;
-}
-
-/* Selection color */
 ::selection {
-  background: rgba(215, 38, 61, 0.35);
-  color: #f4ede4;
+  background: rgba(92, 225, 230, 0.3);
+  color: #fff;
 }
 
-/* Custom cursor */
-.custom-cursor-active,
-.custom-cursor-active * {
-  cursor: none !important;
-}
+/* ---------- 3D scene ---------- */
 
-.cursor-crosshair {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-100px, -100px);
-}
-
-.crosshair-line {
-  position: absolute;
-  background: #f47c20;
-  transition: background 0.15s ease;
-}
-
-.crosshair-top,
-.crosshair-bottom {
-  width: 1.5px;
-  height: 7px;
-  left: -0.75px;
-}
-
-.crosshair-top {
-  top: -12px;
-}
-
-.crosshair-bottom {
-  top: 5px;
-}
-
-.crosshair-left,
-.crosshair-right {
-  height: 1.5px;
-  width: 7px;
-  top: -0.75px;
-}
-
-.crosshair-left {
-  left: -12px;
-}
-
-.crosshair-right {
-  left: 5px;
-}
-
-.cursor-crosshair-active .crosshair-line {
-  background: #d7263d;
-}
-
-/* ---------- Robotic HUD layer ---------- */
-
-/* Full-page blueprint grid + scanlines, above content, never interactive */
-.hud-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 40;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 3px),
-    linear-gradient(rgba(244, 124, 32, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(244, 124, 32, 0.035) 1px, transparent 1px);
-  background-size: 100% 3px, 80px 80px, 80px 80px;
-}
-
-/* Corner brackets on cards (draws on top of the card's own background) */
-.hud {
-  position: relative;
-}
-.hud::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  --hc: rgba(244, 124, 32, 0.75);
-  --hl: 14px;
-  background:
-    linear-gradient(var(--hc), var(--hc)) top left / var(--hl) 2px no-repeat,
-    linear-gradient(var(--hc), var(--hc)) top left / 2px var(--hl) no-repeat,
-    linear-gradient(var(--hc), var(--hc)) top right / var(--hl) 2px no-repeat,
-    linear-gradient(var(--hc), var(--hc)) top right / 2px var(--hl) no-repeat,
-    linear-gradient(var(--hc), var(--hc)) bottom left / var(--hl) 2px no-repeat,
-    linear-gradient(var(--hc), var(--hc)) bottom left / 2px var(--hl) no-repeat,
-    linear-gradient(var(--hc), var(--hc)) bottom right / var(--hl) 2px no-repeat,
-    linear-gradient(var(--hc), var(--hc)) bottom right / 2px var(--hl) no-repeat;
-}
-.hud:hover::after {
-  --hc: rgba(215, 38, 61, 1);
-}
-
-/* Machined, chamfered buttons */
-.chamfer {
-  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-  border-radius: 0 !important;
-}
-
-/* Blinking status LED */
-@keyframes ledBlink {
-  0%, 60% { opacity: 1; }
-  70%, 100% { opacity: 0.25; }
-}
-.led {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 1px;
-  background: #d7263d;
-  box-shadow: 0 0 8px rgba(215, 38, 61, 0.9);
-  animation: ledBlink 1.6s steps(1) infinite;
-}
-.led-orange {
-  background: #f47c20;
-  box-shadow: 0 0 8px rgba(244, 124, 32, 0.9);
-}
-
-/* Slow scanning beam for the hero targeting frame */
-@keyframes scanBeam {
-  0% { top: 0%; opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-.scan-beam {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(244, 124, 32, 0.9), transparent);
-  box-shadow: 0 0 12px rgba(244, 124, 32, 0.7);
-  animation: scanBeam 3.2s ease-in-out infinite;
-}
-
-/* When the hero is taller than the screen, plain centring overflows BOTH
-   edges and slides the top of the content up under the fixed navbar. Safe
-   centring keeps it centred when there is room and falls back to flush-start
-   when there is not. */
-.hero-pill {
-  margin-bottom: calc(var(--hero-overhang) + clamp(1rem, 5vh, 3.5rem));
-}
-
-.hero-portrait {
-  height: var(--hero-portrait-h);
-}
-
-.hero-shell {
-  justify-content: safe center;
-  padding-top: calc(var(--nav-h) + clamp(0.5rem, 8vh, 4rem));
-  padding-bottom: clamp(2rem, 8vh, 5rem);
-}
-
-/* Small or short viewports: tighten the hero's vertical rhythm and shrink the
-   portrait so the primary call to action stays above the fold. */
-@media (max-width: 380px), (max-height: 620px) {
-  :root {
-    --hero-portrait-h: min(26vh, 34vw, 19rem);
-  }
-
-  .hero-shell {
-    padding-top: calc(var(--nav-h) + 0.75rem);
-    padding-bottom: 1.25rem;
-  }
-
-  .hero-cta {
-    margin-top: 1rem;
-  }
-}
-
-/* Phone-landscape and other very short viewports: the hero has no vertical
-   room to scale into, so compress its rhythm rather than let it sprawl. */
-@media (orientation: landscape) and (max-height: 600px) {
-  :root {
-    --hero-portrait-h: min(34vh, 22vw);
-  }
-
-  .hero-shell {
-    padding-top: calc(var(--nav-h) + 0.4rem);
-    padding-bottom: 0.75rem;
-  }
-  .hero-portrait {
-    height: min(34vh, 22vw);
-  }
-  .hero-pill {
-    margin-bottom: calc(var(--hero-overhang) + 0.4rem);
-  }
-  .hero-lead {
-    margin-top: 0.5rem;
-  }
-  .hero-cta {
-    margin-top: 0.75rem;
-  }
-  .hero-scroll-cue {
-    display: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .led, .scan-beam, .animate-gradient { animation: none; }
-  .scan-beam { display: none; }
-}
-
-/* ---------- 3D scene layer ---------- */
-
+/* The network sits behind the whole page and never takes input, so every
+   piece of content above it stays selectable and clickable. */
 .scene-canvas {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 0;
+  pointer-events: none;
   display: block;
-  touch-action: pan-y;
 }
 
-/* Page content floats above the scene. Empty areas let clicks and drags
-   reach the canvas; anything interactive stays clickable. */
-.scene-layer {
-  position: relative;
-  z-index: 10;
-  pointer-events: none;
-}
-.scene-layer * {
-  pointer-events: none;
-}
-.scene-layer a,
-.scene-layer button,
-.scene-layer input,
-.scene-layer select,
-.scene-layer textarea,
-.scene-layer label,
-.scene-layer video,
-.scene-layer iframe,
-.scene-layer figure,
-.scene-layer .hud,
-.scene-layer .fixed,
-.scene-layer [data-interactive] {
-  pointer-events: auto;
+/* ---------- Depth on hover ---------- */
+
+.tilt {
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.3s ease;
 }
 
-/* Content sections keep a dark veil so text always wins over the scene, while
-   still letting the particles read through. The hero is exempt: it has its own
-   radial scrim and is where the scene is meant to be fully visible. */
-.scene-layer section:not(#top) {
-  background-color: rgba(11, 9, 8, 0.78) !important;
+/* Product shots sit at an angle and straighten when their card is hovered. */
+.device {
+  transform: perspective(1600px) rotateY(-24deg) rotateX(8deg) rotateZ(1deg);
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.scene-layer footer {
-  background-color: rgba(11, 9, 8, 0.78);
+.device-r {
+  transform: perspective(1600px) rotateY(20deg) rotateX(6deg) rotateZ(-1deg);
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-/* Never applies to a fixed overlay: that would collapse `inset-0` to nothing. */
-.scene-layer section > div:not(.fixed) {
-  position: relative;
+
+.zoom img {
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .tilt:hover {
+    transform: perspective(1000px) rotateX(2.5deg) rotateY(-3deg) translateY(-6px);
+    border-color: var(--color-line-strong);
+  }
+  .feature:hover .device {
+    transform: perspective(1600px) rotateY(-9deg) rotateX(3deg) rotateZ(0deg);
+  }
+  .feature:hover .device-r {
+    transform: perspective(1600px) rotateY(7deg) rotateX(2deg) rotateZ(0deg);
+  }
+  .zoom:hover img {
+    transform: scale(1.045);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.float {
+  animation: float 7s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.live {
+  animation: blink 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .float,
+  .live {
+    animation: none;
+  }
+  .tilt,
+  .device,
+  .device-r,
+  .zoom img {
+    transition: none;
+  }
 }
