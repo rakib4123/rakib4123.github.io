@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { SectionHeading } from "./SectionHeading";
 import Reveal from "./Reveal";
-import { Lightbox, useGallery } from "./Gallery";
+import { Lightbox, PhotoGrid, useGallery } from "./Gallery";
 
 const publications = [
   {
@@ -26,7 +25,7 @@ const publications = [
 ];
 
 const conference = [
-  { img: "/images/compas-authors.jpg", cap: "With co-authors at IEEE COMPAS 2026 · 9–10 October 2026" },
+  { img: "/images/compas-authors.jpg", cap: "With co-authors · 9–10 October 2026" },
   { img: "/images/compas-backdrop.jpg", cap: "IEEE COMPAS 2026 · University of Dhaka" },
   { img: "/images/compas-certificate.jpg", cap: "Certificate of presentation · RideGuard (Paper 59)" },
 ];
@@ -37,10 +36,14 @@ export default function Publications() {
   return (
     <section
       id="research"
-      className="mx-auto grid max-w-[1200px] items-end gap-14 px-5 pb-10 pt-28 sm:px-8 lg:grid-cols-[1.25fr_1fr] lg:px-12"
+      className="mx-auto flex max-w-[1200px] flex-col gap-14 px-5 pb-10 pt-28 sm:px-8 lg:px-12"
     >
       <div className="flex min-w-0 flex-col gap-8">
-        <SectionHeading tag="02 — Research" title="Three first-author papers." />
+        <SectionHeading
+          tag="02 — Research"
+          title="Three first-author papers."
+          subtitle="RideGuard was presented at IEEE COMPAS 2026 at the University of Dhaka; DhakaNight and PulseStone are accepted at ICCA 2026."
+        />
         <Reveal>
           <ol className="border-t border-line">
             {publications.map((pub) => (
@@ -67,27 +70,7 @@ export default function Publications() {
         </Reveal>
       </div>
 
-      <Reveal delay={0.1} className="min-w-0">
-        <figure className="flex flex-col gap-3">
-          <button
-            type="button"
-            onClick={() => open(conference, 0)}
-            aria-label="View IEEE COMPAS 2026 photos"
-            className="zoom relative block h-[320px] cursor-zoom-in overflow-hidden rounded-2xl border border-line sm:h-[420px]"
-          >
-            <Image
-              src={conference[0].img}
-              alt="Rakib with co-authors at IEEE COMPAS 2026"
-              fill
-              className="object-cover"
-            />
-            <span className="absolute bottom-4 right-4 rounded-full bg-bg/85 px-3.5 py-1.5 text-[13px] text-ink">
-              {conference.length} photos
-            </span>
-          </button>
-          <figcaption className="text-[13px] text-muted">{conference[0].cap}</figcaption>
-        </figure>
-      </Reveal>
+      <PhotoGrid title="At IEEE COMPAS 2026" items={conference} onOpen={open} />
 
       <Lightbox lightbox={lightbox} close={close} prev={prev} next={next} />
     </section>
