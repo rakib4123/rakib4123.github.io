@@ -1,13 +1,14 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import Portal from "./Portal";
 
 /**
- * Shared lightbox, used by the robotics and publications sections so both
- * present their photos the same way instead of carrying two overlays.
+ * Shared photo grid and lightbox, used by the robotics and publications
+ * sections so both present their photos the same way.
  */
 
 export type GalleryItem = { img: string; cap: string };
@@ -40,6 +41,66 @@ export function useGallery() {
   );
 
   return { lightbox, open, close, prev, next };
+}
+
+/** Every photo on show, captioned; each opens the group in the lightbox. */
+export function PhotoGrid({
+  title,
+  items,
+  onOpen,
+  contain = false,
+}: {
+  title: string;
+  items: GalleryItem[];
+  onOpen: (items: GalleryItem[], index: number) => void;
+  contain?: boolean;
+}) {
+  return (
+    <div className="flex flex-col gap-5">
+      <h3 className="flex items-baseline gap-3 text-xl font-semibold tracking-[-0.02em]">
+        {title}
+        <span className="font-mono text-xs font-normal text-muted">{items.length}</span>
+      </h3>
+      <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+        {items.map((item, i) => (
+          <motion.li
+            key={item.img}
+            initial={{ opacity: 0, y: 20, scale: 0.97 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.55, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <button
+              type="button"
+              onClick={() => onOpen(items, i)}
+              aria-label={`View photo: ${item.cap}`}
+              className="zoom relative block w-full cursor-zoom-in overflow-hidden rounded-xl border border-line bg-surface"
+            >
+              <span className="relative block aspect-[4/3] overflow-hidden">
+                <Image
+                  src={item.img}
+                  alt={item.cap}
+                  fill
+                  sizes="(min-width: 1024px) 380px, 50vw"
+                  className={contain ? "object-contain p-3" : "object-cover"}
+                />
+              </span>
+              {/* Documents keep their caption clear of the page they show. */}
+              <span
+                className={
+                  contain
+                    ? "block border-t border-line px-3 py-2.5 text-left text-xs leading-snug text-ink-soft sm:text-[13px]"
+                    : "absolute inset-x-0 bottom-0 bg-linear-to-t from-black/85 to-transparent px-3 pb-2.5 pt-10 text-left text-xs leading-snug text-ink sm:text-[13px]"
+                }
+              >
+                {item.cap}
+              </span>
+            </button>
+          </motion.li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export function Lightbox({

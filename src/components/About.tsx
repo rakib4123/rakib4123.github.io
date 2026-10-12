@@ -2,9 +2,24 @@ import Image from "next/image";
 import Reveal from "./Reveal";
 
 const facts = [
-  ["Affiliation", "ESAB, AIUB"],
+  ["Studying", "B.Sc. CSE, AIUB"],
   ["Languages", "Bangla · English"],
   ["Based in", "Dhaka, Bangladesh"],
+];
+
+const leadership = [
+  {
+    role: "Founder & Team Lead",
+    org: "Khepa Chakka robotics team",
+    years: "2023 – present",
+    desc: "Founded and lead a competitive team building four classes of robots: line-following, soccer, race and battle. I coordinate members across mechanical design, electronics and software against competition deadlines.",
+  },
+  {
+    role: "Active Member",
+    org: "Engineering Students' Association of Bangladesh (ESAB) · AIUB club",
+    years: "2023 – present",
+    desc: "Collaborate with faculty on research and development, and take part in seminars and workshops on emerging technologies.",
+  },
 ];
 
 const education = [
@@ -76,6 +91,20 @@ export default function About() {
               </div>
             ))}
           </dl>
+        </Reveal>
+
+        <Reveal>
+          <h3 className={`${label} mb-3`}>Leadership &amp; clubs</h3>
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {leadership.map((l) => (
+              <li key={l.org} className="tilt flex flex-col gap-2 rounded-2xl border border-line bg-surface p-6">
+                <span className="font-mono text-xs text-muted">{l.years}</span>
+                <span className="text-lg font-semibold tracking-[-0.01em]">{l.role}</span>
+                <span className="text-[15px] text-accent">{l.org}</span>
+                <span className="text-sm font-light text-ink-soft">{l.desc}</span>
+              </li>
+            ))}
+          </ul>
         </Reveal>
 
         <Reveal>

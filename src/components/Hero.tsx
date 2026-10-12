@@ -1,6 +1,13 @@
-import { ArrowDown, Download } from "lucide-react";
+import { ArrowDown, Download, Presentation, Trophy, Users } from "lucide-react";
 import Magnetic from "./Magnetic";
 import Reveal from "./Reveal";
+
+const credentials = [
+  { icon: Presentation, text: "Presented at IEEE COMPAS 2026" },
+  { icon: Trophy, text: "Winner · Techfest IIT Bombay 2024" },
+  { icon: Trophy, text: "Champion · AIUB CS Fest 2024" },
+  { icon: Users, text: "Founder · Khepa Chakka robotics" },
+];
 
 export default function Hero() {
   return (
@@ -48,11 +55,17 @@ export default function Hero() {
             </Magnetic>
           </Reveal>
           <Reveal delay={0.32}>
-            <p className="flex flex-wrap gap-x-6 gap-y-2 pt-2 text-[13px] text-muted">
-              <span>Dhaka, Bangladesh</span>
-              <span>B.Sc. CSE, AIUB</span>
-              <span>Founder, Khepa Chakka robotics</span>
-            </p>
+            <ul aria-label="Highlights" className="flex flex-wrap gap-2.5 pt-2">
+              {credentials.map(({ icon: Icon, text }) => (
+                <li
+                  key={text}
+                  className="inline-flex h-9 items-center gap-2 rounded-full border border-line-strong bg-surface/60 px-3.5 text-[13px] text-ink-soft backdrop-blur-md"
+                >
+                  <Icon size={14} className="text-accent" aria-hidden="true" />
+                  {text}
+                </li>
+              ))}
+            </ul>
           </Reveal>
         </div>
 

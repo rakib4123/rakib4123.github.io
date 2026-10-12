@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Images, Play } from "lucide-react";
+import { Play, Trophy } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
 import Reveal from "./Reveal";
-import { Lightbox, useGallery } from "./Gallery";
+import { Lightbox, PhotoGrid, useGallery } from "./Gallery";
 
 const robots = [
   { img: "/images/build-battlebot.jpg", cap: "Battle bot · wedge and blade" },
@@ -21,121 +21,130 @@ const podiums = [
   { img: "/images/comp-technoxian.jpg", cap: "1st Runner-up · Technoxian BD 2024" },
   { img: "/images/comp-aiub-trophies.jpg", cap: "1st Runner-up · AIUB Robotic Crew 2025" },
   { img: "/images/comp-team-trophy.jpg", cap: "Team Khepa Chakka" },
+];
+
+const floor = [
   { img: "/images/floor-csfest-match.jpg", cap: "Robot Soccer match · AIUB CS Fest 2024" },
   { img: "/images/floor-csfest-team.jpg", cap: "Robot Soccer teams · AIUB CS Fest 2024" },
 ];
 
 const certs = [
-  { img: "/images/cert-csfest.jpg", cap: "Certificate · AIUB CS Fest 2024" },
-  { img: "/images/cert-techfest-winner.jpg", cap: "Certificate · Techfest IIT Bombay 2024, Cozmo Clench winner" },
-  { img: "/images/cert-techfest.jpg", cap: "Certificate · Techfest IIT Bombay 2024, participation" },
-  { img: "/images/cert-technoxian.jpg", cap: "Certificate · Technoxian Bangladesh 2024, Robo Race" },
-  { img: "/images/cert-autofest-soccer.jpg", cap: "Certificate · BUET Autofest 2024, soccer" },
-  { img: "/images/cert-autofest-race.jpg", cap: "Certificate · BUET Autofest 2024, race" },
+  { img: "/images/cert-techfest-winner.jpg", cap: "Techfest IIT Bombay 2024 · Cozmo Clench winner" },
+  { img: "/images/cert-csfest.jpg", cap: "AIUB CS Fest 2024" },
+  { img: "/images/cert-technoxian.jpg", cap: "Technoxian Bangladesh 2024 · Robo Race" },
+  { img: "/images/cert-techfest.jpg", cap: "Techfest IIT Bombay 2024 · participation" },
+  { img: "/images/cert-autofest-soccer.jpg", cap: "BUET Autofest 2024 · soccer" },
+  { img: "/images/cert-autofest-race.jpg", cap: "BUET Autofest 2024 · race" },
 ];
 
-const allPhotos = [...robots, ...podiums, ...certs];
-
-/** Images shown on the page, by their index in `allPhotos`. */
-const MAIN = 0;
-const SIDE = [1, robots.length]; // quadcopter, Techfest win
+const headline = [
+  {
+    rank: "Winner",
+    title: "Cozmo Clench",
+    org: "Techfest, IIT Bombay (Bangladesh Zonal) · 2024",
+    note: "One of Asia's largest science and technology festivals.",
+  },
+  {
+    rank: "Champion",
+    title: "Robot Soccer",
+    org: "AIUB CS Fest · 2024",
+    note: "",
+  },
+];
 
 const awards = [
-  { year: "2024", title: "Champion — Robot Soccer", org: "AIUB CS Fest" },
-  { year: "2024", title: "Winner — Cozmo Clench", org: "Techfest, IIT Bombay (Bangladesh Zonal)" },
   { year: "2025", title: "1st Runner-up — Nano Battle Bot", org: "National Robotics Championship" },
   { year: "2025", title: "2nd Runner-up — Robo Race", org: "National Robotics Championship" },
-  { year: "2024", title: "1st Runner-up — Robo Race", org: "Technoxian Bangladesh National Round" },
   { year: "2025", title: "1st Runner-up — Robot Soccer", org: "AIUB Robotic Crew (ARC)" },
-  { year: "2024", title: "Competitor — Soccer Bot & Robo Race", org: "BUET Autofest" },
+  { year: "2024", title: "1st Runner-up — Robo Race", org: "Technoxian Bangladesh National Round" },
+  { year: "2024", title: "Competitor — Soccer Bot & Robo Race", org: "BUET Autofest, plus national and inter-university events" },
 ];
-
-const pill = "absolute bottom-4 left-4 rounded-full bg-bg/85 px-3.5 py-1.5 text-[13px] text-ink";
 
 export default function Robotics() {
   const { lightbox, open, close, prev, next } = useGallery();
   const [playing, setPlaying] = useState(false);
 
   return (
-    <section id="robotics" className="mx-auto flex max-w-[1200px] flex-col gap-10 px-5 pb-10 pt-28 sm:px-8 lg:px-12">
-      <div className="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeading
-          tag="03 — Robotics"
-          title="Khepa Chakka, the robotics team I founded."
-          subtitle="From concept to the competition floor: soccer, race and battle bots, plus an Arduino-based quadcopter."
-        />
-        <div className="flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={() => setPlaying(true)}
-            disabled={playing}
-            className="inline-flex h-12 cursor-pointer items-center gap-2.5 rounded-full border border-line-strong px-5 text-sm text-ink transition-colors hover:border-accent disabled:cursor-default disabled:opacity-50"
-          >
-            <Play size={14} fill="currentColor" aria-hidden="true" /> Watch the team reel
-          </button>
-          <button
-            type="button"
-            onClick={() => open(allPhotos, 0)}
-            className="inline-flex h-12 cursor-pointer items-center gap-2.5 rounded-full border border-line-strong px-5 text-sm text-ink transition-colors hover:border-accent"
-          >
-            <Images size={15} aria-hidden="true" /> All photos ({allPhotos.length})
-          </button>
-        </div>
-      </div>
+    <section id="robotics" className="mx-auto flex max-w-[1200px] flex-col gap-14 px-5 pb-10 pt-28 sm:px-8 lg:px-12">
+      <SectionHeading
+        tag="03 — Robotics"
+        title="Khepa Chakka, the robotics team I founded."
+        subtitle="Since 2023 I've led the team from concept to the competition floor: line-following, soccer, race and battle bots, plus an Arduino-based quadcopter. Six podiums so far."
+      />
 
-      <Reveal className="grid gap-4 lg:grid-cols-[2fr_1fr]">
+      <Reveal>
         {playing ? (
           <video
             controls
             autoPlay
             playsInline
-            poster={robots[MAIN].img}
-            className="h-[300px] w-full rounded-2xl border border-line bg-surface-2 object-cover sm:h-[440px]"
+            poster="/images/comp-team-trophy.jpg"
+            className="aspect-video w-full rounded-2xl border border-line bg-surface-2 object-cover"
           >
             <source src="/v1 robo.mp4" type="video/mp4" />
           </video>
         ) : (
           <button
             type="button"
-            onClick={() => open(allPhotos, MAIN)}
-            aria-label={`View photo: ${robots[MAIN].cap}`}
-            className="zoom relative h-[300px] cursor-zoom-in overflow-hidden rounded-2xl border border-line sm:h-[440px]"
+            onClick={() => setPlaying(true)}
+            className="zoom group relative block aspect-video w-full cursor-pointer overflow-hidden rounded-2xl border border-line"
           >
-            <Image src={robots[MAIN].img} alt={robots[MAIN].cap} fill className="object-cover" />
-            <span className={pill}>{robots[MAIN].cap}</span>
+            <Image src="/images/comp-team-trophy.jpg" alt="" fill sizes="(min-width: 1200px) 1100px, 100vw" className="object-cover" />
+            <span className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+            <span className="absolute bottom-6 left-6 flex items-center gap-4 sm:bottom-10 sm:left-10">
+              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-accent-ink transition-transform duration-300 group-hover:scale-110 sm:h-20 sm:w-20">
+                <Play size={26} fill="currentColor" aria-hidden="true" />
+              </span>
+              <span className="flex flex-col text-left">
+                <span className="text-xl font-semibold sm:text-2xl">Watch the team reel</span>
+                <span className="text-sm text-ink-soft">Khepa Chakka on the competition floor</span>
+              </span>
+            </span>
           </button>
         )}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-          {SIDE.map((i) => (
-            <button
-              key={allPhotos[i].img}
-              type="button"
-              onClick={() => open(allPhotos, i)}
-              aria-label={`View photo: ${allPhotos[i].cap}`}
-              className="zoom relative h-[212px] cursor-zoom-in overflow-hidden rounded-2xl border border-line"
-            >
-              <Image src={allPhotos[i].img} alt={allPhotos[i].cap} fill className="object-cover" />
-              <span className={pill}>{allPhotos[i].cap}</span>
-            </button>
-          ))}
-        </div>
       </Reveal>
 
+      <div className="grid gap-5 md:grid-cols-2">
+        {headline.map((h, i) => (
+          <Reveal key={h.title} delay={i * 0.1} className="flex">
+            <article className="tilt relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl border border-accent-line bg-surface p-8">
+              <Trophy
+                size={120}
+                strokeWidth={1}
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-4 -top-4 text-accent opacity-10"
+              />
+              <span className="w-fit rounded-full bg-accent px-3 py-1 font-mono text-xs font-medium uppercase tracking-[0.08em] text-accent-ink">
+                {h.rank}
+              </span>
+              <h3 className="text-[32px] font-semibold leading-tight tracking-[-0.03em]">{h.title}</h3>
+              <p className="text-ink-soft">{h.org}</p>
+              {h.note && <p className="text-sm text-muted">{h.note}</p>}
+            </article>
+          </Reveal>
+        ))}
+      </div>
+
       <Reveal>
-        <h3 className="sr-only">Awards</h3>
+        <h3 className="sr-only">More awards</h3>
         <ul className="border-t border-line">
           {awards.map((aw) => (
             <li
               key={aw.title + aw.org}
-              className="flex flex-wrap items-baseline gap-x-6 gap-y-1 border-b border-line px-3 py-[18px] transition-colors hover:bg-surface"
+              className="flex flex-wrap items-baseline gap-x-6 gap-y-1 border-b border-line px-3 py-4.5 transition-colors hover:bg-surface"
             >
               <span className="w-16 shrink-0 font-mono text-[13px] text-muted">{aw.year}</span>
-              <span className="min-w-[240px] flex-1 font-medium">{aw.title}</span>
-              <span className="min-w-[240px] flex-1 text-[15px] text-muted">{aw.org}</span>
+              <span className="min-w-60 flex-1 font-medium">{aw.title}</span>
+              <span className="min-w-60 flex-1 text-[15px] text-muted">{aw.org}</span>
             </li>
           ))}
         </ul>
       </Reveal>
+
+      <PhotoGrid title="On the podium" items={podiums} onOpen={open} />
+      <PhotoGrid title="Robots I've built" items={robots} onOpen={open} />
+      <PhotoGrid title="On the competition floor" items={floor} onOpen={open} />
+      <PhotoGrid title="Certificates" items={certs} onOpen={open} contain />
 
       <Lightbox lightbox={lightbox} close={close} prev={prev} next={next} />
     </section>
