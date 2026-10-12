@@ -1,5 +1,6 @@
 "use client";
 
+import { listRow } from "@/lib/utils";
 import { SectionHeading } from "./SectionHeading";
 import Reveal from "./Reveal";
 import { Lightbox, PhotoGrid, useGallery } from "./Gallery";
@@ -34,43 +35,45 @@ export default function Publications() {
   const { lightbox, open, close, prev, next } = useGallery();
 
   return (
-    <section
-      id="research"
-      className="mx-auto flex max-w-[1200px] flex-col gap-14 px-5 pb-10 pt-28 sm:px-8 lg:px-12"
-    >
-      <div className="flex min-w-0 flex-col gap-8">
-        <SectionHeading
-          tag="02 — Research"
-          title="Three first-author papers."
-          subtitle="RideGuard was presented at IEEE COMPAS 2026 at the University of Dhaka; DhakaNight and PulseStone are accepted at ICCA 2026."
-        />
-        <Reveal>
-          <ol className="border-t border-line">
-            {publications.map((pub) => (
-              <li
-                key={pub.title}
-                className="flex flex-col gap-2 border-b border-line px-3 py-6 transition-colors hover:bg-surface"
-              >
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs uppercase tracking-[0.06em]">
-                  <span
-                    className={
-                      pub.status === "Presented"
-                        ? "rounded-full bg-accent px-2.5 py-0.5 text-accent-ink"
-                        : "rounded-full border border-accent-line px-2.5 py-px text-accent"
-                    }
-                  >
-                    {pub.status}
-                  </span>
-                  <span className="text-muted">{pub.venue} · First author</span>
-                </div>
-                <p className="text-[19px] font-medium leading-snug tracking-[-0.01em]">{pub.title}</p>
-              </li>
-            ))}
-          </ol>
-        </Reveal>
-      </div>
+    <section id="research" className="pb-28 lg:scroll-mt-24 lg:pb-36">
+      <SectionHeading
+        index="04"
+        label="Research"
+        title={
+          <>
+            Three first-author <em>papers</em>.
+          </>
+        }
+      >
+        RideGuard was presented at IEEE COMPAS 2026 at the University of Dhaka; DhakaNight and
+        PulseStone are accepted at ICCA 2026.
+      </SectionHeading>
 
-      <PhotoGrid title="At IEEE COMPAS 2026" items={conference} onOpen={open} />
+      <Reveal>
+        <ol className="group/list -mx-5 flex flex-col gap-1">
+          {publications.map((pub) => (
+            <li key={pub.title} className={`flex flex-col gap-3 ${listRow}`}>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] uppercase tracking-[0.1em]">
+                <span
+                  className={
+                    pub.status === "Presented"
+                      ? "rounded-full bg-accent px-2.5 py-0.5 text-accent-ink"
+                      : "rounded-full border border-accent-line px-2.5 py-px text-accent"
+                  }
+                >
+                  {pub.status}
+                </span>
+                <span className="text-muted">{pub.venue} · First author</span>
+              </div>
+              <p className="text-[19px] font-medium leading-snug tracking-[-0.01em] text-ink">{pub.title}</p>
+            </li>
+          ))}
+        </ol>
+      </Reveal>
+
+      <div className="mt-14">
+        <PhotoGrid title="At IEEE COMPAS 2026" items={conference} onOpen={open} />
+      </div>
 
       <Lightbox lightbox={lightbox} close={close} prev={prev} next={next} />
     </section>

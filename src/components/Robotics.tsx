@@ -65,12 +65,19 @@ export default function Robotics() {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <section id="robotics" className="mx-auto flex max-w-[1200px] flex-col gap-14 px-5 pb-10 pt-28 sm:px-8 lg:px-12">
+    <section id="robotics" className="pb-28 lg:scroll-mt-24 lg:pb-36">
       <SectionHeading
-        tag="03 — Robotics"
-        title="Khepa Chakka, the robotics team I founded."
-        subtitle="Since 2023 I've led the team from concept to the competition floor: line-following, soccer, race and battle bots, plus an Arduino-based quadcopter. Six podiums so far."
-      />
+        index="05"
+        label="Robotics & awards"
+        title={
+          <>
+            Khepa Chakka, the robotics team I <em>founded</em>.
+          </>
+        }
+      >
+        Since 2023 I&apos;ve led the team from concept to the competition floor: line-following,
+        soccer, race and battle bots, plus an Arduino-based quadcopter. Six podiums so far.
+      </SectionHeading>
 
       <Reveal>
         {playing ? (
@@ -79,7 +86,7 @@ export default function Robotics() {
             autoPlay
             playsInline
             poster="/images/comp-team-trophy.jpg"
-            className="aspect-video w-full rounded-2xl border border-line bg-surface-2 object-cover"
+            className="aspect-video w-full rounded-3xl border border-line bg-surface-2 object-cover"
           >
             <source src="/v1 robo.mp4" type="video/mp4" />
           </video>
@@ -87,16 +94,16 @@ export default function Robotics() {
           <button
             type="button"
             onClick={() => setPlaying(true)}
-            className="zoom group relative block aspect-video w-full cursor-pointer overflow-hidden rounded-2xl border border-line"
+            className="zoom group relative block aspect-video w-full cursor-pointer overflow-hidden rounded-3xl border border-line"
           >
-            <Image src="/images/comp-team-trophy.jpg" alt="" fill sizes="(min-width: 1200px) 1100px, 100vw" className="object-cover" />
-            <span className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
-            <span className="absolute bottom-6 left-6 flex items-center gap-4 sm:bottom-10 sm:left-10">
-              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-accent-ink transition-transform duration-300 group-hover:scale-110 sm:h-20 sm:w-20">
-                <Play size={26} fill="currentColor" aria-hidden="true" />
+            <Image src="/images/comp-team-trophy.jpg" alt="" fill sizes="(min-width: 1024px) 700px, 100vw" className="object-cover" />
+            <span className="absolute inset-0 bg-linear-to-t from-black/75 via-black/15 to-transparent" />
+            <span className="absolute bottom-5 left-5 flex items-center gap-4 sm:bottom-8 sm:left-8">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-ink transition-transform duration-300 group-hover:scale-110 sm:h-16 sm:w-16">
+                <Play size={22} fill="currentColor" aria-hidden="true" />
               </span>
               <span className="flex flex-col text-left">
-                <span className="text-xl font-semibold text-white sm:text-2xl">Watch the team reel</span>
+                <span className="text-lg font-semibold text-white sm:text-xl">Watch the team reel</span>
                 <span className="text-sm text-white/80">Khepa Chakka on the competition floor</span>
               </span>
             </span>
@@ -104,22 +111,16 @@ export default function Robotics() {
         )}
       </Reveal>
 
-      <div id="awards" className="flex scroll-mt-24 flex-col gap-10">
-        <div className="grid gap-5 md:grid-cols-2">
+      <div id="awards" className="mt-12 flex scroll-mt-20 flex-col gap-10">
+        <div className="grid gap-4 sm:grid-cols-2">
           {headline.map((h, i) => (
             <Reveal key={h.title} delay={i * 0.1} className="flex">
-              <article className="tilt relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl border border-accent-line bg-surface p-8">
-                <Trophy
-                  size={120}
-                  strokeWidth={1}
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -right-4 -top-4 text-accent opacity-10"
-                />
-                <span className="w-fit rounded-full bg-accent px-3 py-1 font-mono text-xs font-medium uppercase tracking-[0.08em] text-accent-ink">
-                  {h.rank}
+              <article className="flex w-full flex-col gap-3 rounded-2xl border border-line bg-surface p-6 transition-shadow duration-500 hover:shadow-[0_30px_60px_-30px_rgba(14,18,32,0.3)]">
+                <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+                  <Trophy size={14} aria-hidden="true" /> {h.rank}
                 </span>
-                <h3 className="text-[32px] font-semibold leading-tight tracking-[-0.03em]">{h.title}</h3>
-                <p className="text-ink-soft">{h.org}</p>
+                <h3 className="font-display text-[34px] leading-none text-ink">{h.title}</h3>
+                <p className="text-[15px] text-ink-soft">{h.org}</p>
                 {h.note && <p className="text-sm text-muted">{h.note}</p>}
               </article>
             </Reveal>
@@ -127,26 +128,30 @@ export default function Robotics() {
         </div>
 
         <Reveal>
-          <h3 className="sr-only">More awards</h3>
-          <ul className="border-t border-line">
+          <h3 className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-muted">More awards</h3>
+          <ul>
             {awards.map((aw) => (
               <li
                 key={aw.title + aw.org}
-                className="flex flex-wrap items-baseline gap-x-6 gap-y-1 border-b border-line px-3 py-4.5 transition-colors hover:bg-surface"
+                className="grid gap-1 border-b border-line py-4 sm:grid-cols-[80px_1fr] sm:gap-6"
               >
-                <span className="w-16 shrink-0 font-mono text-[13px] text-muted">{aw.year}</span>
-                <span className="min-w-60 flex-1 font-medium">{aw.title}</span>
-                <span className="min-w-60 flex-1 text-[15px] text-muted">{aw.org}</span>
+                <span className="font-mono text-[13px] text-muted">{aw.year}</span>
+                <div className="flex flex-col">
+                  <span className="font-medium text-ink">{aw.title}</span>
+                  <span className="text-[15px] text-muted">{aw.org}</span>
+                </div>
               </li>
             ))}
           </ul>
         </Reveal>
       </div>
 
-      <PhotoGrid title="On the podium" items={podiums} onOpen={open} />
-      <PhotoGrid title="Robots I've built" items={robots} onOpen={open} />
-      <PhotoGrid title="On the competition floor" items={floor} onOpen={open} />
-      <PhotoGrid title="Certificates" items={certs} onOpen={open} contain />
+      <div className="mt-14 flex flex-col gap-12">
+        <PhotoGrid title="On the podium" items={podiums} onOpen={open} />
+        <PhotoGrid title="Robots I've built" items={robots} onOpen={open} />
+        <PhotoGrid title="On the competition floor" items={floor} onOpen={open} />
+        <PhotoGrid title="Certificates" items={certs} onOpen={open} contain />
+      </div>
 
       <Lightbox lightbox={lightbox} close={close} prev={prev} next={next} />
     </section>

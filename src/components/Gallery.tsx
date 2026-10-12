@@ -57,11 +57,11 @@ export function PhotoGrid({
 }) {
   return (
     <div className="flex flex-col gap-5">
-      <h3 className="flex items-baseline gap-3 text-xl font-semibold tracking-[-0.02em]">
+      <h3 className="flex items-baseline gap-3 text-lg font-semibold tracking-[-0.01em] text-ink">
         {title}
         <span className="font-mono text-xs font-normal text-muted">{items.length}</span>
       </h3>
-      <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+      <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {items.map((item, i) => (
           <motion.li
             key={item.img}
@@ -81,7 +81,7 @@ export function PhotoGrid({
                   src={item.img}
                   alt={item.cap}
                   fill
-                  sizes="(min-width: 1024px) 380px, 50vw"
+                  sizes="(min-width: 1024px) 240px, (min-width: 640px) 33vw, 50vw"
                   className={contain ? "object-contain p-3" : "object-cover"}
                 />
               </span>
@@ -199,9 +199,9 @@ export function Lightbox({
         </div>
 
         <div className="absolute inset-x-0 bottom-0 pb-5 px-6 text-center pointer-events-none">
-          <p className="text-ink-soft font-medium text-sm">{item.cap}</p>
+          <p className="text-white/85 font-medium text-sm">{item.cap}</p>
           {many && (
-            <p className="mt-1 font-mono text-[11px] tracking-widest text-muted">
+            <p className="mt-1 font-mono text-[11px] tracking-widest text-white/50">
               {lightbox.index + 1} / {lightbox.items.length}
             </p>
           )}

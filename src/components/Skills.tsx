@@ -1,8 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { SectionHeading } from "./SectionHeading";
-import SpotlightCard from "./SpotlightCard";
 import Reveal from "./Reveal";
 
 const skillCategories = [
@@ -42,51 +38,40 @@ const skillCategories = [
   },
 ];
 
-const tagContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.04 } },
-};
-
-const tagItem = {
-  hidden: { opacity: 0, y: 8 },
-  visible: { opacity: 1, y: 0 },
-};
-
 export default function Skills() {
   return (
-    <section id="skills" className="mx-auto flex max-w-[1200px] flex-col gap-12 px-5 pb-10 pt-28 sm:px-8 lg:px-12">
+    <section id="skills" className="pb-28 lg:scroll-mt-24 lg:pb-36">
       <SectionHeading
-        tag="05 — Skills"
-        title="Technologies I've built with."
-        subtitle="Hover any technology to highlight it."
+        index="06"
+        label="Skills"
+        title={
+          <>
+            Technologies I&apos;ve <em>built</em> with.
+          </>
+        }
       />
 
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {skillCategories.map((category, i) => (
-          <Reveal key={category.title} delay={(i % 3) * 0.08} className="flex">
-            <SpotlightCard className="tilt flex w-full flex-col gap-4 overflow-hidden rounded-2xl border border-line bg-surface p-6">
-              <h3 className="font-mono text-xs uppercase tracking-[0.1em] text-accent">{category.title}</h3>
-              <motion.ul
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-40px" }}
-                variants={tagContainer}
-                className="flex flex-wrap gap-2"
-              >
-                {category.skills.map((skill) => (
-                  <motion.li
-                    key={skill}
-                    variants={tagItem}
-                    className="cursor-default rounded-md border border-line bg-surface-2 px-3 py-1.5 font-mono text-[13px] text-ink-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:bg-accent hover:text-accent-ink hover:shadow-[0_4px_14px_rgba(39,71,216,0.25)]"
-                  >
-                    {skill}
-                  </motion.li>
-                ))}
-              </motion.ul>
-            </SpotlightCard>
-          </Reveal>
-        ))}
-      </div>
+      <Reveal>
+        <dl className="border-t border-line">
+          {skillCategories.map((category) => (
+            <div key={category.title} className="grid gap-3 border-b border-line py-5 sm:grid-cols-[170px_1fr] sm:gap-6">
+              <dt className="pt-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">{category.title}</dt>
+              <dd>
+                <ul className="flex flex-wrap gap-2">
+                  {category.skills.map((skill) => (
+                    <li
+                      key={skill}
+                      className="rounded-full border border-line bg-surface px-3 py-1 text-[13px] text-ink-soft transition-colors hover:border-accent hover:text-accent"
+                    >
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </Reveal>
     </section>
   );
 }

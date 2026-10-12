@@ -43,22 +43,21 @@ function CountUp({ to, decimals }: { to: number; decimals: number }) {
 
 export default function Stats() {
   return (
-    <section aria-label="Highlights" className="border-y border-line bg-bg/70 backdrop-blur-sm">
+    <Reveal>
       {/* The 1px gaps over a line-coloured grid draw the dividers. */}
-      <div className="mx-auto grid max-w-[1200px] grid-cols-2 gap-px bg-line lg:grid-cols-5">
+      <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
         {stats.map((stat, i) => (
-          <Reveal
+          <div
             key={stat.label}
-            delay={i * 0.08}
-            className={`flex flex-col gap-1.5 bg-bg px-5 py-9 sm:px-8 ${i === stats.length - 1 ? "col-span-2 lg:col-span-1" : ""}`}
+            className={`flex flex-col-reverse gap-2 bg-surface p-5 sm:p-6 ${i === stats.length - 1 ? "col-span-2" : ""}`}
           >
-            <span className="text-[40px] font-semibold leading-none tracking-[-0.03em] tabular-nums lg:text-[44px]">
+            <dt className="text-[13px] leading-snug text-muted">{stat.label}</dt>
+            <dd className="text-[34px] font-semibold leading-none tracking-[-0.03em] text-ink tabular-nums">
               <CountUp to={stat.to} decimals={stat.decimals} />
-            </span>
-            <span className="text-sm text-muted">{stat.label}</span>
-          </Reveal>
+            </dd>
+          </div>
         ))}
-      </div>
-    </section>
+      </dl>
+    </Reveal>
   );
 }

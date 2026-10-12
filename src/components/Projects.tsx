@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
+import { listRow } from "@/lib/utils";
 import { SectionHeading } from "./SectionHeading";
 import Reveal from "./Reveal";
-import SpotlightCard from "./SpotlightCard";
 import { DemoButton, PhoneGallery } from "./ProjectMedia";
 
 const featured = [
@@ -78,103 +78,134 @@ const more = [
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
+function Stack({ stack }: { stack: string }) {
+  return (
+    <ul aria-label="Built with" className="flex flex-wrap gap-1.5">
+      {stack.split(" / ").map((tech) => (
+        <li key={tech} className="rounded-full bg-accent/8 px-3 py-1 text-xs font-medium text-accent">
+          {tech}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default function Projects() {
   return (
-    <section id="work" className="mx-auto flex max-w-[1200px] flex-col gap-14 px-5 pb-10 pt-28 sm:px-8 lg:px-12">
+    <section id="work" className="pb-28 lg:scroll-mt-24 lg:pb-36">
       <SectionHeading
-        tag="01 — Selected work"
-        title="Deployed models, honest benchmarks, and the products around them."
-        subtitle="Deployed ML services, benchmarks and forecasting, plus a live e-commerce platform and embedded hardware."
-      />
+        index="03"
+        label="Work"
+        title={
+          <>
+            Deployed models, honest benchmarks, and the <em>products</em> around them.
+          </>
+        }
+      >
+        Deployed ML services, benchmarks and forecasting, plus a live e-commerce platform and
+        embedded hardware.
+      </SectionHeading>
 
-      {featured.map((p, idx) => (
-        <Reveal key={p.title}>
-          <article className="feature grid items-center gap-12 overflow-hidden rounded-[20px] border border-line bg-surface p-7 sm:p-10 lg:grid-cols-2 lg:p-14">
-            <div className={`flex min-w-0 flex-col gap-5 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
-              <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">{p.label}</span>
-              <h3 className="text-[40px] font-semibold leading-[1.05] tracking-[-0.03em]">{p.title}</h3>
-              <p className="text-[17px] font-light text-ink-soft">{p.desc}</p>
-              <dl className="grid grid-cols-3 border-y border-line">
-                {p.metrics.map((m, i) => (
-                  <div
-                    key={m.label}
-                    className={`flex flex-col-reverse gap-0.5 py-4 ${i > 0 ? "border-l border-line pl-4" : "pr-4"}`}
-                  >
-                    <dt className="text-[13px] text-muted">{m.label}</dt>
-                    <dd className="text-lg font-semibold sm:text-[22px]">{m.value}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="font-mono text-[13px] text-muted">{p.stack}</p>
-              <div className="flex flex-wrap gap-3">
-                {p.demo && <DemoButton url={p.demo} title={p.title} />}
-                <a
-                  href={p.github}
-                  {...external}
-                  className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-5 text-sm text-ink transition-colors hover:border-accent"
-                >
-                  <FaGithub size={15} aria-hidden="true" /> Source
-                </a>
-              </div>
-            </div>
-
-            <div className={`flex min-w-0 justify-center py-4 ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
-              {p.screens ? (
-                <PhoneGallery
-                  title={p.title}
-                  images={p.screens}
-                  width={p.image.width}
-                  height={p.image.height}
-                />
-              ) : (
-                <div className="device-r w-[260px] overflow-hidden rounded-2xl border border-line-strong shadow-[0_40px_80px_-20px_rgba(14,18,32,0.25)] sm:w-[300px]">
-                  <Image
-                    src={p.image.src}
-                    alt={p.image.alt}
+      <div className="flex flex-col gap-8">
+        {featured.map((p) => (
+          <Reveal key={p.title}>
+            <article className="feature overflow-hidden rounded-3xl border border-line bg-surface transition-shadow duration-500 hover:shadow-[0_40px_80px_-40px_rgba(14,18,32,0.3)]">
+              {/* The product sits on a stage above its story. */}
+              <div className="flex justify-center border-b border-line bg-surface-2 bg-[radial-gradient(ellipse_at_top,var(--color-accent-line),transparent_70%)] px-6 py-10">
+                {p.screens ? (
+                  <PhoneGallery
+                    title={p.title}
+                    images={p.screens}
                     width={p.image.width}
                     height={p.image.height}
-                    className="block h-[340px] w-full object-cover sm:h-[400px]"
                   />
-                </div>
-              )}
-            </div>
-          </article>
-        </Reveal>
-      ))}
+                ) : (
+                  <div className="device overflow-hidden rounded-2xl border border-line-strong shadow-[0_40px_80px_-20px_rgba(14,18,32,0.3)]">
+                    <Image
+                      src={p.image.src}
+                      alt={p.image.alt}
+                      width={p.image.width}
+                      height={p.image.height}
+                      className="block h-[320px] w-[240px] object-cover"
+                    />
+                  </div>
+                )}
+              </div>
 
-      <div className="grid gap-5 md:grid-cols-2">
-        {more.map((p, i) => (
-          <Reveal key={p.title} delay={(i % 2) * 0.08} className="flex">
-            <SpotlightCard className="tilt flex w-full flex-col gap-3.5 overflow-hidden rounded-2xl border border-line bg-surface p-8">
-              <div className="flex items-center justify-between gap-3">
-                <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">{p.label}</span>
+              <div className="flex flex-col gap-5 p-6 sm:p-9">
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">{p.label}</span>
+                <h3 className="font-display text-[44px] leading-none text-ink">{p.title}</h3>
+                <p className="text-[16px] leading-relaxed text-ink-soft">{p.desc}</p>
+                <dl className="grid grid-cols-3 border-y border-line">
+                  {p.metrics.map((m, i) => (
+                    <div
+                      key={m.label}
+                      className={`flex flex-col-reverse gap-0.5 py-4 ${i > 0 ? "border-l border-line pl-4" : "pr-4"}`}
+                    >
+                      <dt className="text-[13px] text-muted">{m.label}</dt>
+                      <dd className="text-lg font-semibold tracking-[-0.02em] text-ink sm:text-[22px]">{m.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <Stack stack={p.stack} />
+                <div className="flex flex-wrap gap-3 pt-1">
+                  {p.demo && <DemoButton url={p.demo} title={p.title} />}
+                  <a
+                    href={p.github}
+                    {...external}
+                    className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-5 text-sm text-ink transition-colors hover:border-ink"
+                  >
+                    <FaGithub size={15} aria-hidden="true" /> Source
+                  </a>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+        ))}
+      </div>
+
+      <Reveal className="mt-16">
+        <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.14em] text-muted">More projects</h3>
+        <ul className="group/list -mx-5 flex flex-col gap-1">
+          {more.map((p) => (
+            <li key={p.title} className={`flex flex-col gap-3 ${listRow}`}>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">{p.label}</span>
                 {p.flagship && (
-                  <span className="shrink-0 rounded-full bg-accent px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-accent-ink">
+                  <span className="rounded-full bg-accent px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-accent-ink">
                     ★ Flagship · Live
                   </span>
                 )}
               </div>
-              <h3 className="text-[26px] font-semibold tracking-[-0.02em]">{p.title}</h3>
-              <p className="text-[15px] font-light text-ink-soft">{p.desc}</p>
-              <p className="font-mono text-xs text-muted">{p.stack}</p>
+              <h4 className="text-[22px] font-semibold tracking-[-0.02em] text-ink">{p.title}</h4>
+              <p className="text-[15px] leading-relaxed text-ink-soft">{p.desc}</p>
+              <Stack stack={p.stack} />
               {(p.demo || p.github) && (
-                <div className="mt-auto flex gap-5 pt-2 text-sm">
+                <div className="flex gap-5 text-sm">
                   {p.demo && (
-                    <a href={p.demo} {...external} className="inline-flex min-h-11 items-center gap-1.5 hover:text-accent">
-                      Live demo <ArrowUpRight size={13} aria-hidden="true" />
+                    <a
+                      href={p.demo}
+                      {...external}
+                      className="inline-flex min-h-11 items-center gap-1.5 font-medium text-ink hover:text-accent"
+                    >
+                      Live demo <ArrowUpRight size={14} aria-hidden="true" />
                     </a>
                   )}
                   {p.github && (
-                    <a href={p.github} {...external} className="inline-flex min-h-11 items-center text-ink-soft hover:text-accent">
-                      Source
+                    <a
+                      href={p.github}
+                      {...external}
+                      className="inline-flex min-h-11 items-center gap-1.5 text-ink-soft hover:text-accent"
+                    >
+                      <FaGithub size={14} aria-hidden="true" /> Source
                     </a>
                   )}
                 </div>
               )}
-            </SpotlightCard>
-          </Reveal>
-        ))}
-      </div>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
     </section>
   );
 }
