@@ -127,7 +127,7 @@ export default function Projects() {
                   height={p.image.height}
                 />
               ) : (
-                <div className="device-r w-[260px] overflow-hidden rounded-2xl border border-line-strong shadow-[0_40px_80px_rgba(0,0,0,0.55)] sm:w-[300px]">
+                <div className="device-r w-[260px] overflow-hidden rounded-2xl border border-line-strong shadow-[0_40px_80px_-20px_rgba(14,18,32,0.25)] sm:w-[300px]">
                   <Image
                     src={p.image.src}
                     alt={p.image.alt}

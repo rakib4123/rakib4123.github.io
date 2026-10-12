@@ -96,8 +96,8 @@ export default function Robotics() {
                 <Play size={26} fill="currentColor" aria-hidden="true" />
               </span>
               <span className="flex flex-col text-left">
-                <span className="text-xl font-semibold sm:text-2xl">Watch the team reel</span>
-                <span className="text-sm text-ink-soft">Khepa Chakka on the competition floor</span>
+                <span className="text-xl font-semibold text-white sm:text-2xl">Watch the team reel</span>
+                <span className="text-sm text-white/80">Khepa Chakka on the competition floor</span>
               </span>
             </span>
           </button>

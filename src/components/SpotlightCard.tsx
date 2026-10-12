@@ -34,7 +34,7 @@ export default function SpotlightCard({
         className="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300"
         style={{
           opacity,
-          background: `radial-gradient(400px circle at ${pos.x}% ${pos.y}%, rgba(92,225,230,0.10), transparent 70%)`,
+          background: `radial-gradient(400px circle at ${pos.x}% ${pos.y}%, rgba(39,71,216,0.07), transparent 70%)`,
         }}
       />
       {children}

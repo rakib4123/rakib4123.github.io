@@ -19,9 +19,9 @@ import * as THREE from "three";
  * whole network a little. The canvas never takes pointer input.
  */
 
-const ACCENT = new THREE.Color("#5ce1e6");
-const INK = new THREE.Color("#edeff3");
-const HOLLOW = new THREE.Color("#c4c9d2");
+const ACCENT = new THREE.Color("#2747d8");
+const INK = new THREE.Color("#2c3547");
+const HOLLOW = new THREE.Color("#7d8699");
 
 /** Layers along x; each layer's neurons sit on a ring in the y-z plane. */
 const LAYERS = [
@@ -118,6 +118,7 @@ void main() {
   float a = max(core, halo);
   if (a < 0.01) discard;
   gl_FragColor = vec4(mix(uAccent, col, core), a * uOpacity);
+  #include <colorspace_fragment>
 }
 `;
 
@@ -151,6 +152,7 @@ void main() {
   float head = fract(uTime * 0.3 + vPhase);
   float p = vPulse * (1.0 - smoothstep(0.0, 0.12, abs(vT - head)));
   gl_FragColor = vec4(mix(uInk, uAccent, p), (0.13 + p * 0.85) * uOpacity);
+  #include <colorspace_fragment>
 }
 `;
 
@@ -306,7 +308,7 @@ export default function NeuralScene() {
     const innerMat = new THREE.LineDashedMaterial({
       color: ACCENT,
       transparent: true,
-      opacity: 0.22,
+      opacity: 0.12,
       dashSize: 0.08,
       gapSize: 0.08,
       depthWrite: false,
@@ -365,7 +367,7 @@ export default function NeuralScene() {
       nodeMat.uniforms.uOpacity.value = current.opacity;
       linkMat.uniforms.uOpacity.value = current.opacity;
       outerMat.opacity = 0.07 * current.opacity;
-      innerMat.opacity = 0.22 * current.opacity;
+      innerMat.opacity = 0.12 * current.opacity;
 
       renderer.render(scene, camera);
     };
