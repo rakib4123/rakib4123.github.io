@@ -9,7 +9,7 @@ export default function Contact() {
   return (
     <section id="contact" className="mx-auto max-w-[1200px] px-5 pb-28 pt-32 sm:px-8 lg:px-12">
       <Reveal>
-        <div className="flex flex-col items-start gap-7 rounded-3xl border border-line bg-surface/85 p-8 backdrop-blur-md sm:p-14 lg:p-20">
+        <div className="flex flex-col items-start gap-7 rounded-3xl border border-line bg-surface/92 p-8 backdrop-blur-md sm:p-14 lg:p-20">
           <span className="font-mono text-xs uppercase tracking-[0.1em] text-accent">06 — Contact</span>
           <h2 className="max-w-[820px] text-[clamp(2.25rem,4.6vw,4rem)] font-semibold leading-[1.04] tracking-[-0.035em]">
             Have a model that needs to ship? Let&apos;s talk.

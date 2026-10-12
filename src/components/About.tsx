@@ -40,7 +40,7 @@ export default function About() {
       className="mx-auto grid max-w-[1200px] items-start gap-14 px-5 pb-10 pt-28 sm:px-8 lg:grid-cols-[340px_1fr] lg:px-12"
     >
       <Reveal className="mx-auto w-full max-w-[340px]">
-        <div className="device-r overflow-hidden rounded-[20px] border border-line-strong shadow-[0_30px_60px_rgba(0,0,0,0.5)]">
+        <div className="device-r overflow-hidden rounded-[20px] border border-line-strong shadow-[0_30px_60px_-20px_rgba(14,18,32,0.25)]">
           <Image
             src="/images/profile.jpg"
             alt="Portrait of Md. Rakib Hossain"

@@ -77,7 +77,7 @@ export default function Skills() {
                   <motion.li
                     key={skill}
                     variants={tagItem}
-                    className="cursor-default rounded-md border border-line bg-surface-2 px-3 py-1.5 font-mono text-[13px] text-ink-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:bg-accent hover:text-accent-ink hover:shadow-[0_4px_14px_rgba(92,225,230,0.25)]"
+                    className="cursor-default rounded-md border border-line bg-surface-2 px-3 py-1.5 font-mono text-[13px] text-ink-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:bg-accent hover:text-accent-ink hover:shadow-[0_4px_14px_rgba(39,71,216,0.25)]"
                   >
                     {skill}
                   </motion.li>

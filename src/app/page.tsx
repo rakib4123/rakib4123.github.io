@@ -1,6 +1,5 @@
 import NeuralScene from "@/components/NeuralScene";
 import ScrollProgress from "@/components/ScrollProgress";
-import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
@@ -17,7 +16,6 @@ export default function Home() {
     <>
       <NeuralScene />
       <ScrollProgress />
-      <CustomCursor />
       <div className="relative z-10">
         <Navbar />
         <main>

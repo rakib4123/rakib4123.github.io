@@ -90,7 +90,7 @@ export function PhotoGrid({
                 className={
                   contain
                     ? "block border-t border-line px-3 py-2.5 text-left text-xs leading-snug text-ink-soft sm:text-[13px]"
-                    : "absolute inset-x-0 bottom-0 bg-linear-to-t from-black/85 to-transparent px-3 pb-2.5 pt-10 text-left text-xs leading-snug text-ink sm:text-[13px]"
+                    : "absolute inset-x-0 bottom-0 bg-linear-to-t from-black/85 to-transparent px-3 pb-2.5 pt-10 text-left text-xs leading-snug text-white sm:text-[13px]"
                 }
               >
                 {item.cap}

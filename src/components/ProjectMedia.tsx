@@ -29,7 +29,7 @@ export function PhoneGallery({
           type="button"
           onClick={() => open(items, active)}
           aria-label={`View ${title} screens full screen`}
-          className="device block w-[220px] cursor-zoom-in rounded-[36px] border border-line-strong bg-surface-2 p-2.5 shadow-[0_40px_80px_rgba(0,0,0,0.55)] sm:w-[250px]"
+          className="device block w-[220px] cursor-zoom-in rounded-[36px] border border-line-strong bg-surface-2 p-2.5 shadow-[0_40px_80px_-20px_rgba(14,18,32,0.25)] sm:w-[250px]"
         >
           <Image
             src={images[active]}

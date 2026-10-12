@@ -5,8 +5,8 @@ import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } fro
 import { useEffect } from "react";
 
 /**
- * The cut-out portrait in its targeting frame: it floats, a beam scans down
- * it, and it turns in 3D toward the cursor. The neural network sits behind it.
+ * The cut-out portrait: it floats and turns in 3D toward the cursor. The
+ * neural network sits behind it.
  */
 export default function HeroPortrait() {
   const reduceMotion = useReducedMotion();
@@ -35,23 +35,14 @@ export default function HeroPortrait() {
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       >
         <div className="float">
-          <div className="hud-frame relative overflow-hidden px-4 pt-7">
-            <span className="scan-beam" aria-hidden="true" />
-            <span className="absolute left-4 top-2 font-mono text-[10px] tracking-[0.2em] text-accent/80">
-              UNIT R-4123
-            </span>
-            <span className="absolute bottom-2 right-4 z-10 flex items-center gap-1.5 font-mono text-[10px] tracking-[0.2em] text-accent/80">
-              <span className="live h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" /> ACTIVE
-            </span>
-            <Image
-              src="/images/profile-transparent.png"
-              alt="Md. Rakib Hossain"
-              width={1024}
-              height={935}
-              priority
-              className="h-[30svh] w-auto object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.6)] lg:h-[min(56svh,540px)]"
-            />
-          </div>
+          <Image
+            src="/images/profile-transparent.png"
+            alt="Md. Rakib Hossain"
+            width={1024}
+            height={935}
+            priority
+            className="h-[30svh] w-auto object-contain drop-shadow-[0_30px_40px_rgba(14,18,32,0.18)] lg:h-[min(56svh,540px)]"
+          />
         </div>
       </motion.div>
     </div>

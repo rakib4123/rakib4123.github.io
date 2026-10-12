@@ -36,7 +36,7 @@ export default function ResumePage() {
           </div>
         </div>
 
-        <div className="aspect-[8.5/11] overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
+        <div className="aspect-[8.5/11] overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_20px_40px_-16px_rgba(14,18,32,0.18)]">
           <iframe
             src="/Rakib_Hossain_CV.pdf"
             title="Md. Rakib Hossain — Resume"
