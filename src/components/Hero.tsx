@@ -1,152 +1,63 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { ArrowDown, FileText } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import { ArrowDown, Download } from "lucide-react";
 import Magnetic from "./Magnetic";
-import ScrollHeadline from "./ScrollHeadline";
-import TypewriterRole from "./TypewriterRole";
+import Reveal from "./Reveal";
 
 export default function Hero() {
   return (
-    <section id="top" className="relative">
-      <div className="hero-shell relative min-h-svh flex flex-col items-center justify-center overflow-hidden px-6 text-center">
-        {/* Subtle grid pattern */}
-        <div
-          className="absolute inset-0 z-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        ></div>
+    <section id="top" className="mx-auto max-w-[1200px] px-5 sm:px-8 lg:px-12">
+      {/* Narrow screens: the network floats in this band, above the copy. */}
+      <div aria-hidden="true" className="h-[38svh] lg:hidden" />
 
-        {/* Scrim: keeps the copy readable over the particle sphere */}
-        <div
-          className="absolute inset-0 z-10 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 58% 42% at 50% 68%, rgba(11,9,8,0.92) 0%, rgba(11,9,8,0.55) 58%, transparent 100%)",
-          }}
-        />
-
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="hero-pill hud relative z-20 font-mono text-[10px] sm:text-xs tracking-[0.18em] uppercase text-ink-soft border border-line-strong bg-surface/60 px-4 sm:px-5 py-2 text-center flex items-center gap-3"
-        >
-          <span className="led shrink-0" />
-          <span>
-            <span className="text-brand-orange">SYS ONLINE //</span>{" "}Data Science &amp; Machine Learning · Full-Stack
-          </span>
-        </motion.div>
-
-        <div className="relative z-20 flex flex-col items-center w-full">
-          <h1 className="sr-only">Md. Rakib Hossain</h1>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            aria-hidden="true"
-          >
-            <ScrollHeadline
-              lines={["Hi, I'm", "Rakib."]}
-              className="select-none font-display uppercase font-bold tracking-tight text-[#2a1d19] text-display"
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0 flex items-end justify-center"
-          >
-            <div className="hud relative overflow-hidden px-3 pt-3">
-              <span className="scan-beam" aria-hidden="true" />
-              <span className="absolute top-1.5 left-4 font-mono text-[9px] tracking-widest text-brand-orange/80">
-                UNIT R-4123
-              </span>
-              <span className="absolute bottom-1.5 right-4 z-10 font-mono text-[9px] tracking-widest text-brand-orange/80 flex items-center gap-1.5">
-                <span className="led led-orange" style={{ width: 5, height: 5 }} /> ACTIVE
-              </span>
-              <Image
-                src="/images/profile-transparent.png"
-                alt="Md. Rakib Hossain"
-                width={1024}
-                height={935}
-                priority
-                className="hero-portrait w-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
-              />
-            </div>
-          </motion.div>
+      <div className="grid items-center gap-12 pb-20 lg:min-h-[calc(100svh-72px)] lg:grid-cols-2 lg:py-16">
+        <div className="flex flex-col gap-7">
+          <Reveal>
+            <p className="inline-flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.08em] text-muted">
+              <span className="live h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
+              Open to roles · Data science, ML &amp; full-stack
+            </p>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h1 className="text-[clamp(2.5rem,5.4vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.035em]">
+              Machine-learning systems, built end to end.
+            </h1>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="max-w-[540px] text-lg font-light leading-relaxed text-ink-soft sm:text-[19px]">
+              I&apos;m Rakib, a CSE student at AIUB. I take ML from dataset curation to calibrated,
+              deployed models, and I build the applications around them. Three first-author papers
+              so far; the first was presented at IEEE COMPAS 2026.
+            </p>
+          </Reveal>
+          <Reveal delay={0.24} className="flex flex-wrap gap-3">
+            <Magnetic>
+              <a
+                href="#work"
+                className="inline-flex h-12 items-center gap-2.5 rounded-full bg-accent px-6 text-[15px] font-semibold text-accent-ink transition-[filter] hover:brightness-110"
+              >
+                View selected work <ArrowDown size={16} aria-hidden="true" />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href="/Rakib_Hossain_CV.pdf"
+                download
+                className="inline-flex h-12 items-center gap-2.5 rounded-full border border-line-strong px-6 text-[15px] font-medium text-ink transition-colors hover:border-accent"
+              >
+                <Download size={16} aria-hidden="true" /> Download CV
+              </a>
+            </Magnetic>
+          </Reveal>
+          <Reveal delay={0.32}>
+            <p className="flex flex-wrap gap-x-6 gap-y-2 pt-2 text-[13px] text-muted">
+              <span>Dhaka, Bangladesh</span>
+              <span>B.Sc. CSE, AIUB</span>
+              <span>Founder, Khepa Chakka robotics</span>
+            </p>
+          </Reveal>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 text-[clamp(0.8rem,min(1.9vw,2vh),1.05rem)] text-muted-2 font-mono leading-[1.45] min-h-[2.9em] md:min-h-[1.45em] flex items-center justify-center"
-        >
-          {/* One flex child, so the spaces around the typed role survive. */}
-          <span>
-            <span className="text-brand-orange">&gt;</span> I work as <TypewriterRole />
-          </span>
-        </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="hero-lead relative z-20 mt-4 max-w-2xl text-lead text-ink-soft"
-        >
-          I work on{" "}
-          <span className="font-semibold bg-gradient-to-r from-brand-red via-brand-orange to-brand-gold bg-clip-text text-transparent animate-gradient">
-            data science and machine-learning systems
-          </span>{" "}
-          and build the applications around them — from live products to published research.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="hero-cta relative z-20 flex flex-wrap justify-center gap-4 mt-[clamp(1.25rem,5vh,2.5rem)]"
-        >
-          <Magnetic>
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-2 bg-brand-red text-white font-semibold text-sm px-[clamp(1rem,4.5vw,1.75rem)] py-3 chamfer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(215,38,61,0.3)]"
-            >
-              See the work ↓
-            </a>
-          </Magnetic>
-          <Magnetic>
-            <Link
-              href="/resume"
-              className="inline-flex items-center gap-2 border border-line-strong text-ink font-medium text-sm px-[clamp(1rem,4.5vw,1.75rem)] py-3 rounded-md transition-all hover:border-brand-red hover:text-brand-red hover:-translate-y-0.5"
-            >
-              <FileText size={16} /> Resume
-            </Link>
-          </Magnetic>
-        </motion.div>
-
-        <motion.a
-          href="#about"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="hero-scroll-cue absolute bottom-[clamp(1rem,3vh,2rem)] left-1/2 -translate-x-1/2 text-muted hover:text-brand-red transition-colors z-20 flex flex-col items-center gap-2"
-        >
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          >
-            <ArrowDown size={18} />
-          </motion.div>
-        </motion.a>
+        {/* Wide screens: the network floats in this column. */}
+        <div aria-hidden="true" className="hidden lg:block" />
       </div>
     </section>
   );

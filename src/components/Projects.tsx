@@ -1,347 +1,184 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Image from "next/image";
-import { SectionHeading } from "./SectionHeading";
-import { ExternalLink, Maximize2, ZoomIn } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-import { useState } from "react";
-import TiltCard from "./TiltCard";
-import SpotlightCard from "./SpotlightCard";
-import DemoModal from "./DemoModal";
-import { Lightbox, useGallery } from "./Gallery";
+import { SectionHeading } from "./SectionHeading";
+import Reveal from "./Reveal";
 
-const tagContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.06 } },
-};
-
-const tagItem = {
-  hidden: { opacity: 0, y: 8 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const projects = [
+const featured = [
   {
-    number: "01",
     title: "RideGuard",
-    type: "Behavioural-spatial risk framework with conformal prediction",
-    images: [
-      "/images/rideguard-map.jpg",
-      "/images/rideguard-now.jpg",
-      "/images/rideguard-profile.jpg",
-      "/images/rideguard-route.jpg",
+    label: "Featured · ML risk service · IEEE COMPAS 2026",
+    desc: "A live web app that scores motorcycle route risk in Dhaka, with a colour-coded risk map and real-time warnings for phone handling, speeding and accident hotspots. Each prediction carries calibrated confidence and SHAP explanations. Its self-audit traced the headline score to target leakage, and I published that as the central finding.",
+    metrics: [
+      { value: "0.973", label: "Macro-F1" },
+      { value: "Conformal", label: "Calibrated confidence" },
+      { value: "SHAP", label: "Per-prediction reasons" },
     ],
-    imageWidth: 460,
-    imageHeight: 1022,
-    tags: ["Python", "CatBoost", "scikit-learn", "SHAP"],
-    desc: "A live web app scoring motorcycle route risk in Dhaka, with a colour-coded risk map and real-time warnings for phone handling, speeding, and accident hotspots. It predicts crash risk at 0.973 macro-F1, reporting calibrated confidence and explaining each prediction with SHAP attributions rather than acting as a black box. A self-audit layer traced the headline score to target leakage — a label the data gave away — which I published as the central finding rather than the accuracy number. Presented at IEEE COMPAS 2026, University of Dhaka (first author).",
+    stack: "Python / CatBoost / scikit-learn / SHAP",
     demo: "https://ride-guard-web-app-web.vercel.app/",
-    embeddable: true,
     github: "https://github.com/rakib4123/Ride_Guard_WebApp",
-    featured: true,
+    image: { src: "/images/rideguard-map.jpg", alt: "RideGuard risk map on a phone", width: 460, height: 1022 },
+    phone: true,
   },
   {
-    number: "02",
     title: "PulseStone",
-    type: "Embedded · Controlled user study",
-    images: ["/images/project-pulsestone.jpg"],
-    imageWidth: 1200,
-    imageHeight: 1593,
-    tags: ["ESP32-C3", "Arduino C++", "Python"],
-    desc: "A pocket device that starts a calming breathing exercise with one squeeze, guiding the user with light, vibration, and screen cues. I designed and analysed a controlled 15-participant, 150-trial study: users started in 0.52 s versus 7.49 s on a phone app — 14.5× faster — and all 15 preferred it. Accepted at ICCA 2026 (first author).",
+    label: "Embedded · Controlled user study · ICCA 2026",
+    desc: "A pocket device that starts a calming breathing exercise with one squeeze, guiding the user with light, vibration and screen cues. I designed and analysed a controlled 15-participant, 150-trial study.",
+    metrics: [
+      { value: "14.5×", label: "Faster than a phone app" },
+      { value: "0.52 s", label: "Time to start" },
+      { value: "15 / 15", label: "Preferred it" },
+    ],
+    stack: "ESP32-C3 / Arduino C++ / Python",
     github: "https://github.com/rakib4123/PulseStone",
-    featured: true,
-    flip: true,
+    image: { src: "/images/project-pulsestone.jpg", alt: "PulseStone handheld device", width: 1200, height: 1593 },
+    phone: false,
   },
 ];
 
-const smallProjects = [
+const more = [
   {
     title: "Drikon",
-    type: "Full-stack · E-commerce with a recommendation engine",
-    tags: ["Next.js 15", "React 19", "NestJS 11", "PostgreSQL", "Prisma"],
-    desc: "Implemented the Apriori association-rule algorithm from scratch — level-wise itemset mining with candidate pruning, scored by support, confidence, and lift — to power \"frequently bought together\" and personalised recommendations from real order history. Built 17 backend modules (products, orders, reviews, coupons, flash sales, wishlists, banners, settings) with voice search, filtering, comparison, and secure accounts, localised in Bengali and English, with branding, theme, and homepage content editable from the admin panel without a redeploy.",
+    label: "Full-stack · Recommendation engine",
+    live: true,
+    desc: "An e-commerce platform with Apriori association-rule mining written from scratch, powering “frequently bought together” from real order history. 17 backend modules, voice search, and Bengali and English localisation.",
+    stack: "Next.js 15 / NestJS 11 / PostgreSQL / Prisma",
     demo: "https://drikon-web-vert1v.vercel.app/",
     github: "https://github.com/rakib4123/drikon",
-    highlight: true,
   },
   {
     title: "DhakaNight",
-    type: "Vision · Dataset & benchmark",
-    tags: ["Python", "PyTorch", "YOLO", "OpenCV", "Roboflow"],
-    desc: "Detects vehicles and pedestrians on Dhaka streets after dark, where standard detectors fail. I curated and labelled a 2,300-image night dataset, then benchmarked CLAHE, Gamma, Zero-DCE, and RetinexFormer against a YOLOv8 baseline under a controlled protocol — none improved detection, and scaling the detector beat every pipeline. Accepted at ICCA 2026 (first author).",
+    label: "Vision · Dataset & benchmark · ICCA 2026",
+    desc: "A 2,300-image night-traffic dataset for Dhaka. I benchmarked CLAHE, Gamma, Zero-DCE and RetinexFormer against a YOLOv8 baseline: none improved detection, and scaling the detector beat every enhancement pipeline.",
+    stack: "PyTorch / YOLO / OpenCV / Roboflow",
     github: "https://github.com/rakib4123/Dhaka_Night",
   },
   {
     title: "Carbon Market Simulation",
-    type: "Forecasting · Agent-based modeling",
-    tags: ["Python", "CatBoost", "Mesa", "scikit-learn"],
-    desc: "CO2 forecasting and agent-based modeling. I benchmarked Ridge, XGBoost, LightGBM, and CatBoost on a 17-country CO2 panel; CatBoost won at 10.95% test MAPE. The forecasts feed a Mesa agent-based model of 48 firms, where linking markets cut costs in 55–62% of 100 runs. Third author.",
-    wide: true,
+    label: "Forecasting · Agent-based modelling",
+    desc: "Benchmarked Ridge, XGBoost, LightGBM and CatBoost on a 17-country CO₂ panel; CatBoost won at 10.95% test MAPE. The forecasts drive a Mesa model of 48 firms, where linking markets cut costs in 55–62% of 100 runs. Third author.",
+    stack: "Python / CatBoost / Mesa / scikit-learn",
   },
   {
     title: "AIUB STEAM",
-    type: "Desktop",
-    tags: ["C#", ".NET", "WinForms", "SQL Server"],
-    desc: "A Windows desktop university portal with role-based dashboards, course pre-registration, assignment uploads, grade viewing.",
+    label: "Desktop · University portal",
+    desc: "A Windows desktop portal with role-based dashboards, course pre-registration, assignment uploads and grade viewing.",
+    stack: "C# / .NET / WinForms / SQL Server",
     github: "https://github.com/rakib4123/AiubSteam",
   },
 ];
 
+const external = { target: "_blank", rel: "noopener noreferrer" } as const;
+
 export default function Projects() {
-  const [activeDemo, setActiveDemo] = useState<{ url: string; title: string } | null>(
-    null
-  );
-  const { lightbox, open, close, prev, next } = useGallery();
-
   return (
-    <section id="projects" className="py-24 bg-surface relative">
-      <div className="max-w-5xl mx-auto px-6">
-        <SectionHeading
-          title="Machine-learning systems and the applications built around them."
-          tag="02 — Projects"
-          subtitle="Deployed ML services, benchmarks and forecasting, plus a live e-commerce platform and embedded hardware."
-        />
+    <section id="work" className="mx-auto flex max-w-[1200px] flex-col gap-14 px-5 pb-10 pt-28 sm:px-8 lg:px-12">
+      <SectionHeading
+        tag="01 — Selected work"
+        title="Deployed models, honest benchmarks, and the products around them."
+      />
 
-        <div className="space-y-28 mb-20">
-          {projects.map((p) => (
-            <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-              className="grid md:grid-cols-2 gap-10 items-center"
-            >
-              <div className={p.flip ? "md:order-2" : ""}>
-                <ProjectGallery
-                  images={p.images}
-                  alt={p.title}
-                  imageWidth={p.imageWidth}
-                  imageHeight={p.imageHeight}
-                  number={p.number}
-                  onZoom={open}
-                />
-              </div>
-
-              <div className={p.flip ? "md:order-1" : ""}>
-                <div className="text-xs font-semibold tracking-[0.15em] text-brand-red uppercase mb-3">
-                  {p.type}
-                </div>
-                <h3 className="font-display text-3xl md:text-4xl font-semibold text-ink mb-4">
-                  {p.title}
-                </h3>
-                <motion.div
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-50px" }}
-                  variants={tagContainer}
-                  className="flex flex-wrap gap-2 mb-5"
+      {featured.map((p, idx) => (
+        <Reveal key={p.title}>
+          <article className="feature grid items-center gap-12 overflow-hidden rounded-[20px] border border-line bg-surface p-7 sm:p-10 lg:grid-cols-2 lg:p-14">
+            <div className={`flex min-w-0 flex-col gap-5 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
+              <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">{p.label}</span>
+              <h3 className="text-[40px] font-semibold leading-[1.05] tracking-[-0.03em]">{p.title}</h3>
+              <p className="text-[17px] font-light text-ink-soft">{p.desc}</p>
+              <dl className="grid grid-cols-3 border-y border-line">
+                {p.metrics.map((m, i) => (
+                  <div
+                    key={m.label}
+                    className={`flex flex-col-reverse gap-0.5 py-4 ${i > 0 ? "border-l border-line pl-4" : "pr-4"}`}
+                  >
+                    <dt className="text-[13px] text-muted">{m.label}</dt>
+                    <dd className="text-lg font-semibold sm:text-[22px]">{m.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="font-mono text-[13px] text-muted">{p.stack}</p>
+              <div className="flex flex-wrap gap-3">
+                {p.demo && (
+                  <a
+                    href={p.demo}
+                    {...external}
+                    className="inline-flex h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-semibold text-accent-ink transition-[filter] hover:brightness-110"
+                  >
+                    Live demo <ArrowUpRight size={14} aria-hidden="true" />
+                  </a>
+                )}
+                <a
+                  href={p.github}
+                  {...external}
+                  className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-5 text-sm text-ink transition-colors hover:border-accent"
                 >
-                  {p.tags.map((tag) => (
-                    <motion.span
-                      key={tag}
-                      variants={tagItem}
-                      className="font-mono text-[11px] font-medium text-ink-soft bg-surface-2 border border-line px-2.5 py-1 rounded-sm"
-                    >
-                      {tag}
-                    </motion.span>
-                  ))}
-                </motion.div>
-                <p className="text-muted text-[15px] leading-relaxed mb-8">
-                  {p.desc}
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {p.demo && p.embeddable && (
-                    <button
-                      onClick={() => setActiveDemo({ url: p.demo, title: p.title })}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-brand-red hover:bg-red-700 px-5 py-2.5 chamfer transition-colors cursor-pointer"
-                    >
-                      <Maximize2 size={14} /> Live Demo
-                    </button>
-                  )}
-                  {p.demo && !p.embeddable && (
-                    <a
-                      href={p.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-white bg-brand-red hover:bg-red-700 px-5 py-2.5 chamfer transition-colors"
-                    >
-                      <ExternalLink size={14} /> Live Demo
+                  <FaGithub size={15} aria-hidden="true" /> Source
+                </a>
+              </div>
+            </div>
+
+            <div className={`flex min-w-0 justify-center py-4 ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
+              {p.phone ? (
+                <div className="float">
+                  <div className="device w-[220px] rounded-[36px] border border-line-strong bg-surface-2 p-2.5 shadow-[0_40px_80px_rgba(0,0,0,0.55)] sm:w-[260px]">
+                    <Image
+                      src={p.image.src}
+                      alt={p.image.alt}
+                      width={p.image.width}
+                      height={p.image.height}
+                      className="block h-auto w-full rounded-[28px]"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="device-r w-[260px] overflow-hidden rounded-2xl border border-line-strong shadow-[0_40px_80px_rgba(0,0,0,0.55)] sm:w-[300px]">
+                  <Image
+                    src={p.image.src}
+                    alt={p.image.alt}
+                    width={p.image.width}
+                    height={p.image.height}
+                    className="block h-[340px] w-full object-cover sm:h-[400px]"
+                  />
+                </div>
+              )}
+            </div>
+          </article>
+        </Reveal>
+      ))}
+
+      <div className="grid gap-5 md:grid-cols-2">
+        {more.map((p, i) => (
+          <Reveal key={p.title} delay={(i % 2) * 0.08} className="flex">
+            <article className="tilt flex w-full flex-col gap-3.5 rounded-2xl border border-line bg-surface p-8">
+              <div className="flex items-center justify-between gap-3">
+                <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">{p.label}</span>
+                {p.live && (
+                  <span className="rounded-full border border-accent-line px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.08em] text-accent">
+                    Live
+                  </span>
+                )}
+              </div>
+              <h3 className="text-[26px] font-semibold tracking-[-0.02em]">{p.title}</h3>
+              <p className="text-[15px] font-light text-ink-soft">{p.desc}</p>
+              <p className="font-mono text-xs text-muted">{p.stack}</p>
+              {(p.demo || p.github) && (
+                <div className="mt-auto flex gap-5 pt-2 text-sm">
+                  {p.demo && (
+                    <a href={p.demo} {...external} className="inline-flex min-h-11 items-center gap-1.5 hover:text-accent">
+                      Live demo <ArrowUpRight size={13} aria-hidden="true" />
                     </a>
                   )}
                   {p.github && (
-                    <a
-                      href={p.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-ink-soft bg-surface border border-line hover:border-line-strong hover:text-ink px-5 py-2.5 rounded transition-colors"
-                    >
-                      <FaGithub size={14} /> Source
+                    <a href={p.github} {...external} className="inline-flex min-h-11 items-center text-ink-soft hover:text-accent">
+                      Source
                     </a>
                   )}
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {smallProjects.map((p, i) => (
-            <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={p.highlight || p.wide ? "md:col-span-2" : ""}
-            >
-              <TiltCard className="h-full">
-                <SpotlightCard
-                  className={`relative h-full rounded-xl p-7 flex flex-col group transition-shadow duration-300 overflow-hidden backdrop-blur-md ${
-                    p.highlight
-                      ? "bg-surface/45 bg-gradient-to-br from-brand-red/10 to-transparent border-2 border-brand-red/40 hover:shadow-[0_10px_30px_rgba(215,38,61,0.15)]"
-                      : "bg-surface/55 border border-line hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
-                  }`}
-                >
-                  <div
-                    className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-red to-brand-orange origin-left transition-transform duration-500 ${
-                      p.highlight ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                    }`}
-                  ></div>
-                  {p.highlight && (
-                    <span className="absolute top-5 right-5 inline-flex items-center gap-1 font-mono text-[10px] font-bold tracking-widest text-brand-red bg-surface border border-brand-red/30 px-2.5 py-1 rounded-full uppercase">
-                      ★ Flagship
-                    </span>
-                  )}
-                  <div className="text-xs font-semibold text-muted-2 uppercase tracking-wider mb-2">
-                    {p.type}
-                  </div>
-                  <h3 className="font-display text-xl font-semibold text-ink mb-2">
-                    {p.title}
-                  </h3>
-                  <p className="text-muted text-sm leading-relaxed mb-5 flex-grow">
-                    {p.desc}
-                  </p>
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-50px" }}
-                    variants={tagContainer}
-                    className="flex flex-wrap gap-2 mb-5"
-                  >
-                    {p.tags.map((tag) => (
-                      <motion.span
-                        key={tag}
-                        variants={tagItem}
-                        className="font-mono text-[11px] text-muted bg-surface-2 px-2 py-0.5 rounded-sm border border-line"
-                      >
-                        {tag}
-                      </motion.span>
-                    ))}
-                  </motion.div>
-                  <div className="flex flex-wrap gap-4 mt-auto">
-                    {p.demo && (
-                      <a
-                        href={p.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-medium text-brand-red hover:text-brand-orange transition-colors"
-                      >
-                        <ExternalLink size={14} /> Live Demo
-                      </a>
-                    )}
-                    {p.github && (
-                      <a
-                        href={p.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-ink transition-colors"
-                      >
-                        <FaGithub size={14} /> Source
-                      </a>
-                    )}
-                  </div>
-                </SpotlightCard>
-              </TiltCard>
-            </motion.div>
-          ))}
-        </div>
+              )}
+            </article>
+          </Reveal>
+        ))}
       </div>
-
-      <Lightbox lightbox={lightbox} close={close} prev={prev} next={next} />
-
-      {activeDemo && (
-        <DemoModal
-          url={activeDemo.url}
-          title={activeDemo.title}
-          onClose={() => setActiveDemo(null)}
-        />
-      )}
     </section>
-  );
-}
-
-function ProjectGallery({
-  images,
-  alt,
-  imageWidth,
-  imageHeight,
-  number,
-  onZoom,
-}: {
-  images: string[];
-  alt: string;
-  imageWidth: number;
-  imageHeight: number;
-  number: string;
-  onZoom: (items: { img: string; cap: string }[], index: number) => void;
-}) {
-  const [active, setActive] = useState(0);
-  const items = images.map((img, i) => ({
-    img,
-    cap: images.length > 1 ? `${alt} — ${i + 1} of ${images.length}` : alt,
-  }));
-
-  return (
-    <div>
-      <button
-        type="button"
-        aria-label={`View ${alt} full screen`}
-        className="block w-full text-left rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] group relative cursor-zoom-in"
-        onClick={() => onZoom(items, active)}
-      >
-        <span className="absolute bottom-3 right-3 z-10 w-8 h-8 rounded-full bg-bg-main/80 text-ink-soft flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-          <ZoomIn size={15} />
-        </span>
-        <span className="absolute top-4 left-4 z-10 bg-bg-main text-white text-xs font-extrabold tracking-widest px-2.5 py-1 rounded">
-          {number}
-        </span>
-        <Image
-          src={images[active]}
-          alt={alt}
-          width={imageWidth}
-          height={imageHeight}
-          className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700"
-        />
-      </button>
-
-      {images.length > 1 && (
-        <div className="flex gap-3 mt-4">
-          {images.map((img, i) => (
-            <button
-              key={img}
-              onClick={() => setActive(i)}
-              className={`relative w-14 h-14 rounded-lg overflow-hidden border-2 transition-colors cursor-pointer ${
-                i === active ? "border-brand-red" : "border-transparent"
-              }`}
-            >
-              <Image src={img} alt={`${alt} thumbnail ${i + 1}`} fill className="object-cover" />
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
   );
 }

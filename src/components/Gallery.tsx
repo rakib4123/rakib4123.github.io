@@ -1,15 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import Portal from "./Portal";
 
 /**
- * Shared image grid and lightbox. Extracted from the robotics section so the
- * publications section can present conference photos the same way instead of
- * carrying a second copy of the overlay.
+ * Shared lightbox, used by the robotics and publications sections so both
+ * present their photos the same way instead of carrying two overlays.
  */
 
 export type GalleryItem = { img: string; cap: string };
@@ -42,58 +40,6 @@ export function useGallery() {
   );
 
   return { lightbox, open, close, prev, next };
-}
-
-export function ImageGrid({
-  title,
-  items,
-  onClick,
-  contain = false,
-  cols = 3,
-}: {
-  title: string;
-  items: GalleryItem[];
-  onClick: (items: GalleryItem[], index: number) => void;
-  contain?: boolean;
-  cols?: 2 | 3;
-}) {
-  return (
-    <div className="mb-16">
-      <h3 className="font-display text-2xl font-semibold tracking-tight text-ink mb-6">
-        {title}
-      </h3>
-      <div
-        className={`grid gap-5 ${cols === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}
-      >
-        {items.map((item, i) => (
-          <motion.figure
-            key={i}
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="relative rounded-xl overflow-hidden cursor-zoom-in bg-surface border border-line group shadow-sm hover:shadow-lg transition-shadow duration-300"
-            onClick={() => onClick(items, i)}
-          >
-            <div className="aspect-[4/3] w-full relative">
-              <Image
-                src={item.img}
-                alt={item.cap}
-                fill
-                className={`${
-                  contain ? "object-contain p-4" : "object-cover"
-                } group-hover:scale-105 transition-transform duration-500`}
-              />
-            </div>
-            <figcaption className="absolute inset-x-0 bottom-0 p-4 pt-10 bg-gradient-to-t from-black/85 to-transparent text-ink-soft text-sm font-medium translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex justify-between items-end">
-              <span>{item.cap}</span>
-              <ZoomIn size={14} className="text-brand-red" />
-            </figcaption>
-          </motion.figure>
-        ))}
-      </div>
-    </div>
-  );
 }
 
 export function Lightbox({
@@ -144,7 +90,7 @@ export function Lightbox({
         aria-label={item.cap}
       >
         <button
-          className="absolute top-4 right-4 z-20 w-11 h-11 bg-surface-2/90 hover:bg-brand-red hover:text-white rounded-full flex items-center justify-center text-ink-soft transition-colors cursor-pointer"
+          className="absolute top-4 right-4 z-20 w-11 h-11 bg-surface-2/90 hover:bg-accent hover:text-accent-ink rounded-full flex items-center justify-center text-ink-soft transition-colors cursor-pointer"
           onClick={close}
           aria-label="Close"
         >
@@ -154,7 +100,7 @@ export function Lightbox({
         {many && (
           <>
             <button
-              className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-surface-2/90 hover:bg-brand-red hover:text-white rounded-full flex items-center justify-center text-ink-soft transition-colors cursor-pointer"
+              className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-surface-2/90 hover:bg-accent hover:text-accent-ink rounded-full flex items-center justify-center text-ink-soft transition-colors cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 prev();
@@ -164,7 +110,7 @@ export function Lightbox({
               <ChevronLeft size={22} />
             </button>
             <button
-              className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-surface-2/90 hover:bg-brand-red hover:text-white rounded-full flex items-center justify-center text-ink-soft transition-colors cursor-pointer"
+              className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-surface-2/90 hover:bg-accent hover:text-accent-ink rounded-full flex items-center justify-center text-ink-soft transition-colors cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 next();

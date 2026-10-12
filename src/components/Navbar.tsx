@@ -1,18 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import Magnetic from "./Magnetic";
 
 const navLinks = [
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Publications", href: "#publications" },
+  { name: "Work", href: "#work" },
+  { name: "Research", href: "#research" },
   { name: "Robotics", href: "#robotics" },
-  { name: "Awards", href: "#awards" },
-  { name: "Skills", href: "#skills" },
+  { name: "About", href: "#about" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -39,89 +36,79 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-bg-main/90 backdrop-blur-lg border-b border-white/10">
-      <div className="max-w-6xl mx-auto px-6 h-[var(--nav-h)] flex items-center justify-between">
-        <a
-          href="#top"
-          className="font-display uppercase font-bold tracking-[0.12em] text-lg text-ink flex items-center gap-2.5"
-        >
-          <span className="led" />
+    <header className="sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur-lg">
+      <div className="mx-auto flex h-[72px] max-w-[1200px] items-center justify-between px-5 sm:px-8 lg:px-12">
+        <a href="#top" className="flex items-center gap-3 font-semibold tracking-[-0.01em]">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-line-strong font-mono text-xs text-accent">
+            RH
+          </span>
           Md. Rakib Hossain
         </a>
 
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav aria-label="Primary" className="hidden items-center gap-7 text-sm md:flex">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.slice(1);
             return (
               <a
                 key={link.name}
                 href={link.href}
-                className={`relative font-mono uppercase tracking-wider text-[11px] font-medium px-3 py-2 rounded-md transition-colors ${
-                  isActive ? "text-brand-red" : "text-ink-soft hover:text-brand-red"
+                aria-current={isActive ? "true" : undefined}
+                className={`py-3 transition-colors ${
+                  isActive ? "text-ink" : "text-ink-soft hover:text-accent"
                 }`}
               >
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-active-pill"
-                    className="absolute inset-0 bg-white/10 rounded-md -z-10"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
                 {link.name}
               </a>
             );
           })}
-          <Magnetic>
-            <Link
-              href="/resume"
-              className="ml-2 font-mono uppercase tracking-wider text-[11px] font-bold text-white bg-brand-red hover:bg-red-500 px-4 py-2 chamfer transition-all"
-            >
-              Resume
-            </Link>
-          </Magnetic>
+          <Link
+            href="/resume"
+            className="inline-flex h-10 items-center gap-2 rounded-full border border-line-strong px-4 text-ink transition-colors hover:border-accent"
+          >
+            Résumé <ArrowUpRight size={14} aria-hidden="true" />
+          </Link>
         </nav>
 
         <button
-          className="lg:hidden text-ink hover:text-white"
+          type="button"
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-menu"
+          className="flex h-11 w-11 items-center justify-center rounded-xl border border-line-strong text-ink md:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
       </div>
 
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
+          <motion.nav
+            id="mobile-menu"
+            aria-label="Mobile"
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="lg:hidden bg-bg-main border-t border-white/10 overflow-hidden"
+            exit={{ opacity: 0, y: -8 }}
+            className="flex flex-col border-t border-line bg-bg p-3 md:hidden"
           >
-            <nav className="flex flex-col p-3">
-              {navLinks.map((link) => {
-                const isActive = activeSection === link.href.slice(1);
-                return (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`text-sm font-medium hover:bg-white/5 px-4 py-3 rounded-md transition-all ${
-                      isActive ? "text-brand-red" : "text-ink-soft hover:text-brand-red"
-                    }`}
-                  >
-                    {link.name}
-                  </a>
-                );
-              })}
-              <Link
-                href="/resume"
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-semibold text-brand-red hover:bg-white/5 px-4 py-3 rounded-md transition-all"
+                className="rounded-lg px-4 py-3 text-ink-soft transition-colors hover:bg-surface-2 hover:text-ink"
               >
-                Resume
-              </Link>
-            </nav>
-          </motion.div>
+                {link.name}
+              </a>
+            ))}
+            <Link
+              href="/resume"
+              onClick={() => setMobileMenuOpen(false)}
+              className="rounded-lg px-4 py-3 font-medium text-accent transition-colors hover:bg-surface-2"
+            >
+              Résumé
+            </Link>
+          </motion.nav>
         )}
       </AnimatePresence>
     </header>

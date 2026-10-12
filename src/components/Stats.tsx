@@ -1,60 +1,28 @@
-"use client";
-
-import { animate, motion, useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import Reveal from "./Reveal";
 
 const stats = [
-  { value: 3, suffix: "", l: "First-author papers\n1 presented · IEEE COMPAS 2026" },
-  { value: 6, suffix: "", l: "National & international\nrobotics podiums" },
-  { value: 4, suffix: "", l: "Robot classes\ndesigned & built" },
-  { value: 2300, suffix: "", l: "Night images labelled\nfor DhakaNight" },
+  { value: "3", label: "First-author papers" },
+  { value: "0.973", label: "Macro-F1, RideGuard crash-risk model" },
+  { value: "2,300", label: "Night images labelled for DhakaNight" },
+  { value: "6", label: "National & international robotics podiums" },
 ];
-
-function Counter({ value, suffix }: { value: number; suffix: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
-  const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(0, value, {
-      duration: 1.5,
-      ease: [0.22, 1, 0.36, 1],
-      onUpdate: (v) => setDisplay(Math.round(v)),
-    });
-    return () => controls.stop();
-  }, [inView, value]);
-
-  return (
-    <span ref={ref}>
-      {display.toLocaleString()}
-      {suffix}
-    </span>
-  );
-}
 
 export default function Stats() {
   return (
-    <section className="py-16 bg-bg-main relative border-y border-line">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            >
-              <div className="font-display text-5xl md:text-6xl font-bold tracking-tight mb-2 bg-gradient-to-r from-brand-red via-brand-orange to-brand-red bg-clip-text text-transparent animate-gradient">
-                <Counter value={stat.value} suffix={stat.suffix} />
-              </div>
-              <div className="font-mono uppercase tracking-wider text-muted text-[11px] whitespace-pre-line leading-relaxed">
-                {stat.l}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+    <section aria-label="Highlights" className="border-y border-line bg-bg/70 backdrop-blur-sm">
+      <div className="mx-auto grid max-w-[1200px] grid-cols-2 px-5 sm:px-8 lg:grid-cols-4 lg:px-12">
+        {stats.map((stat, i) => (
+          <Reveal
+            key={stat.label}
+            delay={i * 0.08}
+            className={`flex flex-col gap-1.5 py-9 pr-6 ${i % 2 === 1 ? "border-l border-line pl-6" : ""} ${
+              i === 2 ? "lg:border-l lg:border-line lg:pl-6" : ""
+            } ${i >= 2 ? "border-t border-line lg:border-t-0" : ""}`}
+          >
+            <span className="text-[44px] font-semibold leading-none tracking-[-0.03em]">{stat.value}</span>
+            <span className="text-sm text-muted">{stat.label}</span>
+          </Reveal>
+        ))}
       </div>
     </section>
   );
