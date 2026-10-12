@@ -9,7 +9,7 @@ import * as THREE from "three";
  * The network itself never changes. Scrolling moves it between four poses,
  * one per part of the page:
  *
- *   hero      -> full network, tilted, in the right-hand column
+ *   hero      -> full network, tilted, haloing the portrait
  *   work      -> swung round and pulled in on the hidden layers, dimmed
  *   research  -> seen from above, flattened into a diagram, dimmed further
  *   contact   -> settled behind the frosted contact card
@@ -42,7 +42,7 @@ type Pose = { rx: number; ry: number; scale: number; sx: number; sy: number; opa
 
 /** One pose per anchor section, for wide (two-column hero) layouts... */
 const WIDE: Pose[] = [
-  { rx: -0.24, ry: 0, scale: 1, sx: 0.24, sy: 0, opacity: 1 },
+  { rx: -0.24, ry: 0, scale: 1.2, sx: 0.24, sy: 0, opacity: 1 },
   { rx: -0.07, ry: -1.05, scale: 1.35, sx: 0.2, sy: 0, opacity: 0.4 },
   { rx: -1.36, ry: -1.05, scale: 0.95, sx: 0.05, sy: 0, opacity: 0.22 },
   { rx: -0.24, ry: -0.5, scale: 0.9, sx: 0.12, sy: 0, opacity: 0.7 },

@@ -9,7 +9,9 @@ const navLinks = [
   { name: "Work", href: "#work" },
   { name: "Research", href: "#research" },
   { name: "Robotics", href: "#robotics" },
+  { name: "Awards", href: "#awards" },
   { name: "About", href: "#about" },
+  { name: "Skills", href: "#skills" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -45,7 +47,7 @@ export default function Navbar() {
           Md. Rakib Hossain
         </a>
 
-        <nav aria-label="Primary" className="hidden items-center gap-7 text-sm md:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-6 text-sm lg:flex">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.slice(1);
             return (
@@ -74,7 +76,7 @@ export default function Navbar() {
           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileMenuOpen}
           aria-controls="mobile-menu"
-          className="flex h-11 w-11 items-center justify-center rounded-xl border border-line-strong text-ink md:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-xl border border-line-strong text-ink lg:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -89,7 +91,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="flex flex-col border-t border-line bg-bg p-3 md:hidden"
+            className="flex flex-col border-t border-line bg-bg p-3 lg:hidden"
           >
             {navLinks.map((link) => (
               <a

@@ -102,13 +102,97 @@ body {
   animation: blink 2s ease-in-out infinite;
 }
 
+/* ---------- Hero portrait: targeting frame and scanning beam ---------- */
+
+.hud-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  --hc: rgba(92, 225, 230, 0.75);
+  --hl: 18px;
+  background:
+    linear-gradient(var(--hc), var(--hc)) top left / var(--hl) 2px no-repeat,
+    linear-gradient(var(--hc), var(--hc)) top left / 2px var(--hl) no-repeat,
+    linear-gradient(var(--hc), var(--hc)) top right / var(--hl) 2px no-repeat,
+    linear-gradient(var(--hc), var(--hc)) top right / 2px var(--hl) no-repeat,
+    linear-gradient(var(--hc), var(--hc)) bottom left / var(--hl) 2px no-repeat,
+    linear-gradient(var(--hc), var(--hc)) bottom left / 2px var(--hl) no-repeat,
+    linear-gradient(var(--hc), var(--hc)) bottom right / var(--hl) 2px no-repeat,
+    linear-gradient(var(--hc), var(--hc)) bottom right / 2px var(--hl) no-repeat;
+}
+
+@keyframes scanBeam {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+.scan-beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 1;
+  background: linear-gradient(90deg, transparent, rgba(92, 225, 230, 0.9), transparent);
+  box-shadow: 0 0 14px rgba(92, 225, 230, 0.7);
+  animation: scanBeam 3.2s ease-in-out infinite;
+}
+
+/* ---------- Custom cursor ---------- */
+
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+.cursor-crosshair {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-100px, -100px);
+}
+
+.crosshair-line {
+  position: absolute;
+  background: var(--color-accent);
+  transition: background 0.15s ease;
+}
+.crosshair-top,
+.crosshair-bottom {
+  width: 1.5px;
+  height: 7px;
+  left: -0.75px;
+}
+.crosshair-top { top: -12px; }
+.crosshair-bottom { top: 5px; }
+.crosshair-left,
+.crosshair-right {
+  height: 1.5px;
+  width: 7px;
+  top: -0.75px;
+}
+.crosshair-left { left: -12px; }
+.crosshair-right { left: 5px; }
+.cursor-crosshair-active .crosshair-line {
+  background: #ffffff;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
   .float,
-  .live {
+  .live,
+  .scan-beam {
     animation: none;
+  }
+  .scan-beam {
+    display: none;
   }
   .tilt,
   .device,

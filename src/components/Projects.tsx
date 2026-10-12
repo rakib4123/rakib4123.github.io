@@ -3,6 +3,8 @@ import { ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { SectionHeading } from "./SectionHeading";
 import Reveal from "./Reveal";
+import SpotlightCard from "./SpotlightCard";
+import { DemoButton, PhoneGallery } from "./ProjectMedia";
 
 const featured = [
   {
@@ -18,6 +20,12 @@ const featured = [
     demo: "https://ride-guard-web-app-web.vercel.app/",
     github: "https://github.com/rakib4123/Ride_Guard_WebApp",
     image: { src: "/images/rideguard-map.jpg", alt: "RideGuard risk map on a phone", width: 460, height: 1022 },
+    screens: [
+      "/images/rideguard-map.jpg",
+      "/images/rideguard-now.jpg",
+      "/images/rideguard-profile.jpg",
+      "/images/rideguard-route.jpg",
+    ],
     phone: true,
   },
   {
@@ -39,18 +47,18 @@ const featured = [
 const more = [
   {
     title: "Drikon",
-    label: "Full-stack · Recommendation engine",
-    live: true,
-    desc: "An e-commerce platform with Apriori association-rule mining written from scratch, powering “frequently bought together” from real order history. 17 backend modules, voice search, and Bengali and English localisation.",
-    stack: "Next.js 15 / NestJS 11 / PostgreSQL / Prisma",
+    label: "Full-stack · E-commerce with a recommendation engine",
+    flagship: true,
+    desc: "Implemented the Apriori association-rule algorithm from scratch — level-wise itemset mining with candidate pruning, scored by support, confidence and lift — to power “frequently bought together” and personalised recommendations from real order history. Built 17 backend modules (products, orders, reviews, coupons, flash sales, wishlists, banners, settings) with voice search, filtering, comparison and secure accounts, localised in Bengali and English, with branding, theme and homepage content editable from the admin panel without a redeploy.",
+    stack: "Next.js 15 / React 19 / NestJS 11 / PostgreSQL / Prisma",
     demo: "https://drikon-web-vert1v.vercel.app/",
     github: "https://github.com/rakib4123/drikon",
   },
   {
     title: "DhakaNight",
     label: "Vision · Dataset & benchmark · ICCA 2026",
-    desc: "A 2,300-image night-traffic dataset for Dhaka. I benchmarked CLAHE, Gamma, Zero-DCE and RetinexFormer against a YOLOv8 baseline: none improved detection, and scaling the detector beat every enhancement pipeline.",
-    stack: "PyTorch / YOLO / OpenCV / Roboflow",
+    desc: "Detects vehicles and pedestrians on Dhaka streets after dark, where standard detectors fail. I curated and labelled a 2,300-image night dataset, then benchmarked CLAHE, Gamma, Zero-DCE and RetinexFormer against a YOLOv8 baseline under a controlled protocol — none improved detection, and scaling the detector beat every pipeline. Accepted at ICCA 2026 (first author).",
+    stack: "Python / PyTorch / YOLO / OpenCV / Roboflow",
     github: "https://github.com/rakib4123/Dhaka_Night",
   },
   {
@@ -62,7 +70,7 @@ const more = [
   {
     title: "AIUB STEAM",
     label: "Desktop · University portal",
-    desc: "A Windows desktop portal with role-based dashboards, course pre-registration, assignment uploads and grade viewing.",
+    desc: "A Windows desktop university portal with role-based dashboards, course pre-registration, assignment uploads and grade viewing.",
     stack: "C# / .NET / WinForms / SQL Server",
     github: "https://github.com/rakib4123/AiubSteam",
   },
@@ -76,6 +84,7 @@ export default function Projects() {
       <SectionHeading
         tag="01 — Selected work"
         title="Deployed models, honest benchmarks, and the products around them."
+        subtitle="Deployed ML services, benchmarks and forecasting, plus a live e-commerce platform and embedded hardware."
       />
 
       {featured.map((p, idx) => (
@@ -98,15 +107,7 @@ export default function Projects() {
               </dl>
               <p className="font-mono text-[13px] text-muted">{p.stack}</p>
               <div className="flex flex-wrap gap-3">
-                {p.demo && (
-                  <a
-                    href={p.demo}
-                    {...external}
-                    className="inline-flex h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-semibold text-accent-ink transition-[filter] hover:brightness-110"
-                  >
-                    Live demo <ArrowUpRight size={14} aria-hidden="true" />
-                  </a>
-                )}
+                {p.demo && <DemoButton url={p.demo} title={p.title} />}
                 <a
                   href={p.github}
                   {...external}
@@ -118,18 +119,13 @@ export default function Projects() {
             </div>
 
             <div className={`flex min-w-0 justify-center py-4 ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
-              {p.phone ? (
-                <div className="float">
-                  <div className="device w-[220px] rounded-[36px] border border-line-strong bg-surface-2 p-2.5 shadow-[0_40px_80px_rgba(0,0,0,0.55)] sm:w-[260px]">
-                    <Image
-                      src={p.image.src}
-                      alt={p.image.alt}
-                      width={p.image.width}
-                      height={p.image.height}
-                      className="block h-auto w-full rounded-[28px]"
-                    />
-                  </div>
-                </div>
+              {p.screens ? (
+                <PhoneGallery
+                  title={p.title}
+                  images={p.screens}
+                  width={p.image.width}
+                  height={p.image.height}
+                />
               ) : (
                 <div className="device-r w-[260px] overflow-hidden rounded-2xl border border-line-strong shadow-[0_40px_80px_rgba(0,0,0,0.55)] sm:w-[300px]">
                   <Image
@@ -149,12 +145,12 @@ export default function Projects() {
       <div className="grid gap-5 md:grid-cols-2">
         {more.map((p, i) => (
           <Reveal key={p.title} delay={(i % 2) * 0.08} className="flex">
-            <article className="tilt flex w-full flex-col gap-3.5 rounded-2xl border border-line bg-surface p-8">
+            <SpotlightCard className="tilt flex w-full flex-col gap-3.5 overflow-hidden rounded-2xl border border-line bg-surface p-8">
               <div className="flex items-center justify-between gap-3">
                 <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">{p.label}</span>
-                {p.live && (
-                  <span className="rounded-full border border-accent-line px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.08em] text-accent">
-                    Live
+                {p.flagship && (
+                  <span className="shrink-0 rounded-full bg-accent px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-accent-ink">
+                    ★ Flagship · Live
                   </span>
                 )}
               </div>
@@ -175,7 +171,7 @@ export default function Projects() {
                   )}
                 </div>
               )}
-            </article>
+            </SpotlightCard>
           </Reveal>
         ))}
       </div>
