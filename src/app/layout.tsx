@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import MotionProvider from "@/components/MotionProvider";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument",
+});
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains" });
 
 export const metadata: Metadata = {
   title: "Md. Rakib Hossain | Data Science, Machine Learning & Full-Stack",
@@ -18,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans antialiased bg-bg text-ink">
         <MotionProvider>{children}</MotionProvider>
       </body>
