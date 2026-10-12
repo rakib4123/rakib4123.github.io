@@ -1,4 +1,6 @@
 import NeuralScene from "@/components/NeuralScene";
+import ScrollProgress from "@/components/ScrollProgress";
+import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
@@ -6,6 +8,7 @@ import Projects from "@/components/Projects";
 import Publications from "@/components/Publications";
 import Robotics from "@/components/Robotics";
 import About from "@/components/About";
+import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -13,6 +16,8 @@ export default function Home() {
   return (
     <>
       <NeuralScene />
+      <ScrollProgress />
+      <CustomCursor />
       <div className="relative z-10">
         <Navbar />
         <main>
@@ -22,6 +27,7 @@ export default function Home() {
           <Publications />
           <Robotics />
           <About />
+          <Skills />
           <Contact />
         </main>
         <Footer />

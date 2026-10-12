@@ -104,42 +104,44 @@ export default function Robotics() {
         )}
       </Reveal>
 
-      <div className="grid gap-5 md:grid-cols-2">
-        {headline.map((h, i) => (
-          <Reveal key={h.title} delay={i * 0.1} className="flex">
-            <article className="tilt relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl border border-accent-line bg-surface p-8">
-              <Trophy
-                size={120}
-                strokeWidth={1}
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-4 -top-4 text-accent opacity-10"
-              />
-              <span className="w-fit rounded-full bg-accent px-3 py-1 font-mono text-xs font-medium uppercase tracking-[0.08em] text-accent-ink">
-                {h.rank}
-              </span>
-              <h3 className="text-[32px] font-semibold leading-tight tracking-[-0.03em]">{h.title}</h3>
-              <p className="text-ink-soft">{h.org}</p>
-              {h.note && <p className="text-sm text-muted">{h.note}</p>}
-            </article>
-          </Reveal>
-        ))}
-      </div>
-
-      <Reveal>
-        <h3 className="sr-only">More awards</h3>
-        <ul className="border-t border-line">
-          {awards.map((aw) => (
-            <li
-              key={aw.title + aw.org}
-              className="flex flex-wrap items-baseline gap-x-6 gap-y-1 border-b border-line px-3 py-4.5 transition-colors hover:bg-surface"
-            >
-              <span className="w-16 shrink-0 font-mono text-[13px] text-muted">{aw.year}</span>
-              <span className="min-w-60 flex-1 font-medium">{aw.title}</span>
-              <span className="min-w-60 flex-1 text-[15px] text-muted">{aw.org}</span>
-            </li>
+      <div id="awards" className="flex scroll-mt-24 flex-col gap-10">
+        <div className="grid gap-5 md:grid-cols-2">
+          {headline.map((h, i) => (
+            <Reveal key={h.title} delay={i * 0.1} className="flex">
+              <article className="tilt relative flex w-full flex-col gap-3 overflow-hidden rounded-2xl border border-accent-line bg-surface p-8">
+                <Trophy
+                  size={120}
+                  strokeWidth={1}
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-4 -top-4 text-accent opacity-10"
+                />
+                <span className="w-fit rounded-full bg-accent px-3 py-1 font-mono text-xs font-medium uppercase tracking-[0.08em] text-accent-ink">
+                  {h.rank}
+                </span>
+                <h3 className="text-[32px] font-semibold leading-tight tracking-[-0.03em]">{h.title}</h3>
+                <p className="text-ink-soft">{h.org}</p>
+                {h.note && <p className="text-sm text-muted">{h.note}</p>}
+              </article>
+            </Reveal>
           ))}
-        </ul>
-      </Reveal>
+        </div>
+
+        <Reveal>
+          <h3 className="sr-only">More awards</h3>
+          <ul className="border-t border-line">
+            {awards.map((aw) => (
+              <li
+                key={aw.title + aw.org}
+                className="flex flex-wrap items-baseline gap-x-6 gap-y-1 border-b border-line px-3 py-4.5 transition-colors hover:bg-surface"
+              >
+                <span className="w-16 shrink-0 font-mono text-[13px] text-muted">{aw.year}</span>
+                <span className="min-w-60 flex-1 font-medium">{aw.title}</span>
+                <span className="min-w-60 flex-1 text-[15px] text-muted">{aw.org}</span>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      </div>
 
       <PhotoGrid title="On the podium" items={podiums} onOpen={open} />
       <PhotoGrid title="Robots I've built" items={robots} onOpen={open} />

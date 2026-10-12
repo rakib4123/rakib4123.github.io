@@ -5,10 +5,11 @@ import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
 
 const stats = [
-  { to: 3, decimals: 0, label: "First-author papers" },
+  { to: 3, decimals: 0, label: "First-author papers · 1 presented at IEEE COMPAS 2026" },
   { to: 0.973, decimals: 3, label: "Macro-F1, RideGuard crash-risk model" },
   { to: 2300, decimals: 0, label: "Night images labelled for DhakaNight" },
   { to: 6, decimals: 0, label: "National & international robotics podiums" },
+  { to: 4, decimals: 0, label: "Robot classes designed & built" },
 ];
 
 const format = (v: number, decimals: number) =>
@@ -43,16 +44,15 @@ function CountUp({ to, decimals }: { to: number; decimals: number }) {
 export default function Stats() {
   return (
     <section aria-label="Highlights" className="border-y border-line bg-bg/70 backdrop-blur-sm">
-      <div className="mx-auto grid max-w-[1200px] grid-cols-2 px-5 sm:px-8 lg:grid-cols-4 lg:px-12">
+      {/* The 1px gaps over a line-coloured grid draw the dividers. */}
+      <div className="mx-auto grid max-w-[1200px] grid-cols-2 gap-px bg-line lg:grid-cols-5">
         {stats.map((stat, i) => (
           <Reveal
             key={stat.label}
             delay={i * 0.08}
-            className={`flex flex-col gap-1.5 py-9 pr-6 ${i % 2 === 1 ? "border-l border-line pl-6" : ""} ${
-              i === 2 ? "lg:border-l lg:border-line lg:pl-6" : ""
-            } ${i >= 2 ? "border-t border-line lg:border-t-0" : ""}`}
+            className={`flex flex-col gap-1.5 bg-bg px-5 py-9 sm:px-8 ${i === stats.length - 1 ? "col-span-2 lg:col-span-1" : ""}`}
           >
-            <span className="text-[44px] font-semibold leading-none tracking-[-0.03em] tabular-nums">
+            <span className="text-[40px] font-semibold leading-none tracking-[-0.03em] tabular-nums lg:text-[44px]">
               <CountUp to={stat.to} decimals={stat.decimals} />
             </span>
             <span className="text-sm text-muted">{stat.label}</span>

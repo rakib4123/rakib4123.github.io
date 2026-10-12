@@ -10,7 +10,7 @@ export default function Contact() {
     <section id="contact" className="mx-auto max-w-[1200px] px-5 pb-28 pt-32 sm:px-8 lg:px-12">
       <Reveal>
         <div className="flex flex-col items-start gap-7 rounded-3xl border border-line bg-surface/85 p-8 backdrop-blur-md sm:p-14 lg:p-20">
-          <span className="font-mono text-xs uppercase tracking-[0.1em] text-accent">05 — Contact</span>
+          <span className="font-mono text-xs uppercase tracking-[0.1em] text-accent">06 — Contact</span>
           <h2 className="max-w-[820px] text-[clamp(2.25rem,4.6vw,4rem)] font-semibold leading-[1.04] tracking-[-0.035em]">
             Have a model that needs to ship? Let&apos;s talk.
           </h2>
@@ -45,6 +45,20 @@ export default function Contact() {
                 <FaLinkedin size={16} aria-hidden="true" /> LinkedIn
               </a>
             </Magnetic>
+          </div>
+
+          <div className="mt-4 flex w-full flex-col gap-3 border-t border-line pt-7 text-sm text-muted sm:flex-row sm:flex-wrap sm:gap-x-10">
+            <span>
+              <strong className="font-medium text-ink-soft">Phone:</strong>{" "}
+              <a href="tel:+8801632941507" className="hover:text-accent">+880 1632 941507</a>
+            </span>
+            <span>
+              <strong className="font-medium text-ink-soft">Email:</strong>{" "}
+              <a href="mailto:r1.rakibhossain1@gmail.com" className="hover:text-accent">r1.rakibhossain1@gmail.com</a>
+            </span>
+            <span>
+              <strong className="font-medium text-ink-soft">Based in:</strong> Dhaka, Bangladesh
+            </span>
           </div>
         </div>
       </Reveal>
