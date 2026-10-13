@@ -249,7 +249,11 @@ export default function Sculpture({ className }: { className?: string }) {
 
   return (
     <div ref={wrapRef} className={className}>
-      {/* A soft contact shadow, so the sculpture sits on the page. */}
+      {/* A blue glow behind the sculpture, and a soft contact shadow under it. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-[6%] rounded-full bg-[radial-gradient(closest-side,rgba(39,71,216,0.22),rgba(39,71,216,0.06)_60%,transparent)] blur-2xl"
+      />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute bottom-[4%] left-1/2 h-[8%] w-[44%] -translate-x-1/2 rounded-[50%] bg-ink/15 blur-xl"
