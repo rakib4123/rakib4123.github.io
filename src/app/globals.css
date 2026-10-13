@@ -31,7 +31,8 @@ body {
 }
 
 /* A faint blueprint grid behind everything: fine lines every 24px, stronger
-   ones every 96px, fading out toward the edges of the screen. */
+   ones every 96px with a crosshair on every other crossing, fading out toward
+   the edges of the screen. */
 body::before {
   content: "";
   position: fixed;
@@ -39,12 +40,70 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Cpath d='M90 96.5h13M96.5 90v13' stroke='%232747d8' stroke-opacity='0.4'/%3E%3C/svg%3E"),
     linear-gradient(to right, rgba(39, 71, 216, 0.09) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(39, 71, 216, 0.09) 1px, transparent 1px),
     linear-gradient(to right, rgba(39, 71, 216, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(39, 71, 216, 0.04) 1px, transparent 1px);
-  background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
+  background-size: 192px 192px, 96px 96px, 96px 96px, 24px 24px, 24px 24px;
   mask-image: radial-gradient(ellipse 85% 75% at 35% 45%, #000 35%, transparent 100%);
+}
+
+/* Soft blue light pooling in two corners. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(42rem 30rem at 100% 0%, rgba(39, 71, 216, 0.08), transparent 70%),
+    radial-gradient(36rem 28rem at 0% 100%, rgba(39, 71, 216, 0.06), transparent 70%);
+}
+
+/* ---------- Circuit traces (TechBackground) ---------- */
+
+.tech-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 85% 75% at 35% 45%, #000 35%, transparent 100%);
+}
+
+.trace-pulse {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 5 95;
+  animation: trace-pulse linear infinite;
+}
+@keyframes trace-pulse {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
+.trace-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  fill: rgba(39, 71, 216, 0.32);
+}
+
+/* A faint band of light that sweeps down the screen. */
+.scanline {
+  position: absolute;
+  inset-inline: 0;
+  top: -140px;
+  height: 140px;
+  background: linear-gradient(to bottom, transparent, rgba(39, 71, 216, 0.05));
+  border-bottom: 1px solid rgba(39, 71, 216, 0.14);
+  animation: scan 14s linear infinite;
+}
+@keyframes scan {
+  to { transform: translateY(calc(100vh + 140px)); }
 }
 
 ::selection {
@@ -102,6 +161,10 @@ body::before {
   .float,
   .live {
     animation: none;
+  }
+  .trace-pulse,
+  .scanline {
+    display: none;
   }
   .device,
   .zoom img {
