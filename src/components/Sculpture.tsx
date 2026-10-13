@@ -13,7 +13,9 @@ import * as THREE from "three";
  * gem and is traced against its real facet planes, bouncing wherever total
  * internal reflection traps it, until it escapes and samples the studio. It
  * leaves with a slightly different index for red, green and blue, which is
- * what splits light into fire. Hovering the gem spins it faster.
+ * what splits light into fire. Two thin orbit rings with travelling dots
+ * circle it, and a detection box frames it, as a nod to computer vision.
+ * Hovering the gem spins it faster.
  */
 
 const VERT = /* glsl */ `
@@ -191,6 +193,9 @@ const SPIN_STIRRED = 0.9;
 /** Radius of the gem at its widest, and how much of the frame it fills. */
 const RADIUS = 1.05;
 const FILL = 0.95;
+/** The orbit rings, and how much of the frame's width they may take. */
+const RINGS = [1.4, 1.58];
+const RING_FILL = 0.97;
 
 export default function Sculpture({ className }: { className?: string }) {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -242,6 +247,34 @@ export default function Sculpture({ className }: { className?: string }) {
     pivot.add(spin);
     scene.add(pivot);
 
+    // Thin orbit rings: a solid blue one level with the girdle and a dashed
+    // ink one on a tilt, each with a dot running round it.
+    const orbits = RINGS.map((radius, i) => {
+      const points = Array.from({ length: 129 }, (_, k) => {
+        const a = (k / 128) * Math.PI * 2;
+        return new THREE.Vector3(Math.cos(a) * radius, 0, Math.sin(a) * radius);
+      });
+      const geo = new THREE.BufferGeometry().setFromPoints(points);
+      const mat =
+        i === 0
+          ? new THREE.LineBasicMaterial({ color: "#2747d8", transparent: true, opacity: 0.45 })
+          : new THREE.LineDashedMaterial({ color: "#0e1220", transparent: true, opacity: 0.28, dashSize: 0.06, gapSize: 0.05 });
+      const line = new THREE.Line(geo, mat);
+      line.computeLineDistances();
+      const dot = new THREE.Mesh(new THREE.SphereGeometry(0.035, 12, 8), new THREE.MeshBasicMaterial({ color: "#2747d8" }));
+      const ring = new THREE.Group();
+      ring.add(line, dot);
+      ring.rotation.set(i === 0 ? 0 : 0.42, 0, i === 0 ? 0 : -0.3);
+      pivot.add(ring);
+      return { ring, dot, radius, line };
+    });
+    const placeDots = (t: number) =>
+      orbits.forEach(({ dot, radius }, i) => {
+        const a = t * (i === 0 ? 0.5 : -0.35) + i * 2.1;
+        dot.position.set(Math.cos(a) * radius, 0, Math.sin(a) * radius);
+      });
+    placeDots(0);
+
     // The tracer works in world space, so the facet planes follow the gem.
     const plane = new THREE.Plane();
     const render = () => {
@@ -260,9 +293,11 @@ export default function Sculpture({ className }: { className?: string }) {
       if (!w || !h) return;
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
-      const halfH = RADIUS / FILL / Math.min(1, camera.aspect);
+      const halfH = Math.max(RADIUS / FILL, RINGS[1] / RING_FILL / camera.aspect);
       camera.position.z = halfH / Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
       camera.updateProjectionMatrix();
+      // The detection box is sized in CSS from the gem's radius on screen.
+      wrap.style.setProperty("--gem", `${(h * RADIUS) / (2 * halfH)}px`);
       if (reduceMotion) render();
     };
     const resizeObserver = new ResizeObserver(fit);
@@ -275,6 +310,12 @@ export default function Sculpture({ className }: { className?: string }) {
       material.dispose();
       edges.dispose();
       edgeMat.dispose();
+      orbits.forEach(({ line, dot }) => {
+        line.geometry.dispose();
+        (line.material as THREE.Material).dispose();
+        dot.geometry.dispose();
+        (dot.material as THREE.Material).dispose();
+      });
       envTarget.dispose();
       renderer.dispose();
     };
@@ -314,6 +355,7 @@ export default function Sculpture({ className }: { className?: string }) {
       time += dt;
       spinSpeed += (spinTarget - spinSpeed) * (1 - Math.pow(0.1, dt));
       spin.rotation.y += spinSpeed * dt;
+      placeDots(time);
       cursor.lerp(cursorTarget, 1 - Math.pow(0.03, dt));
       pivot.rotation.set(TILT + cursor.y * 0.3, cursor.x * 0.5, Math.sin(time * 0.5) * 0.06);
       pivot.position.y = Math.sin(time * 0.8) * 0.04;
@@ -354,6 +396,19 @@ export default function Sculpture({ className }: { className?: string }) {
         className="pointer-events-none absolute bottom-[4%] left-1/2 h-[8%] w-[44%] -translate-x-1/2 rounded-[50%] bg-ink/15 blur-xl"
       />
       <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
+      {/* A detection box around the gem, like an object detector's output. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[calc(var(--gem,0px)*1.9)] w-[calc(var(--gem,0px)*2.2)] -translate-x-1/2 -translate-y-1/2"
+      >
+        <span className="absolute left-0 top-0 h-3.5 w-3.5 border-l-[1.5px] border-t-[1.5px] border-accent" />
+        <span className="absolute right-0 top-0 h-3.5 w-3.5 border-r-[1.5px] border-t-[1.5px] border-accent" />
+        <span className="absolute bottom-0 left-0 h-3.5 w-3.5 border-b-[1.5px] border-l-[1.5px] border-accent" />
+        <span className="absolute bottom-0 right-0 h-3.5 w-3.5 border-b-[1.5px] border-r-[1.5px] border-accent" />
+        <span className="absolute -top-[22px] left-0 bg-accent px-1.5 py-0.5 font-mono text-[10px] leading-none tracking-[0.06em] text-accent-ink">
+          diamond 0.98
+        </span>
+      </div>
     </div>
   );
 }

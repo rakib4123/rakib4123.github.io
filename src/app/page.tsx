@@ -1,4 +1,5 @@
 import ScrollProgress from "@/components/ScrollProgress";
+import TechBackground from "@/components/TechBackground";
 import Sidebar from "@/components/Sidebar";
 import About from "@/components/About";
 import Experience from "@/components/Experience";
@@ -12,6 +13,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
+      <TechBackground />
       <ScrollProgress />
       <div className="mx-auto max-w-[1320px] px-6 sm:px-10 lg:flex lg:gap-16 lg:px-12">
         <Sidebar />
