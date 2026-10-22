@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jet
 export const metadata: Metadata = {
   title: "Md. Rakib Hossain | Data Science, Machine Learning & Full-Stack",
   description:
-    "Md. Rakib Hossain — CSE student at AIUB working on data science and machine-learning systems and the applications around them, with three accepted papers, the first presented at IEEE COMPAS 2026.",
+    "Md. Rakib Hossain — CSE student at AIUB working on data science and machine-learning systems and the applications around them, with three first-author papers presented at IEEE COMPAS and ICCA 2026.",
 };
 
 export default function RootLayout({

@@ -15,13 +15,13 @@ const publications = [
   {
     title:
       "DhakaNight: A Benchmark for Low-Light Object Detection in Dense Urban Night Traffic",
-    venue: "ICCA 2026 · Dhaka",
-    status: "Accepted",
+    venue: "ICCA 2026 · AIUB, Dhaka",
+    status: "Presented",
   },
   {
     title: "PulseStone: A Tangible Single-Action Anxiety Companion",
-    venue: "ICCA 2026 · Dhaka",
-    status: "Accepted",
+    venue: "ICCA 2026 · AIUB, Dhaka",
+    status: "Presented",
   },
 ];
 
@@ -29,6 +29,14 @@ const conference = [
   { img: "/images/compas-authors.jpg", cap: "With co-authors · 9–10 October 2026" },
   { img: "/images/compas-backdrop.jpg", cap: "IEEE COMPAS 2026 · University of Dhaka" },
   { img: "/images/compas-certificate.jpg", cap: "Certificate of presentation · RideGuard (Paper 59)" },
+];
+
+const icca = [
+  { img: "/images/icca-presenting.jpg", cap: "Presenting DhakaNight · 15–16 October 2026" },
+  { img: "/images/icca-certificate.jpg", cap: "Certificate of presentation · DhakaNight (Paper 589)" },
+  { img: "/images/icca-backdrop.jpg", cap: "ICCA 2026 · American International University-Bangladesh" },
+  { img: "/images/icca-photo-wall.jpg", cap: "At the ICCA 2026 photo wall" },
+  { img: "/images/icca-badge.jpg", cap: "Author badge in the main hall" },
 ];
 
 export default function Publications() {
@@ -46,7 +54,7 @@ export default function Publications() {
         }
       >
         RideGuard was presented at IEEE COMPAS 2026 at the University of Dhaka; DhakaNight and
-        PulseStone are accepted at ICCA 2026.
+        PulseStone at ICCA 2026 at AIUB.
       </SectionHeading>
 
       <Reveal>
@@ -71,7 +79,8 @@ export default function Publications() {
         </ol>
       </Reveal>
 
-      <div className="mt-14">
+      <div className="mt-14 flex flex-col gap-12">
+        <PhotoGrid title="At ICCA 2026" items={icca} onOpen={open} />
         <PhotoGrid title="At IEEE COMPAS 2026" items={conference} onOpen={open} />
       </div>
 

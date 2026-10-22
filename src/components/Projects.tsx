@@ -31,7 +31,7 @@ const featured = [
   {
     title: "PulseStone",
     label: "Embedded · Controlled user study · ICCA 2026",
-    desc: "A pocket device that starts a calming breathing exercise with one squeeze, guiding the user with light, vibration and screen cues. I designed and analysed a controlled 15-participant, 150-trial study.",
+    desc: "A pocket device that starts a calming breathing exercise with one squeeze, guiding the user with light, vibration and screen cues. I designed and analysed a controlled 15-participant, 150-trial study. Presented at ICCA 2026 (first author).",
     metrics: [
       { value: "14.5×", label: "Faster than a phone app" },
       { value: "0.52 s", label: "Time to start" },
@@ -57,7 +57,7 @@ const more = [
   {
     title: "DhakaNight",
     label: "Vision · Dataset & benchmark · ICCA 2026",
-    desc: "Detects vehicles and pedestrians on Dhaka streets after dark, where standard detectors fail. I curated and labelled a 2,300-image night dataset, then benchmarked CLAHE, Gamma, Zero-DCE and RetinexFormer against a YOLOv8 baseline under a controlled protocol — none improved detection, and scaling the detector beat every pipeline. Accepted at ICCA 2026 (first author).",
+    desc: "Detects vehicles and pedestrians on Dhaka streets after dark, where standard detectors fail. I curated and labelled a 2,300-image night dataset, then benchmarked CLAHE, Gamma, Zero-DCE and RetinexFormer against a YOLOv8 baseline under a controlled protocol — none improved detection, and scaling the detector beat every pipeline. Presented at ICCA 2026 (first author).",
     stack: "Python / PyTorch / YOLO / OpenCV / Roboflow",
     github: "https://github.com/rakib4123/Dhaka_Night",
   },

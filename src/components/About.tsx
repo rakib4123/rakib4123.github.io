@@ -49,7 +49,7 @@ export default function About() {
               platform with a recommendation engine I mined from real order history;{" "}
               <strong className="font-medium text-ink">DhakaNight</strong> and{" "}
               <strong className="font-medium text-ink">PulseStone</strong> grew into papers too —
-              three in total, the first presented at IEEE COMPAS 2026. As founder of{" "}
+              three in total, all presented at IEEE COMPAS and ICCA 2026. As founder of{" "}
               <strong className="font-medium text-ink">&quot;Khepa Chakka&quot;</strong>, I&apos;ve
               taken robots from concept to the competition floor. I&apos;m looking for
               opportunities in{" "}
