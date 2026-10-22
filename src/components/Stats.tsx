@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
 
 const stats = [
-  { to: 3, decimals: 0, label: "First-author papers · 1 presented at IEEE COMPAS 2026" },
+  { to: 3, decimals: 0, label: "First-author papers · all presented, at IEEE COMPAS & ICCA 2026" },
   { to: 0.973, decimals: 3, label: "Macro-F1, RideGuard crash-risk model" },
   { to: 2300, decimals: 0, label: "Night images labelled for DhakaNight" },
   { to: 6, decimals: 0, label: "National & international robotics podiums" },
