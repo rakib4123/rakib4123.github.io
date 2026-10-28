@@ -56,11 +56,11 @@ export default function Sidebar() {
           Md. Rakib Hossain
         </h1>
         <p className="text-lg font-medium tracking-[-0.01em] text-ink lg:text-xl">
-          Data Science · AI/ML · Computer Vision
+          Machine Learning · Computer Vision · Automation
         </p>
         <p className="max-w-[400px] leading-relaxed text-ink-soft [@media(min-width:1024px)_and_(max-height:760px)]:hidden">
-          CSE student at AIUB. I take ML from dataset curation to calibrated, deployed models, and
-          build the applications around them.
+          IT Intern at Live Technologies and CSE student at AIUB. I build ML systems end to end,
+          from data to deployed apps, and I&apos;m working toward AI &amp; automation engineering.
         </p>
       </div>
 

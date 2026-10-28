@@ -17,6 +17,18 @@ type Role = {
 
 const leadership: Role[] = [
   {
+    years: "Oct 2026 – present",
+    role: "IT Intern",
+    org: "Live Technologies Ltd",
+    desc: "Three-month internship in the Department of Information Technologies, working on data analysis, machine learning, backend and API development, and database integration.",
+  },
+  {
+    years: "Oct 2026 – present",
+    role: "Full-Stack Developer (Freelance)",
+    org: "Durbar Robotics",
+    desc: "Building durbarrobotics.com: an e-commerce store for robotics parts, a course platform with video lessons, and an instant-quote tool for 3D printing.",
+  },
+  {
     years: "Sep – Oct 2026",
     role: "Volunteer",
     org: "Bangladesh ICT & Innovation Awards 2026",
@@ -32,12 +44,6 @@ const leadership: Role[] = [
     org: "Khepa Chakka robotics team",
     desc: "Founded and lead a competitive team building four classes of robots: line-following, soccer, race and battle. I coordinate members across mechanical design, electronics and software against competition deadlines.",
   },
-  {
-    years: "2023 – present",
-    role: "Active Member",
-    org: "Engineering Students' Association of Bangladesh (ESAB) · AIUB club",
-    desc: "Collaborate with faculty on research and development, and take part in seminars and workshops on emerging technologies.",
-  },
 ];
 
 const education = [
@@ -51,7 +57,7 @@ export default function Experience() {
 
   return (
     <section id="experience" className="pb-28 lg:scroll-mt-24 lg:pb-36">
-      <SectionHeading index="02" label="Experience" title={<>Leadership, service &amp; <em>education</em>.</>} />
+      <SectionHeading index="02" label="Experience" title={<>Work, leadership &amp; <em>education</em>.</>} />
 
       <Reveal>
         <ol className="group/list -mx-5 flex flex-col gap-1">

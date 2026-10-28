@@ -6,8 +6,8 @@ import Reveal from "./Reveal";
 
 const stats = [
   { to: 3, decimals: 0, label: "First-author papers · all presented, at IEEE COMPAS & ICCA 2026" },
-  { to: 0.973, decimals: 3, label: "Macro-F1, RideGuard crash-risk model" },
-  { to: 2300, decimals: 0, label: "Night images labelled for DhakaNight" },
+  { to: 2380, decimals: 0, label: "Night images labelled for DhakaNight" },
+  { to: 45224, decimals: 0, label: "Bounding boxes hand-annotated for DhakaNight" },
   { to: 6, decimals: 0, label: "National & international robotics podiums" },
   { to: 4, decimals: 0, label: "Robot classes designed & built" },
 ];

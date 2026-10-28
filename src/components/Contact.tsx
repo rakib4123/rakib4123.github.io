@@ -24,8 +24,8 @@ export default function Contact() {
           </>
         }
       >
-        I&apos;m open to roles in data science, machine learning and full-stack development. Email is
-        the fastest way to reach me.
+        I&apos;m open to roles in machine learning and AI automation, including full-stack work on ML
+        products. Email is the fastest way to reach me.
       </SectionHeading>
 
       <Reveal className="flex flex-col gap-10">

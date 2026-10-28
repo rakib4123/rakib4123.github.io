@@ -12,7 +12,7 @@ const featured = [
     label: "Featured · ML risk service · IEEE COMPAS 2026",
     desc: "A live web app that scores motorcycle route risk in Dhaka, with a colour-coded risk map and real-time warnings for phone handling, speeding and accident hotspots. Each prediction carries calibrated confidence and SHAP explanations. Its self-audit traced the headline score to target leakage, and I published that as the central finding.",
     metrics: [
-      { value: "0.973", label: "Macro-F1" },
+      { value: "0.043 → 0.008", label: "Calibration error (ECE)" },
       { value: "Conformal", label: "Calibrated confidence" },
       { value: "SHAP", label: "Per-prediction reasons" },
     ],
@@ -57,7 +57,7 @@ const more = [
   {
     title: "DhakaNight",
     label: "Vision · Dataset & benchmark · ICCA 2026",
-    desc: "Detects vehicles and pedestrians on Dhaka streets after dark, where standard detectors fail. I curated and labelled a 2,300-image night dataset, then benchmarked CLAHE, Gamma, Zero-DCE and RetinexFormer against a YOLOv8 baseline under a controlled protocol — none improved detection, and scaling the detector beat every pipeline. Presented at ICCA 2026 (first author).",
+    desc: "Detects vehicles and pedestrians on Dhaka streets after dark, where standard detectors fail. I curated and labelled a 2,380-image night dataset, then benchmarked CLAHE, Gamma, Zero-DCE and RetinexFormer against a YOLOv8 baseline under a controlled protocol — none improved detection, and scaling the detector beat every pipeline. Presented at ICCA 2026 (first author).",
     stack: "Python / PyTorch / YOLO / OpenCV / Roboflow",
     github: "https://github.com/rakib4123/Dhaka_Night",
   },

@@ -5,9 +5,9 @@ import Stats from "./Stats";
 
 const facts = [
   ["Education", "B.Sc. CSE — AIUB"],
-  ["Focus", "Data Science · ML · Full-Stack"],
-  ["Role", "Founder, Khepa Chakka"],
-  ["Club", "ESAB, AIUB"],
+  ["Role", "IT Intern, Live Technologies"],
+  ["Focus", "ML systems, data to deployment"],
+  ["Robotics", "Founder, Khepa Chakka"],
   ["Languages", "Bangla · English"],
   ["Based in", "Dhaka, Bangladesh"],
 ];
@@ -44,19 +44,17 @@ export default function About() {
             </p>
             <p>
               <strong className="font-medium text-ink">RideGuard</strong> is a deployed ML risk
-              service whose self-audit caught its own target leakage;{" "}
+              service with calibrated, explainable predictions;{" "}
               <strong className="font-medium text-ink">Drikon</strong> is a live e-commerce
               platform with a recommendation engine I mined from real order history;{" "}
               <strong className="font-medium text-ink">DhakaNight</strong> and{" "}
               <strong className="font-medium text-ink">PulseStone</strong> grew into papers too —
               three in total, all presented at IEEE COMPAS and ICCA 2026. As founder of{" "}
               <strong className="font-medium text-ink">&quot;Khepa Chakka&quot;</strong>, I&apos;ve
-              taken robots from concept to the competition floor. I&apos;m looking for
-              opportunities in{" "}
-              <strong className="font-medium text-ink">
-                data science, machine learning, or full-stack development
-              </strong>
-              .
+              taken robots from concept to the competition floor. Today I&apos;m an IT Intern at Live
+              Technologies and build durbarrobotics.com as a freelance developer. I&apos;m looking
+              for opportunities in{" "}
+              <strong className="font-medium text-ink">machine learning and AI automation</strong>.
             </p>
           </div>
         </Reveal>
