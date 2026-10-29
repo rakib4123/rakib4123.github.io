@@ -173,7 +173,7 @@ export default function Hero() {
               <div className="flex items-start justify-between gap-3 border-b border-line/60 pb-3">
                 <span className="font-mono text-muted shrink-0">Education</span>
                 <span className="font-medium text-ink text-right">
-                  B.Sc. in CSE, AIUB <span className="font-mono text-accent font-semibold">(CGPA 3.86)</span>
+                  B.Sc. in CSE, AIUB <span className="font-mono text-muted">(2026)</span>
                 </span>
               </div>
 
