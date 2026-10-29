@@ -42,7 +42,7 @@ export default function About() {
             <strong>DhakaNight</strong> and <strong>PulseStone</strong> grew into two papers
             accepted at ICCA 2026, both as first author. As founder of{" "}
             <strong>&quot;Khepa Chakka&quot;</strong> I take robots from concept to the
-            competition floor. I use AI-assisted development with Claude Code daily.
+            competition floor.
           </p>
         </motion.div>
 

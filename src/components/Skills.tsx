@@ -27,7 +27,6 @@ const skillCategories = [
       "Git/GitHub",
       "Jupyter",
       "Roboflow",
-      "Claude Code",
       "Vercel",
       "Render",
     ],

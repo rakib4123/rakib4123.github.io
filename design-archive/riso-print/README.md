@@ -37,9 +37,3 @@ If you keep the old design, those content fixes are worth porting across on thei
 - `public/images/profile.jpg` has a coloured backdrop. The print design frames photos as hard-edged squares and greyscales them, so it renders as a black square with a circular vignette. A headshot on a plain light background fixes it.
 - **Drikon has no screenshot**, so it renders a CSS-generated print plate (`Plate.tsx`, variant `a`).
 - **RideGuard's Research link is missing.** The CV lists one; the URL was not in the repo and was deliberately not guessed. Add `research: "<url>"` to the RideGuard entry in `Projects.tsx` and it renders automatically.
-
-## Provenance
-
-- Spec: `docs/superpowers/specs/2026-08-26-riso-print-redesign-design.md`
-- Plan: `docs/superpowers/plans/2026-08-26-riso-print-redesign.md`
-- Built across 11 tasks; tasks 1–9 each passed an independent review plus a browser verification pass, tasks 10–11 were verified but not independently reviewed.

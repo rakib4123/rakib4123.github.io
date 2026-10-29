@@ -12,8 +12,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Claude Code worktrees carry their own checkout and node_modules.
-    ".claude/**",
     // Archived alternative designs: kept for reference, never built.
     "design-archive/**",
   ]),

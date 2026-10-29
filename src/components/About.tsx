@@ -39,8 +39,7 @@ export default function About() {
               I work across the whole ML lifecycle: dataset curation and exploratory analysis,
               feature engineering, model calibration and deployment. Then I build the product that
               puts the model in front of people. RideGuard&apos;s self-audit, which caught its own
-              target leakage, is the work I&apos;m proudest of. I use AI-assisted development with
-              Claude Code daily.
+              target leakage, is the work I&apos;m proudest of.
             </p>
             <p>
               <strong className="font-medium text-ink">RideGuard</strong> is a deployed ML risk

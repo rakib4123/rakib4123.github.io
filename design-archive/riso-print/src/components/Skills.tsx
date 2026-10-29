@@ -39,7 +39,6 @@ const skillGroups: { title: string; skills: string[] }[] = [
       "VS Code",
       "Jupyter",
       "Roboflow",
-      "Claude Code",
       "Antigravity",
       "Canva",
       "Microsoft 365",
