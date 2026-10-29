@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowDown, ArrowUpRight, Check, Copy, Mail, Sparkles } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Check, Copy, Mail, Terminal } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import Sculpture from "./Sculpture";
 import Reveal from "./Reveal";
 
 const iconLink =
@@ -139,37 +138,92 @@ export default function Hero() {
           </div>
         </Reveal>
 
-        {/* Right Column: 3D AI Chip Hardware Stage */}
+        {/* Right Column: Engineering Snapshot Card */}
         <Reveal delay={0.15} className="relative flex justify-center">
-          <div className="relative w-full max-w-[420px] rounded-3xl border border-line-strong/80 bg-surface/80 backdrop-blur-md p-4 sm:p-6 shadow-2xl shadow-black/5 dark:shadow-black/30">
+          <div className="relative w-full max-w-[440px] rounded-3xl border border-line-strong/80 bg-surface/85 backdrop-blur-md p-6 shadow-xl shadow-black/5 dark:shadow-black/25">
             {/* Ambient Backlight */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -inset-2 rounded-3xl bg-linear-to-tr from-accent/20 via-transparent to-accent/10 blur-xl opacity-60"
+              className="pointer-events-none absolute -inset-2 rounded-3xl bg-linear-to-tr from-accent/15 via-transparent to-accent/5 blur-xl opacity-60"
             />
 
-            {/* Chip Header Bar */}
-            <div className="flex items-center justify-between border-b border-line pb-3">
+            {/* Header Bar */}
+            <div className="flex items-center justify-between border-b border-line pb-3.5">
               <div className="flex items-center gap-2">
-                <Sparkles size={14} className="text-accent" />
-                <span className="font-mono text-[11px] uppercase tracking-wider text-muted">
-                  Interactive 3D Hardware
+                <Terminal size={14} className="text-accent" />
+                <span className="font-mono text-xs uppercase tracking-wider text-ink font-semibold">
+                  Engineering Snapshot
                 </span>
               </div>
-              <span className="font-mono text-[10px] text-accent font-semibold bg-accent/10 px-2 py-0.5 rounded-full">
-                Three.js · GLSL
+              <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-muted">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                Dhaka · Active
               </span>
             </div>
 
-            {/* The 3D Canvas */}
-            <div className="relative my-2 h-[300px] sm:h-[340px] w-full">
-              <Sculpture className="h-full w-full" />
+            {/* Snapshot Highlights */}
+            <div className="my-4 flex flex-col gap-3.5 text-xs">
+              <div className="flex items-start justify-between gap-3 border-b border-line/60 pb-3">
+                <span className="font-mono text-muted shrink-0">Current Role</span>
+                <span className="font-medium text-ink text-right">
+                  IT Intern @ <span className="text-accent">Live Technologies</span>
+                </span>
+              </div>
+
+              <div className="flex items-start justify-between gap-3 border-b border-line/60 pb-3">
+                <span className="font-mono text-muted shrink-0">Education</span>
+                <span className="font-medium text-ink text-right">
+                  B.Sc. in CSE, AIUB <span className="font-mono text-accent font-semibold">(CGPA 3.86)</span>
+                </span>
+              </div>
+
+              <div className="flex items-start justify-between gap-3 border-b border-line/60 pb-3">
+                <span className="font-mono text-muted shrink-0">Peer-Reviewed</span>
+                <span className="font-medium text-ink text-right">
+                  3 First-Author Papers <span className="text-muted">(IEEE COMPAS &amp; ICCA)</span>
+                </span>
+              </div>
+
+              <div className="flex items-start justify-between gap-3 border-b border-line/60 pb-3">
+                <span className="font-mono text-muted shrink-0">Robotics Podiums</span>
+                <span className="font-medium text-ink text-right">
+                  6 National &amp; International <span className="text-muted">(Techfest, BIIN)</span>
+                </span>
+              </div>
+
+              <div className="flex flex-col gap-2 pt-1">
+                <span className="font-mono text-muted">Primary Stack</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    "Python",
+                    "PyTorch",
+                    "CatBoost",
+                    "YOLOv8/11",
+                    "Next.js 15",
+                    "NestJS 11",
+                    "PostgreSQL",
+                    "Docker",
+                  ].map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-md border border-line bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-ink-soft"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            {/* Chip Footer Metadata */}
-            <div className="border-t border-line pt-3 flex items-center justify-between text-[11px] font-mono text-muted">
-              <span>Hover chip to accelerate pulses</span>
-              <span className="text-accent">ai_chip 0.99</span>
+            {/* Card Footer */}
+            <div className="border-t border-line pt-3.5 flex items-center justify-between text-[11px] font-mono">
+              <span className="text-muted">Targeting Full-Time ML &amp; SWE</span>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-1 font-semibold text-accent hover:underline"
+              >
+                Fast-Track Hire &rarr;
+              </a>
             </div>
           </div>
         </Reveal>
@@ -177,4 +231,3 @@ export default function Hero() {
     </section>
   );
 }
-
