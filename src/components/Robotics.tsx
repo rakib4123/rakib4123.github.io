@@ -88,7 +88,7 @@ export default function Robotics() {
             poster="/images/comp-team-trophy.jpg"
             className="aspect-video w-full rounded-3xl border border-line bg-surface-2 object-cover"
           >
-            <source src="/v1 robo.mp4" type="video/mp4" />
+            <source src="/v1-robo.mp4" type="video/mp4" />
           </video>
         ) : (
           <button

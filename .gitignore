@@ -40,3 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# superpowers scratch (SDD workspaces, brainstorming mockups)
+/.superpowers/
+
+# claude code worktrees and local settings
+/.claude/worktrees/
+/.claude/*.local.json

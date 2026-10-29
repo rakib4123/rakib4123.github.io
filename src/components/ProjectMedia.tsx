@@ -79,3 +79,63 @@ export function DemoButton({ url, title }: { url: string; title: string }) {
     </>
   );
 }
+
+/** A responsive browser window frame showcasing a live web app. */
+export function BrowserMockup({
+  title,
+  url,
+  tag,
+  subtitle,
+}: {
+  title: string;
+  url: string;
+  tag: string;
+  subtitle: string;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <div className="float">
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label={`Open interactive live preview of ${title}`}
+          className="device group relative block w-[280px] sm:w-[340px] cursor-pointer overflow-hidden rounded-2xl border border-line-strong bg-surface text-left shadow-[0_40px_80px_-20px_rgba(14,18,32,0.25)] transition-all hover:border-accent"
+        >
+          {/* Browser header bar */}
+          <div className="flex items-center justify-between border-b border-line bg-surface-2 px-3 py-2">
+            <div className="flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-line-strong transition-colors group-hover:bg-red-400" />
+              <span className="h-2 w-2 rounded-full bg-line-strong transition-colors group-hover:bg-amber-400" />
+              <span className="h-2 w-2 rounded-full bg-line-strong transition-colors group-hover:bg-emerald-400" />
+            </div>
+            <span className="max-w-[170px] truncate font-mono text-[10px] text-muted transition-colors group-hover:text-ink">
+              {url.replace(/^https?:\/\//, "")}
+            </span>
+            <span className="font-mono text-[9px] font-semibold uppercase tracking-wider text-accent">
+              LIVE
+            </span>
+          </div>
+
+          {/* Browser body preview card */}
+          <div className="flex min-h-[220px] flex-col items-center justify-center bg-gradient-to-b from-surface to-surface-2 p-6 text-center">
+            <span className="mb-2 rounded-full border border-accent/25 bg-accent/10 px-3 py-0.5 font-mono text-[11px] font-medium text-accent">
+              {tag}
+            </span>
+            <h4 className="mb-1 font-display text-2xl font-bold tracking-tight text-ink">
+              {title}
+            </h4>
+            <p className="mb-4 max-w-[240px] text-xs leading-relaxed text-ink-soft">
+              {subtitle}
+            </p>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-1.5 text-xs font-semibold text-accent-ink shadow-sm transition-transform group-hover:scale-105">
+              <Maximize2 size={12} aria-hidden="true" /> Launch live preview
+            </span>
+          </div>
+        </button>
+      </div>
+      {open && <DemoModal url={url} title={title} onClose={() => setOpen(false)} />}
+    </div>
+  );
+}
