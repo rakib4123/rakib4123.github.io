@@ -1,6 +1,6 @@
 import ScrollProgress from "@/components/ScrollProgress";
-import TechBackground from "@/components/TechBackground";
-import Sidebar from "@/components/Sidebar";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
@@ -13,23 +13,20 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      <TechBackground />
       <ScrollProgress />
-      <div className="mx-auto max-w-[1320px] px-6 sm:px-10 lg:flex lg:gap-16 lg:px-12">
-        <Sidebar />
-        <div className="min-w-0 pt-16 lg:flex-1 lg:pt-24">
-          <main>
-            <About />
-            <Experience />
-            <Projects />
-            <Publications />
-            <Robotics />
-            <Skills />
-            <Contact />
-          </main>
-          <Footer />
-        </div>
-      </div>
+      <Navbar />
+
+      <main className="mx-auto max-w-5xl px-5 sm:px-8 lg:px-10">
+        <Hero />
+        <About />
+        <Experience />
+        <Projects />
+        <Publications />
+        <Robotics />
+        <Skills />
+        <Contact />
+        <Footer />
+      </main>
     </>
   );
 }

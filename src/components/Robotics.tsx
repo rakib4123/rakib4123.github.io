@@ -65,7 +65,7 @@ export default function Robotics() {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <section id="robotics" className="pb-28 lg:scroll-mt-24 lg:pb-36">
+    <section id="robotics" className="pb-24 sm:pb-32 lg:scroll-mt-24">
       <SectionHeading
         index="05"
         label="Robotics & awards"

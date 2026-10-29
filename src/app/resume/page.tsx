@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Download, ExternalLink, Mail, Award, BookOpen, Briefcase, GraduationCap } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata = {
   title: "Résumé & Credentials | Md. Rakib Hossain",
@@ -20,6 +21,7 @@ export default function ResumePage() {
           </Link>
 
           <div className="flex flex-wrap items-center gap-3">
+            <ThemeToggle />
             <a
               href="mailto:r1.rakibhossain1@gmail.com"
               className="inline-flex h-11 items-center gap-2 rounded-full border border-line-strong bg-surface px-4 text-sm font-medium text-ink transition-colors hover:border-ink"

@@ -134,7 +134,7 @@ function Stack({ stack }: { stack: string }) {
 
 export default function Projects() {
   return (
-    <section id="work" className="pb-28 lg:scroll-mt-24 lg:pb-36">
+    <section id="work" className="pb-24 sm:pb-32 lg:scroll-mt-24">
       <SectionHeading
         index="03"
         label="Work"

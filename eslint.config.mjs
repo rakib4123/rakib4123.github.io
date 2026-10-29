@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Archived alternative designs: kept for reference, never built.
     "design-archive/**",
+    ".claude/**",
+    ".git/**",
   ]),
 ]);
 

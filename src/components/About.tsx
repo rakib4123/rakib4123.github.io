@@ -34,7 +34,7 @@ const recruiterPillars = [
 
 export default function About() {
   return (
-    <section id="about" className="pb-28 lg:scroll-mt-24 lg:pb-36">
+    <section id="about" className="pb-24 sm:pb-32 lg:scroll-mt-24">
       <SectionHeading
         index="01"
         label="About"

@@ -1,23 +1,55 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #f7f8fa;
-  --color-surface: #ffffff;
-  --color-surface-2: #f1f3f7;
-  --color-line: #e3e6ec;
-  --color-line-strong: #cdd2db;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
 
-  --color-ink: #0e1220;
-  --color-ink-soft: #3d4455;
-  --color-muted: #636b7a;
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
 
-  --color-accent: #2747d8;
-  --color-accent-ink: #ffffff;
-  --color-accent-line: #c9d2f6;
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-line: var(--accent-line);
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-instrument), ui-serif, Georgia, serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-instrument), Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, Menlo, Monaco, monospace;
+}
+
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
+
+  --ink: #0f172a;
+  --ink-soft: #334155;
+  --muted: #64748b;
+
+  --accent: #2563eb;
+  --accent-ink: #ffffff;
+  --accent-line: #bfdbfe;
+}
+
+.dark {
+  --bg: #090a0f;
+  --surface: #11141e;
+  --surface-2: #171b28;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+
+  --ink: #f8fafc;
+  --ink-soft: #94a3b8;
+  --muted: #64748b;
+
+  --accent: #3b82f6;
+  --accent-ink: #ffffff;
+  --accent-line: rgba(59, 130, 246, 0.25);
 }
 
 html {
@@ -28,130 +60,88 @@ body {
   background-color: var(--color-bg);
   color: var(--color-ink);
   overflow-x: clip;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* A faint blueprint grid behind everything: fine lines every 24px, stronger
-   ones every 96px with a crosshair on every other crossing, fading out toward
-   the edges of the screen. */
+/* Subtle modern background ambient glow */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Cpath d='M90 96.5h13M96.5 90v13' stroke='%232747d8' stroke-opacity='0.4'/%3E%3C/svg%3E"),
-    linear-gradient(to right, rgba(39, 71, 216, 0.09) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(39, 71, 216, 0.09) 1px, transparent 1px),
-    linear-gradient(to right, rgba(39, 71, 216, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(39, 71, 216, 0.04) 1px, transparent 1px);
-  background-size: 192px 192px, 96px 96px, 96px 96px, 24px 24px, 24px 24px;
-  mask-image: radial-gradient(ellipse 85% 75% at 35% 45%, #000 35%, transparent 100%);
+  background:
+    radial-gradient(50rem 35rem at 50% -10%, rgba(59, 130, 246, 0.08), transparent 70%),
+    radial-gradient(40rem 30rem at 100% 50%, rgba(59, 130, 246, 0.04), transparent 70%),
+    radial-gradient(40rem 30rem at 0% 90%, rgba(59, 130, 246, 0.04), transparent 70%);
 }
 
-/* Soft blue light pooling in two corners. */
+.dark body::before {
+  background:
+    radial-gradient(55rem 38rem at 50% -10%, rgba(59, 130, 246, 0.12), transparent 70%),
+    radial-gradient(45rem 32rem at 100% 40%, rgba(99, 102, 241, 0.06), transparent 70%),
+    radial-gradient(45rem 32rem at 0% 90%, rgba(59, 130, 246, 0.06), transparent 70%);
+}
+
+/* Crisp delicate grid backdrop */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(42rem 30rem at 100% 0%, rgba(39, 71, 216, 0.08), transparent 70%),
-    radial-gradient(36rem 28rem at 0% 100%, rgba(39, 71, 216, 0.06), transparent 70%);
-}
-
-/* ---------- Circuit traces (TechBackground) ---------- */
-
-.tech-layer {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-  mask-image: radial-gradient(ellipse 85% 75% at 35% 45%, #000 35%, transparent 100%);
-}
-
-.trace-pulse {
-  fill: none;
-  stroke: var(--color-accent);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-dasharray: 5 95;
-  animation: trace-pulse linear infinite;
-}
-@keyframes trace-pulse {
-  from { stroke-dashoffset: 100; }
-  to { stroke-dashoffset: 0; }
-}
-
-.trace-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.08em;
-  fill: rgba(39, 71, 216, 0.32);
-}
-
-/* A faint band of light that sweeps down the screen. */
-.scanline {
-  position: absolute;
-  inset-inline: 0;
-  top: -140px;
-  height: 140px;
-  background: linear-gradient(to bottom, transparent, rgba(39, 71, 216, 0.05));
-  border-bottom: 1px solid rgba(39, 71, 216, 0.14);
-  animation: scan 14s linear infinite;
-}
-@keyframes scan {
-  to { transform: translateY(calc(100vh + 140px)); }
+  background-image: linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, #000 30%, transparent 95%);
+  opacity: 0.5;
 }
 
 ::selection {
-  background: rgba(39, 71, 216, 0.18);
+  background: rgba(59, 130, 246, 0.25);
   color: var(--color-ink);
 }
 
-/* The one emphasised word in a serif title is set in italic accent. */
 .font-display em {
   font-style: italic;
   color: var(--color-accent);
 }
 
-/* ---------- Depth on hover ---------- */
-
-/* Product shots sit at an angle and straighten when their card is hovered. */
+/* Device tilt and zoom effects */
 .device {
-  transform: perspective(1600px) rotateY(-24deg) rotateX(8deg) rotateZ(1deg);
-  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: perspective(1600px) rotateY(-18deg) rotateX(6deg) rotateZ(1deg);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .zoom img {
-  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @media (hover: hover) {
   .feature:hover .device {
-    transform: perspective(1600px) rotateY(-9deg) rotateX(3deg) rotateZ(0deg);
+    transform: perspective(1600px) rotateY(-6deg) rotateX(2deg) rotateZ(0deg);
   }
   .zoom:hover img {
-    transform: scale(1.045);
+    transform: scale(1.04);
   }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-.float {
-  animation: float 7s ease-in-out infinite;
+  50% { transform: translateY(-8px); }
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
+.float {
+  animation: float 6s ease-in-out infinite;
 }
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.08); }
+}
+
 .live {
-  animation: blink 2s ease-in-out infinite;
+  animation: pulse-subtle 2.5s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -162,12 +152,9 @@ body::after {
   .live {
     animation: none;
   }
-  .trace-pulse,
-  .scanline {
-    display: none;
-  }
   .device,
   .zoom img {
     transition: none;
+    transform: none !important;
   }
 }

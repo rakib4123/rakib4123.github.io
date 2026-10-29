@@ -35,7 +35,7 @@ const skillCategories = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="pb-28 lg:scroll-mt-24 lg:pb-36">
+    <section id="skills" className="pb-24 sm:pb-32 lg:scroll-mt-24">
       <SectionHeading
         index="06"
         label="Skills"
