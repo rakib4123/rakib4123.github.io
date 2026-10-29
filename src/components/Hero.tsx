@@ -40,19 +40,19 @@ export default function Hero() {
               Md. Rakib Hossain
             </h1>
             <p className="text-xl sm:text-2xl font-semibold tracking-tight text-ink-soft">
-              Machine Learning Systems · Data Science · Full-Stack Developer
+              Machine Learning · Computer Vision · Automation
             </p>
           </div>
 
           {/* Core Elevator Pitch */}
           <p className="max-w-xl text-base sm:text-lg leading-relaxed text-ink-soft">
-            IT Intern at <strong className="font-medium text-ink">Live Technologies</strong> &amp;
-            final-year CSE student at <strong className="font-medium text-ink">AIUB</strong>.
-            Published 3 first-author papers at <strong className="font-medium text-ink">IEEE COMPAS</strong> and{" "}
+            IT Intern at <strong className="font-medium text-ink">Live Technologies</strong> and CSE
+            student at <strong className="font-medium text-ink">AIUB</strong>. Published 3
+            first-author papers at <strong className="font-medium text-ink">IEEE COMPAS</strong> and{" "}
             <strong className="font-medium text-ink">ICCA 2026</strong>. Founder of{" "}
-            <strong className="font-medium text-ink">Khepa Chakka</strong> robotics (6 podiums).
-            I take ML from dataset curation to calibrated, deployed models, and engineer production
-            applications around them.
+            <strong className="font-medium text-ink">Khepa Chakka</strong> robotics (6 podiums). I
+            build ML systems end to end, from data to deployed apps, and I&apos;m working toward
+            machine learning and AI automation.
           </p>
 
           {/* Key Quick Proof Strip */}

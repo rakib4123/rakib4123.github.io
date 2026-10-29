@@ -84,13 +84,13 @@ export function DemoButton({ url, title }: { url: string; title: string }) {
 export function BrowserMockup({
   title,
   url,
-  tag,
-  subtitle,
+  tag = "Live Web App",
+  subtitle = "Interactive preview",
 }: {
   title: string;
   url: string;
-  tag: string;
-  subtitle: string;
+  tag?: string;
+  subtitle?: string;
 }) {
   const [open, setOpen] = useState(false);
 

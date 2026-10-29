@@ -11,7 +11,6 @@ type Role = {
   years: string;
   role: string;
   org: string;
-  badge?: string;
   desc: string;
   cert?: { img: string; cap: string };
 };
@@ -21,32 +20,28 @@ const leadership: Role[] = [
     years: "Oct 2026 – present",
     role: "IT Intern",
     org: "Live Technologies Ltd",
-    badge: "Current Role",
     desc: "Three-month internship in the Department of Information Technologies, working on data analysis, machine learning, backend and API development, and database integration.",
   },
   {
     years: "Oct 2026 – present",
     role: "Full-Stack Developer (Freelance)",
     org: "Durbar Robotics",
-    badge: "Freelance",
     desc: "Building durbarrobotics.com: an e-commerce store for robotics parts, a course platform with video lessons, and an instant-quote tool for 3D printing.",
   },
   {
     years: "Sep – Oct 2026",
     role: "Volunteer",
     org: "Bangladesh ICT & Innovation Awards 2026",
-    badge: "Volunteer",
     desc: "Volunteered at the awards on 17 and 19 September and 3 October 2026, and was recognised with a certificate of appreciation from the Bangladesh ICT and Innovation Network (BIIN).",
     cert: {
       img: "/images/cert-biin-volunteer.jpg",
-      cap: "Certificate of Appreciation · Bangladesh ICT & Innovation Awards 2026 volunteer",
+      cap: "Certificate of appreciation · Bangladesh ICT & Innovation Awards 2026 volunteer",
     },
   },
   {
     years: "2023 – present",
     role: "Founder & Team Lead",
     org: "Khepa Chakka robotics team",
-    badge: "Leadership · 6 Podiums",
     desc: "Founded and lead a competitive team building four classes of robots: line-following, soccer, race and battle. I coordinate members across mechanical design, electronics and software against competition deadlines.",
   },
 ];
@@ -82,15 +77,12 @@ export default function Experience() {
             Work, leadership &amp; <em>education</em>.
           </>
         }
-      >
-        Industry internship experience, freelance product delivery, team leadership, and academic
-        training.
-      </SectionHeading>
+      />
 
       <Reveal>
         <div className="flex items-center gap-2 mb-4 font-mono text-xs uppercase tracking-wider text-muted">
           <Briefcase size={15} className="text-accent" />
-          <span>Professional Experience &amp; Leadership</span>
+          <span>Work &amp; Leadership</span>
         </div>
         <ol className="flex flex-col gap-3">
           {leadership.map(({ cert, ...l }) => (
@@ -99,16 +91,9 @@ export default function Experience() {
               className={`rounded-2xl border border-line bg-surface p-5 sm:p-6 transition-all hover:border-line-strong shadow-xs ${listRow}`}
             >
               <div className="grid gap-3 sm:grid-cols-[160px_1fr] sm:gap-6">
-                <div className="flex flex-col gap-1.5">
-                  <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">
-                    {l.years}
-                  </span>
-                  {l.badge && (
-                    <span className="inline-flex self-start rounded-full border border-accent/20 bg-accent/5 px-2.5 py-0.5 font-mono text-[11px] font-medium text-accent">
-                      {l.badge}
-                    </span>
-                  )}
-                </div>
+                <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">
+                  {l.years}
+                </span>
 
                 <div className="flex flex-col gap-2">
                   <h3 className="text-lg font-semibold leading-snug tracking-tight text-ink">
