@@ -22,32 +22,32 @@ const leadership: Role[] = [
     role: "IT Intern",
     org: "Live Technologies Ltd",
     badge: "Current Role",
-    desc: "Department of Information Technologies: engineering machine-learning systems, backend REST APIs, data pipelines, and database integration for high-traffic mobile services.",
+    desc: "Three-month internship in the Department of Information Technologies, working on data analysis, machine learning, backend and API development, and database integration.",
   },
   {
     years: "Oct 2026 – present",
     role: "Full-Stack Developer (Freelance)",
     org: "Durbar Robotics",
-    badge: "Web Engineering",
-    desc: "Architecting durbarrobotics.com: e-commerce platform for robotics hardware components, LMS video course player, and an algorithmic instant-quote calculation engine for custom 3D printing orders.",
+    badge: "Freelance",
+    desc: "Building durbarrobotics.com: an e-commerce store for robotics parts, a course platform with video lessons, and an instant-quote tool for 3D printing.",
   },
   {
     years: "Sep – Oct 2026",
-    role: "Technical Volunteer",
+    role: "Volunteer",
     org: "Bangladesh ICT & Innovation Awards 2026",
-    badge: "Service Distinction",
-    desc: "Facilitated award operations on 17 and 19 September and 3 October 2026. Awarded a Certificate of Appreciation by the Bangladesh ICT and Innovation Network (BIIN).",
+    badge: "Volunteer",
+    desc: "Volunteered at the awards on 17 and 19 September and 3 October 2026, and was recognised with a certificate of appreciation from the Bangladesh ICT and Innovation Network (BIIN).",
     cert: {
       img: "/images/cert-biin-volunteer.jpg",
-      cap: "Certificate of Appreciation · Bangladesh ICT & Innovation Awards 2026",
+      cap: "Certificate of Appreciation · Bangladesh ICT & Innovation Awards 2026 volunteer",
     },
   },
   {
     years: "2023 – present",
     role: "Founder & Team Lead",
-    org: "Khepa Chakka Robotics",
+    org: "Khepa Chakka robotics team",
     badge: "Leadership · 6 Podiums",
-    desc: "Founded and lead a competitive robotics crew building four classes of robots: line-following, soccer, race, and battle bots. Coordinate members across CAD mechanical fabrication, embedded firmware (Arduino/ESP32), and competition strategy.",
+    desc: "Founded and lead a competitive team building four classes of robots: line-following, soccer, race and battle. I coordinate members across mechanical design, electronics and software against competition deadlines.",
   },
 ];
 
@@ -56,19 +56,16 @@ const education = [
     year: "2026",
     title: "B.Sc. in Computer Science & Engineering",
     org: "American International University-Bangladesh (AIUB)",
-    details: "Focus: Data Science, Machine Learning, Computer Vision & Distributed Systems.",
   },
   {
     year: "2021",
     title: "Higher Secondary Certificate — Science",
     org: "Dhaka Imperial College",
-    details: "Concentration in Higher Mathematics, Physics, and Chemistry.",
   },
   {
     year: "2019",
     title: "Secondary School Certificate — Science",
     org: "Dhaka Collegiate School",
-    details: "Foundational STEM coursework and competitive programming.",
   },
 ];
 
@@ -82,7 +79,7 @@ export default function Experience() {
         label="Experience"
         title={
           <>
-            Engineering roles, leadership &amp; <em>education</em>.
+            Work, leadership &amp; <em>education</em>.
           </>
         }
       >
@@ -99,22 +96,22 @@ export default function Experience() {
           {leadership.map(({ cert, ...l }) => (
             <li
               key={l.org}
-              className={`rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:border-line-strong hover:shadow-md ${listRow}`}
+              className={`rounded-2xl border border-line bg-surface p-5 sm:p-6 transition-all hover:border-line-strong shadow-xs ${listRow}`}
             >
-              <div className="grid gap-4 sm:grid-cols-[160px_1fr] sm:gap-6">
-                <div className="flex flex-col gap-1">
-                  <span className="font-mono text-xs text-muted uppercase tracking-wider">
+              <div className="grid gap-3 sm:grid-cols-[160px_1fr] sm:gap-6">
+                <div className="flex flex-col gap-1.5">
+                  <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">
                     {l.years}
                   </span>
                   {l.badge && (
-                    <span className="w-fit rounded-full bg-accent/10 px-2.5 py-0.5 font-mono text-[10px] font-medium text-accent">
+                    <span className="inline-flex self-start rounded-full border border-accent/20 bg-accent/5 px-2.5 py-0.5 font-mono text-[11px] font-medium text-accent">
                       {l.badge}
                     </span>
                   )}
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-lg font-semibold tracking-tight text-ink">
+                  <h3 className="text-lg font-semibold leading-snug tracking-tight text-ink">
                     {l.role} <span className="font-normal text-accent">· {l.org}</span>
                   </h3>
                   <p className="text-[15px] leading-relaxed text-ink-soft">{l.desc}</p>
@@ -156,14 +153,11 @@ export default function Experience() {
               key={ed.title}
               className="rounded-2xl border border-line bg-surface p-5 flex flex-col justify-between gap-3 shadow-xs"
             >
+              <span className="font-mono text-xs font-semibold text-accent">{ed.year}</span>
               <div>
-                <span className="font-mono text-xs font-semibold text-accent">{ed.year}</span>
-                <h4 className="font-semibold text-ink text-[15px] mt-1 leading-snug">{ed.title}</h4>
+                <h4 className="font-semibold text-ink text-[15px] leading-snug">{ed.title}</h4>
                 <p className="text-xs text-muted mt-1">{ed.org}</p>
               </div>
-              <p className="text-xs text-ink-soft leading-relaxed border-t border-line/60 pt-3">
-                {ed.details}
-              </p>
             </div>
           ))}
         </div>

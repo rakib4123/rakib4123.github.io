@@ -198,11 +198,11 @@ export default function Hero() {
                     "Python",
                     "PyTorch",
                     "CatBoost",
-                    "YOLOv8/11",
-                    "Next.js 15",
-                    "NestJS 11",
+                    "FastAPI",
+                    "NestJS",
+                    "Next.js",
                     "PostgreSQL",
-                    "Docker",
+                    "Git",
                   ].map((tech) => (
                     <span
                       key={tech}

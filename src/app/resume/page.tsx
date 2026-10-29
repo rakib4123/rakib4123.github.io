@@ -102,16 +102,40 @@ export default function ResumePage() {
                 <GraduationCap size={18} className="text-accent" />
                 <h3 className="font-mono text-xs uppercase tracking-[0.12em] text-muted">Education</h3>
               </div>
-              <div className="rounded-2xl border border-line bg-surface-2/60 p-4">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h4 className="font-semibold text-ink text-base">
-                    B.Sc. in Computer Science &amp; Engineering
-                  </h4>
-                  <span className="font-mono text-xs text-muted">Graduating 2026</span>
+              <div className="flex flex-col gap-3">
+                <div className="rounded-2xl border border-line bg-surface-2/60 p-4">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h4 className="font-semibold text-ink text-base">
+                      B.Sc. in Computer Science &amp; Engineering
+                    </h4>
+                    <span className="font-mono text-xs text-muted">2026</span>
+                  </div>
+                  <p className="text-sm text-ink-soft mt-0.5">
+                    American International University-Bangladesh (AIUB)
+                  </p>
                 </div>
-                <p className="text-sm text-ink-soft mt-0.5">
-                  American International University-Bangladesh (AIUB)
-                </p>
+                <div className="rounded-2xl border border-line bg-surface-2/60 p-4">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h4 className="font-semibold text-ink text-base">
+                      Higher Secondary Certificate — Science
+                    </h4>
+                    <span className="font-mono text-xs text-muted">2021</span>
+                  </div>
+                  <p className="text-sm text-ink-soft mt-0.5">
+                    Dhaka Imperial College
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-line bg-surface-2/60 p-4">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h4 className="font-semibold text-ink text-base">
+                      Secondary School Certificate — Science
+                    </h4>
+                    <span className="font-mono text-xs text-muted">2019</span>
+                  </div>
+                  <p className="text-sm text-ink-soft mt-0.5">
+                    Dhaka Collegiate School
+                  </p>
+                </div>
               </div>
             </section>
 
