@@ -53,7 +53,7 @@ export default function About() {
               <strong className="font-medium text-ink">&quot;Khepa Chakka&quot;</strong>, I&apos;ve
               taken robots from concept to the competition floor across 6 national and international
               podiums. Today I&apos;m an IT Intern at Live Technologies and build durbarrobotics.com as
-              a freelance developer. I&apos;m looking for opportunities in{" "}
+              a part-time developer. I&apos;m looking for opportunities in{" "}
               <strong className="font-medium text-ink">machine learning and AI automation</strong>.
             </p>
           </div>

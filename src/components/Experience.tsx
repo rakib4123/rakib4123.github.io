@@ -24,7 +24,7 @@ const leadership: Role[] = [
   },
   {
     years: "Oct 2026 – present",
-    role: "Full-Stack Developer (Freelance)",
+    role: "Full-Stack Developer (Part-time)",
     org: "Durbar Robotics",
     desc: "Building durbarrobotics.com: an e-commerce store for robotics parts, a course platform with video lessons, and an instant-quote tool for 3D printing.",
   },
